@@ -27,7 +27,7 @@ class CreateDescriptionJapaneseTable extends Migration
             
             $table->foreign('japanese_id')
             ->references('id')
-            ->on('food_japenese')
+            ->on('food_japanese')
             ->onDelete('CASCADE');
         });
     }

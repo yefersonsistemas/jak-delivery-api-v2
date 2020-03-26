@@ -31,7 +31,7 @@ class CreateOrdersTable extends Migration
             $table->string('food_vegetarian_id')->nullable();
             $table->string('food_vegans_id')->nullable();
             $table->string('food_traditional_id')->nullable();
-            $table->string('food_japenese_id')->nullable();
+            $table->string('food_japanese_id')->nullable();
             $table->string('food_mexican_id')->nullable();
             $table->string('extras_id')->nullable();
             $table->string('drinks_id')->nullable();
