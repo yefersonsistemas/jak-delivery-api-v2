@@ -21,8 +21,4 @@ class Courier extends Model
     public function person() {
         return $this->belongsTo('App\Person');
     }
-
-    public function branchoffice() {
-        return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
-    }
 }
