@@ -10,11 +10,11 @@ class Parishe extends Model
 
     protected $fillable = [
 
-        'name', 'branchoffice_id'
+        'name', //'branchoffice_id',
 
     ];
 
-    public function branchoffice() {
-        return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
-    }
+    // public function branchoffice() {
+    //     return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
+    // }
 }

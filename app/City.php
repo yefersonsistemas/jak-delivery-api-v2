@@ -10,11 +10,11 @@ class City extends Model
 
     protected $fillable = [
 
-        'name', 'branchoffice_id', 'price_us', 
+        'name', //'branchoffice_id',
 
     ];
 
-    public function branchoffice() {
-        return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
-    }
+    // public function branchoffice() {
+    //     return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
+    // }
 }
