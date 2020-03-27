@@ -15,12 +15,10 @@ class CreateCouriersTable extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('type_vehicle', ['Moto', 'Automovil']);
+            $table->Integer('bussiness_delivery');
+            $table->unsignedBigInteger('person_id');
             $table->unsignedBigInteger('address_id');
-            $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
 
             $table->foreign('address_id')
@@ -28,9 +26,9 @@ class CreateCouriersTable extends Migration
             ->on('address')
             ->onDelete('CASCADE');
 
-            $table->foreign('branchoffice_id')
+            $table->foreign('person_id')
             ->references('id')
-            ->on('branchoffice')
+            ->on('person')
             ->onDelete('CASCADE');
         
         });

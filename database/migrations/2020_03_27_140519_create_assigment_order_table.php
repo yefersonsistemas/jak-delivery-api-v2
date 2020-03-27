@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+class CreateAssigmentOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,20 @@ class CreateClientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('assigment_order', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('address_id');
-            $table->timestamps();
+            $table->unsignedBigInteger('orders_id');
+            $table->unsignedBigInteger('couriers_id');
 
-            $table->foreign('address_id')
+
+            $table->foreign('orders_id')
             ->references('id')
-            ->on('address')
+            ->on('orders')
             ->onDelete('CASCADE');
 
-            $table->foreign('person_id')
+            $table->foreign('couriers_id')
             ->references('id')
-            ->on('person')
+            ->on('couriers')
             ->onDelete('CASCADE');
         });
     }
@@ -38,6 +38,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::dropIfExists('assigment_order');
     }
 }

@@ -61,7 +61,6 @@ class CreateOrdersTable extends Migration
             ->on('providers')
             ->onDelete('CASCADE');
         
-        
         });
     }
 
