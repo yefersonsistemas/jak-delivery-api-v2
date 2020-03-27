@@ -39,7 +39,7 @@ class CreateOrdersTable extends Migration
             $table->string('liquor_store_id')->nullable();
             $table->string('victuals_id')->nullable();
             $table->string('delicatesse_id')->nullable();
-            $table->string('frui_store_id')->nullable();
+            $table->string('fruit_store_id')->nullable();
             $table->string('greengrocer_id')->nullable();
             $table->string('fridge_id')->nullable();
             $table->string('lunch_id')->nullable();
@@ -60,7 +60,6 @@ class CreateOrdersTable extends Migration
             ->references('id')
             ->on('providers')
             ->onDelete('CASCADE');
-        
         
         });
     }

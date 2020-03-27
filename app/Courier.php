@@ -10,12 +10,16 @@ class Courier extends Model
 
     protected $fillable = [
 
-        'name', 'lastname', 'prone', 'email',  'address_id', 'branchoffice_id'
+        'person_id',  'address_id', 'type_vehicle', 'bussiness_delivery'
 
     ];
 
     public function address() {
         return $this->belongsTo('App\Address');
+    }
+
+    public function person() {
+        return $this->belongsTo('App\Person');
     }
 
     public function branchoffice() {
