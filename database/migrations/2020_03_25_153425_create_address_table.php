@@ -19,7 +19,6 @@ class CreateAddressTable extends Migration
             $table->unsignedBigInteger('cities_id');
             $table->unsignedBigInteger('municipalities_id');
             $table->unsignedBigInteger('parishes_id');
-            $table->unsignedBigInteger('branchoffice_id')->nulleable();
             $table->string('address');
             $table->timestamps();
 
@@ -41,11 +40,6 @@ class CreateAddressTable extends Migration
             $table->foreign('parishes_id')
             ->references('id')
             ->on('parishes')
-            ->onDelete('CASCADE');
-
-            $table->foreign('branchoffice_id')
-            ->references('id')
-            ->on('branchoffice')
             ->onDelete('CASCADE');
             });
     }

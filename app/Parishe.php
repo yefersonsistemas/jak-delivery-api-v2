@@ -6,15 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Parishe extends Model
 {
-    protected $table = 'parishe';
+    protected $table = 'parishes';
 
     protected $fillable = [
 
-        'name', 'branchoffice_id'
+        'name', 
 
     ];
 
-    public function branchoffice() {
-        return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
-    }
 }

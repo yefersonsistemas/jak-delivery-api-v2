@@ -34,22 +34,19 @@ class AuthController extends Controller
         // dd($request);
         $person_user = Person::where('email', $request->email)->with('user')->first();
         $provider_user = Provider::where('email', $request->email)->with('user')->first();
-        
+                
         if ($person_user != null || $provider_user != null) {
             return response()->json([
                 'message' => 'Usuario ya se encuentra registrado!',
             ]);        
         }
 
-        $branch = BranchOffice::where('id', 1)->first();
-
         // En caso de que no exista creamos un nuevo usuario con sus datos.
         $address = Address::create([
             'states_id' => $request->states_id, 
             'cities_id' => $request->cities_id, 
             'municipalities_id' => $request->municipalities_id, 
-            'parishes_id' => $request->parishes_id, 
-            'branchoffice_id' => $branch->id, 
+            'parishes_id' => $request->parishes_id,
             'address' => $request->address,
         ]);
 
@@ -77,7 +74,7 @@ class AuthController extends Controller
         ]);
 
         
-        dd($user);
+        // dd($user);
         $user->assignRole('client'); 
         
         }
@@ -153,7 +150,7 @@ class AuthController extends Controller
             }
             
             $user1 = User::where('person_id',$person_user->id)->first();
-            $user2 = User::where('person_id',$provider_user->id)->first();
+            $user2 = User::where('provider_id',$provider_user->id)->first();
             
             if (!Hash::check($request->password, $user1->password) || !Hash::check($request->password, $user2->password)) {
                 return response()->json([

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Branch;
+use App\User;
 
-class BranchTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,6 @@ class BranchTableSeeder extends Seeder
      */
     public function run()
     {
-        Branch::truncate();
-        factory(Branch::class,)->create();
+        User::truncate();
     }
 }

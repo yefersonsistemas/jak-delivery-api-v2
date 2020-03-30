@@ -25,11 +25,16 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Role::create(['name' => 'provider']);
         Role::create(['name' => 'courier']);
         
-        //Permiso del rol director
-        Permission::create(['name' => 'ver lista de empleados']);
-        Permission::create(['name' => 'registrar empleados']);
-        Permission::create(['name' => 'modificar empleados']);
-        Permission::create(['name' => 'eliminar empleados']);
+        //Permiso del rol client
+        Permission::create(['name' => 'realizar pedido']);
 
+        //Permiso provider
+        Permission::create(['name' => 'registrar producto']);
+        Permission::create(['name' => 'modificar producto']);
+        Permission::create(['name' => 'eliminar producto']);
+        Permission::create(['name' => 'registrar courier']);
+
+        //Permiso courier
+        Permission::create(['name' => 'finalizar pedido']);
     }
 }
