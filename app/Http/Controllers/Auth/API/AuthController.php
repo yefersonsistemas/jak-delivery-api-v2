@@ -1,12 +1,15 @@
 <?php
 namespace App\Http\Controllers\Auth\Api;
 
-use App\Branch;
+use App\BranchOffice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserLoginRequest;
 use App\Http\Requests\Api\UserRegisterRequest;
 use App\Person;
 use App\User;
+use App\Provider;
+use App\Address;
+use App\Client;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -28,35 +31,32 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        dd($request);
+        // dd($request);
         $person_user = Person::where('email', $request->email)->with('user')->first();
         $provider_user = Provider::where('email', $request->email)->with('user')->first();
-        
+                
         if ($person_user != null || $provider_user != null) {
             return response()->json([
                 'message' => 'Usuario ya se encuentra registrado!',
             ]);        
         }
 
-        $branch = BranchOffice::where('id', 1)->first();
-
         // En caso de que no exista creamos un nuevo usuario con sus datos.
         $address = Address::create([
             'states_id' => $request->states_id, 
             'cities_id' => $request->cities_id, 
             'municipalities_id' => $request->municipalities_id, 
-            'parishes_id' => $request->parishes_id, 
-            'branchoffice_id' => $branch->id, 
+            'parishes_id' => $request->parishes_id,
             'address' => $request->address,
         ]);
 
-        if( $person_user->email != null){
-            
+        if( $request->persona != null){
+            // dd('uno');
         $person = Person::create([
             'type_dni' => $request->type_dni, 
             'dni'      => $request->dni,
             'name'     => $request->name,
-            'lastname' => $request->last_name,
+            'lastname' => $request->lastname,
             'email'    => $request->email,
             'phone'    => $request->phone,
         ]);
@@ -69,30 +69,63 @@ class AuthController extends Controller
         $user = User::create([
             'person_id' => $person->id,
             'provider_id' => null,
+            'email' => $person->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        
+        // dd($user);
+        $user->assignRole('client'); 
+        
+        }
+
+        if( $request->repartidor != null){
+            // dd('dos');
+        $person = Person::create([
+            'type_dni' => $request->type_dni, 
+            'dni'      => $request->dni,
+            'name'     => $request->name,
+            'lastname' => $request->lastname,
+            'email'    => $request->email,
+            'phone'    => $request->phone,
+        ]);
+
+        $courier = Courier::create([
+            'person_id' => $person->id,
+            'address_id' => $address->id,
+            'type_vehicle' => $request->type_vehicle,
+            'bussiness_delivery' => $request->bussiness_delivery,
+        ]);
+
+        $user = User::create([
+            'person_id' => $person->id,
+            'provider_id' => null,
+            'email' => $person->email,
             'password' => Hash::make($request->password),
         ]);
         
-        }else{
-            if( $provider_user->email != null){
-                
-                $provider = Provider::create([
-                'type_dni' => $request->type_dni, 
-                'dni'      => $request->dni,
-                'name'     => $request->name,
-                'email'    => $request->email,
-                'phone'    => $request->phone,
-                'address_id' => $address->id,
-                ]);
-
-                $user = User::create([
-                    'person_id' => null,
-                    'provider_id' => $provider->id,
-                    'password' => Hash::make($request->password),
-                ]);
-            }
+        $user->assignRole('courier');
         }
+        
+        if( $request->empresa != null){
+            // dd('tres');
+            $provider = Provider::create([
+            'type_dni' => $request->type_dni, 
+            'dni'      => $request->dni,
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'phone'    => $request->phone,
+            'address_id' => $address->id,
+            ]);
 
-        $user->assignRole('user');
+            $user = User::create([
+                'person_id' => null,
+                'provider_id' => $provider->id,
+                'password' => Hash::make($request->password),
+            ]);
+
+            $user->assignRole('provider');
+        }
 
         return response()->json([
             'message' => 'Usuario creado correctamente.!',
@@ -117,7 +150,7 @@ class AuthController extends Controller
             }
             
             $user1 = User::where('person_id',$person_user->id)->first();
-            $user2 = User::where('person_id',$provider_user->id)->first();
+            $user2 = User::where('provider_id',$provider_user->id)->first();
             
             if (!Hash::check($request->password, $user1->password) || !Hash::check($request->password, $user2->password)) {
                 return response()->json([

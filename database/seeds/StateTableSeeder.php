@@ -2,6 +2,7 @@
 
 use App\State;
 use Illuminate\Database\Seeder;
+use App\State;
 
 class StateTableSeeder extends Seeder
 {

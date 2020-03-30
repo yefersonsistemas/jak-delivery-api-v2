@@ -15,7 +15,6 @@ class CityTableSeeder extends Seeder
         City::truncate();
         factory(City::class)->create([
             'name' => 'Barquisimeto',
-            // 'branchoffice_id' => 1,
         ]);
     }
 }

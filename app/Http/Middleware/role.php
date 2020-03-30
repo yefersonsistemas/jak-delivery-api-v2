@@ -16,19 +16,19 @@ class role
      */
     public function handle($request, Closure $next, ... $roles)
     {
-        if (!Auth::check()) // verifica si esta autorizado el usuario
-        return redirect('login');
+        // if (!Auth::check()) // verifica si esta autorizado el usuario
+        // return redirect('login');
 
-        $user = Auth::user();  
+        // $user = Auth::user();  
 
-        if($user->isAdmin())
-            return $next($request);
+        // if($user->isAdmin())
+        //     return $next($request);
 
-        foreach($roles as $role) {
-            if($user->hasRole($role))  //verifica si el usuario tiene el rol
-                return $next($request);
-        }
+        // foreach($roles as $role) {
+        //     if($user->hasRole($role))  //verifica si el usuario tiene el rol
+        //         return $next($request);
+        // }
 
-        return redirect('login');
+        // return redirect('login');
     }
 }

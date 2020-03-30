@@ -9,7 +9,7 @@ class Address extends Model
     protected $table = 'address';
 
     protected $fillable = [
-        'states_id', 'cities_id', 'municipalities_id', 'parishes_id', 'branchoffice_id', 'address'
+        'states_id', 'cities_id', 'municipalities_id', 'parishes_id', 'address'
     ];
 
     public function client()

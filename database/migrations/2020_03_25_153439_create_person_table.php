@@ -14,7 +14,13 @@ class CreatePersonTable extends Migration
     public function up()
     {
         Schema::create('person', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->enum('type_dni', ['V', 'E']);
+            $table->string('dni');
+            $table->string('name');
+            $table->string('lastname');
+            $table->string('phone')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->timestamps();
         });
     }

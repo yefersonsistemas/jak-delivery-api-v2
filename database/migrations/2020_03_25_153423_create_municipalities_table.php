@@ -16,13 +16,7 @@ class CreateMunicipalitiesTable extends Migration
         Schema::create('municipalities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            // $table->unsignedBigInteger('branchoffice_id');
             $table->timestamps();
-
-            // $table->foreign('branchoffice_id')
-            //     ->references('id')
-            //     ->on('branchoffice')
-            //     ->onDelete('CASCADE');
         });
     }
 

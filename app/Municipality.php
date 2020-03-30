@@ -10,11 +10,7 @@ class Municipality extends Model
 
     protected $fillable = [
 
-        'name', //'branchoffice_id',
+        'name',
 
     ];
-
-    // public function branchoffice() {
-    //     return $this->belongsTo('App\BranchOffice', 'branchoffice_id');
-    // }
 }
