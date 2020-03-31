@@ -27,4 +27,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('logout', 'Auth\API\AuthController@logout');
    
         Route::get('address', 'AddressController@index');
+
+        Route::group(['prefix' => 'food'], function () {
+            Route::get('burguer/{id}', 'BurguerController@index');
+        });
 });
