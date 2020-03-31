@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\State;
+use App\City;
+use App\Municipality;
+use App\Parishe;
 
 class AddressController extends Controller
 {
@@ -13,7 +17,16 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $state = State::get();
+        $city = City::get();
+        $municipality = Municipality::get();
+        $parishe = Parishe::get();
+
+        return response()->json([
+        'estado' => $state, 
+        'ciudad' => $city, 
+        'municipio' => $municipality, 
+        'parroquia' => $parishe] );
     }
 
     /**
