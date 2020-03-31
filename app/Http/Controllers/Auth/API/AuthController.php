@@ -59,7 +59,7 @@ class AuthController extends Controller
         ]);
         // dd( $address);
 
-        if( $request->persona != null){
+        if( $request->role == 'client'){
             // dd('uno');
         $person = Person::create([
             'type_dni' => $request->type_dni, 
@@ -89,7 +89,7 @@ class AuthController extends Controller
         
         }
 
-        if( $request->repartidor != null){
+        if( $request->role == 'courier'){
             // dd('dos');
         $person = Person::create([
             'type_dni' => $request->type_dni, 
@@ -117,8 +117,8 @@ class AuthController extends Controller
         $user->assignRole('courier');
         }
         
-        if( $request->empresa != null){
-            // dd('tres');
+        if($request->role == 'bakery' || $request->role == 'restaurant' || $request->role == 'market'){
+            // dd($request->role);
             $provider = Provider::create([
             'type_dni' => $request->type_dni, 
             'dni'      => $request->dni,
