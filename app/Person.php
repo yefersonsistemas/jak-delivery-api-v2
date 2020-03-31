@@ -19,13 +19,14 @@ class Person extends Model
 
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User', 'person_id');
     }
 
     public function client()
     {
         return $this->belongsTo('App\Client');
     }
+    
     public function courier()
     {
         return $this->belongsTo('App\Courier');
