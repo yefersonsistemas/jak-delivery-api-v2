@@ -16,4 +16,9 @@ class Food_Burguer extends Model
     {
         return $this->belongsTo('App\Provider', 'providers_id');
     }
+
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 }

@@ -29,6 +29,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('address', 'AddressController@index');
 
         Route::group(['prefix' => 'food'], function () {
-            Route::get('burguer/{id}', 'BurguerController@index');
+            Route::post('burguer', 'BurguerController@burguer');
+            Route::post('create/burguer', 'BurguerController@photoBurguer');
         });
 });

@@ -14,10 +14,4 @@ class Image extends Model
     {
         return $this->morphTo();
     }
-
-    // public function branchoffice()
-    // {
-    //     return $this->belongsTo('App\BranchOffice');
-    // }
-
 }
