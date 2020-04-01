@@ -21,15 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 // Register, Login
 Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'Auth\API\AuthController@login');
-    Route::post('register', 'Auth\API\AuthController@register');
-
-    Route::group(['middleware' => 'auth:api'], function () {
+ 
+        Route::post('login', 'Auth\API\AuthController@login');
+        Route::post('register', 'Auth\API\AuthController@register');
         Route::get('logout', 'Auth\API\AuthController@logout');
-        // Route::get('user', 'API\UserController@show');
-        // Route::delete('user/{user}/destroy', 'API\UserController@destroy');
-        // Route::get('user/notifications', 'API\UserController@notifications');
-    });
-});
+   
+        Route::get('address', 'AddressController@index');
 
-Route::post('guardar', 'api\AdressdController@guardar');
+        Route::group(['prefix' => 'food'], function () {
+            Route::get('burguer/{id}', 'BurguerController@index');
+        });
+});

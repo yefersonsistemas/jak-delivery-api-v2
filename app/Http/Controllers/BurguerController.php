@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Food_Burguer;
 
 class BurguerController extends Controller
 {
@@ -11,9 +13,14 @@ class BurguerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        dd($id);
+        $user = User::find($id);
+
+        $burguer = Food_Burguer::where('providers_id', $user->provider_id)->get();
+
+        return response()->json($burguer);
     }
 
     /**

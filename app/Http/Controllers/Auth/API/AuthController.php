@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Auth\Api;
+namespace App\Http\Controllers\Auth\Api ;
 
 use App\BranchOffice;
 use App\Http\Controllers\Controller;
@@ -7,9 +7,11 @@ use App\Http\Requests\Api\UserLoginRequest;
 use App\Http\Requests\Api\UserRegisterRequest;
 use App\Person;
 use App\User;
+// use App\Models\User;
 use App\Provider;
 use App\Address;
 use App\Client;
+use App\Courier;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -18,11 +20,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Nexmo\Response;
 
 class AuthController extends Controller
 {
+    use HasApiTokens, Notifiable, HasRoles;
     /**
      * Create a new user instance after a valid registration.
      *
@@ -34,6 +41,7 @@ class AuthController extends Controller
         // dd($request);
         $person_user = Person::where('email', $request->email)->with('user')->first();
         $provider_user = Provider::where('email', $request->email)->with('user')->first();
+        // dd($person_user, $provider_user);
                 
         if ($person_user != null || $provider_user != null) {
             return response()->json([
@@ -49,8 +57,9 @@ class AuthController extends Controller
             'parishes_id' => $request->parishes_id,
             'address' => $request->address,
         ]);
+        // dd( $address);
 
-        if( $request->persona != null){
+        if( $request->role == 'client'){
             // dd('uno');
         $person = Person::create([
             'type_dni' => $request->type_dni, 
@@ -71,15 +80,16 @@ class AuthController extends Controller
             'provider_id' => null,
             'email' => $person->email,
             'password' => Hash::make($request->password),
-        ]);
+        ])->assignRole('client');
 
         
         // dd($user);
-        $user->assignRole('client'); 
+        
+        // $user->assignRole('client'); 
         
         }
 
-        if( $request->repartidor != null){
+        if( $request->role == 'courier'){
             // dd('dos');
         $person = Person::create([
             'type_dni' => $request->type_dni, 
@@ -107,8 +117,8 @@ class AuthController extends Controller
         $user->assignRole('courier');
         }
         
-        if( $request->empresa != null){
-            // dd('tres');
+        if($request->role == 'bakery' || $request->role == 'restaurant' || $request->role == 'market'){
+            // dd($request->role);
             $provider = Provider::create([
             'type_dni' => $request->type_dni, 
             'dni'      => $request->dni,
@@ -116,15 +126,29 @@ class AuthController extends Controller
             'email'    => $request->email,
             'phone'    => $request->phone,
             'address_id' => $address->id,
+            'price_delivery' => $request->price_delivery,
+            'typepayment_id' => $request->typepayment_id,
             ]);
 
             $user = User::create([
                 'person_id' => null,
                 'provider_id' => $provider->id,
+                'email' => $provider->email,
                 'password' => Hash::make($request->password),
             ]);
 
-            $user->assignRole('provider');
+            if($request->role == 'bakery'){
+                $user->assignRole('bakery');
+            }
+
+            if($request->role == 'restaurant'){
+                $user->assignRole('restaurant');
+            }
+
+            if($request->role == 'market'){
+                
+                $user->assignRole('market');
+            }
         }
 
         return response()->json([
@@ -140,30 +164,32 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        // dd($request);
         try {
-            $person_user = Person::whereEmail($request->email)->first();
-            $provider_user = Provider::whereEmail($request->email)->first();
-            
-            if ($person_user == null || $provider_user == null) {
-                return response()->json([
-                    'message' => 'Usuario no registrado'], 401);
-            }
-            
-            $user1 = User::where('person_id',$person_user->id)->first();
-            $user2 = User::where('provider_id',$provider_user->id)->first();
-            
-            if (!Hash::check($request->password, $user1->password) || !Hash::check($request->password, $user2->password)) {
-                return response()->json([
-                    'message' => 'Contraseña incorrecta'], 401);
-            }
+            if($request->role == 'client' || $request->role == 'courier'){
+                // dd('person');
+                $person_user = Person::whereEmail($request->email)->first();
+                // dd($person_user->email);
 
-            if($person_user != null){
-                
+                if ($person_user == null) {
+                    return response()->json([
+                        'person' => 'Usuario no registrado'], 401);
+                }
+
+                $user1 = User::where('person_id', $person_user->id)->first();
+
+                if (!Hash::check($request->password, $user1->password)) {
+                    return response()->json([
+                        'message' => 'Contraseña incorrecta'], 401);
+                }
+
                 $tokenResult1 = $person_user->user->createToken('Personal Access Token');
                 $token       = $tokenResult1->token;
+
                 if ($request->remember_me) {
                     $token->expires_at = Carbon::now()->addWeek(2);
                 }
+                
                 $token->save();
     
                 return response()->json([
@@ -178,28 +204,46 @@ class AuthController extends Controller
                     'id'           => $user1->id,
                     'name'         => $person_user->name,
                 ]);
-            }else{
-                if($provider_user != null){
-                    $tokenResult2 = $provider_user->user->createToken('Personal Access Token');
-                    $token       = $tokenResult2->token;
-                    if ($request->remember_me) {
-                        $token->expires_at = Carbon::now()->addWeek(2);
-                    }
-                    $token->save();
-        
+            }
+            
+            if($request->role == 'bakery' || $request->role == 'restaurant' || $request->role == 'market'){
+                // dd('provider');
+                $provider_user = Provider::whereEmail($request->email)->first();
+                // dd($provider_user->email);
+
+                if ($provider_user == null) {
                     return response()->json([
-                        'access_token' => $tokenResult2->accessToken,
-                        'token_type'   => 'Bearer',
-                        'expires_at'   => Carbon::parse(
-                            $tokenResult2->token->expires_at)
-                            ->toDateTimeString(),
-                        'role'         =>   $provider_user->user->getRoleNames(),
-                        'message'      => 'Sesion Iniciada',
-                        'user'         => Auth::id(),
-                        'id'           => $user2->id,
-                        'name'         => $provider_user->name,
-                    ]);  
+                        'provider' => 'Usuario no registrado'], 401);
                 }
+
+                $user2 = User::where('provider_id',$provider_user->id)->first();
+                
+                if(!Hash::check($request->password, $user2->password)){
+                    return response()->json([
+                        'message' => 'Contraseña incorrecta'], 401);
+                }
+                
+                $tokenResult2 = $provider_user->user->createToken('Personal Access Token');
+                $token       = $tokenResult2->token;
+                
+                if ($request->remember_me) {
+                    $token->expires_at = Carbon::now()->addWeek(2);
+                }
+                
+                $token->save();
+    
+                return response()->json([
+                    'access_token' => $tokenResult2->accessToken,
+                    'token_type'   => 'Bearer',
+                    'expires_at'   => Carbon::parse(
+                        $tokenResult2->token->expires_at)
+                        ->toDateTimeString(),
+                    'role'         =>   $provider_user->user->getRoleNames(),
+                    'message'      => 'Sesion Iniciada',
+                    'user'         => Auth::id(),
+                    'id'           => $user2->id,
+                    'name'         => $provider_user->name,
+                ]);  
             }
             
         } catch (ModelNotFoundException $e) {
