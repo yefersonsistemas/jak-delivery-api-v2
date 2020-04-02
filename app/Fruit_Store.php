@@ -17,4 +17,9 @@ class Fruit_Store extends Model
         return $this->belongsToMany('App\Provider','providers_fruit')
        ->withPivot('providers_id','id');
     }
+
+      public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 }

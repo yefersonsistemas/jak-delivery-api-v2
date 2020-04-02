@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Food_Vegan;
+use App\Description_Vegan;
+use App\Image;
 
 class VeganController extends Controller
 {
@@ -16,6 +20,52 @@ class VeganController extends Controller
         //
     }
 
+    public function vegan(Request $request){
+        // dd($request);
+        $user = User::find($request->id);
+        // dd($user);
+        $vegan = Food_Vegan::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
+        dd( $vegan); 
+        
+        return response()->json($vegan);
+    }
+
+      public function photoVegan(Request $request)
+    {
+        // dd($request);
+        
+        $provider = User::find($request->id);
+        // dd( $provider);
+        
+        $vegan =  Food_Vegan::create([
+            'name'         => $request->name,
+            'price_bs'     => $request->price_bs,
+            'price_ud'     => $request->price_ud,
+            'type'         => $request->type,
+            'providers_id' => $provider->id,
+        ]);
+        
+        $description = Description_Vegan::create([
+            'description' => $request->description,
+            'providers_id' => $provider->id,
+            'vegan_id' =>  $vegan->id,
+        ]);
+        
+        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // dd($image);
+        // $path = $image->store('public/vegan');  //se guarda en la carpeta public
+        // dd($path);
+        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en vegan
+        // dd($path);
+        $image = new Image;
+        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        $image->path = $request->image;
+        $image->imageable_type = "App\Food_Vegan";
+        $image->imageable_id = $vegan->id;
+        $image->save();
+
+        return response()->json('Guardado con exito');
+    }
     /**
      * Show the form for creating a new resource.
      *

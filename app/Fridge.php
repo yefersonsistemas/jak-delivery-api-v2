@@ -17,4 +17,9 @@ class Fridge extends Model
     public function provider() {
         return $this->belongsToMany('App\Provider', 'providers_id');
     }
+
+      public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 }

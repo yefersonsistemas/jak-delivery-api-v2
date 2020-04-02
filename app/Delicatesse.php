@@ -17,4 +17,9 @@ class Delicatesse extends Model
         return $this->belongsToMany('App\Provider','providers_delicatesse')
        ->withPivot('providers_id','id');
     }
+
+      public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 }

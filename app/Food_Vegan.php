@@ -17,4 +17,9 @@ class Food_Vegan extends Model
     public function provider() {
         return $this->belongsTo('AppProvider', 'providers_id');
     }
+
+      public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 }
