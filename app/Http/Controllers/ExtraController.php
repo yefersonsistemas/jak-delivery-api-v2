@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Food_Pizza;
-use App\Description_Pizza;
+use App\Extra;
+use App\Description_Extra;
 use App\Image;
 
-class PizzaController extends Controller
+class ExtraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,48 +20,48 @@ class PizzaController extends Controller
         //
     }
 
-    public function pizza(Request $request){
+    public function extra(Request $request){
         // dd($request);
         $user = User::find($request->id);
         // dd($user);
-        $pizza = Food_Pizza::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
-        // dd( $pizza); 
+        $extra = Extra::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
+        // dd( $extra); 
         
-        return response()->json($pizza);
+        return response()->json($extra);
     }
 
-      public function photoPizza(Request $request)
+      public function photoextra(Request $request)
     {
         // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
         
-        $pizza =  Food_Pizza::create([
+        $extra =  Extra::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
             'price_ud'     => $request->price_ud,
-            'type'         => $request->type,
+            'type_extra'   => $request->type_extra,
             'providers_id' => $provider->id,
         ]);
         
-        $description = Description_Pizza::create([
+        $description = Description_Extra::create([
             'description' => $request->description,
             'providers_id' => $provider->id,
-            'pizza_id' =>  $pizza->id,
+            'extras_id' =>  $extra->id,
         ]);
         
         // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
         // dd($image);
-        // $path = $image->store('public/pizza');  //se guarda en la carpeta public
+        // $path = $image->store('public/extra');  //se guarda en la carpeta public
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en pizza
+        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en extra
         // dd($path);
         $image = new Image;
         // $image->path = $path;  //esta es la forma original si se guardara la img en storage
         $image->path = $request->image;
-        $image->imageable_type = "App\Food_Pizza";
-        $image->imageable_id = $pizza->id;
+        $image->imageable_type = "App\Extra";
+        $image->imageable_id = $extra->id;
         $image->save();
 
         return response()->json('Guardado con exito');

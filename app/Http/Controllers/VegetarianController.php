@@ -25,7 +25,7 @@ class VegetarianController extends Controller
         $user = User::find($request->id);
         // dd($user);
         $vegetarian = Food_Vegetarian::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
-        dd( $vegetarian); 
+        // dd( $vegetarian); 
         
         return response()->json($vegetarian);
     }

@@ -25,7 +25,7 @@ class VeganController extends Controller
         $user = User::find($request->id);
         // dd($user);
         $vegan = Food_Vegan::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
-        dd( $vegan); 
+        // dd( $vegan); 
         
         return response()->json($vegan);
     }
@@ -44,12 +44,16 @@ class VeganController extends Controller
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
+
+        // dd($vegan->id);
         
         $description = Description_Vegan::create([
             'description' => $request->description,
             'providers_id' => $provider->id,
-            'vegan_id' =>  $vegan->id,
+            'vegans_id' => $vegan->id,
         ]);
+
+        // dd($description);
         
         // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
         // dd($image);

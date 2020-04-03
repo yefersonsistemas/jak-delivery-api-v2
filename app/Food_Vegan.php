@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Food_Vegan extends Model
 {
-    protected $table = 'food_vegan';
+    protected $table = 'food_vegans';
 
     protected $fillable = [
 

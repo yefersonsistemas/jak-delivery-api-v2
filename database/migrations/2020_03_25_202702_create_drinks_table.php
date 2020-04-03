@@ -17,7 +17,7 @@ class CreateDrinksTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->double('price_bs');
-            $table->double('price_us')->nullable();
+            $table->double('price_ud')->nullable();
             $table->string('type_drink');
             $table->unsignedBigInteger('providers_id');
             $table->timestamps();
