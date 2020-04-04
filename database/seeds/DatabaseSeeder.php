@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         Schema::disableForeignKeyConstraints();
-            // $this->call(RolesAndPermissionsTablesSeeders::class);
-            // $this->call(CityTableSeeder::class);
-            // $this->call(MunicipalityTableSeeder::class);
-            // $this->call(ParisheTableSeeder::class);
-            // $this->call(StateTableSeeder::class);
+            $this->call(RolesAndPermissionsTablesSeeders::class);
+            $this->call(CityTableSeeder::class);
+            $this->call(MunicipalityTableSeeder::class);
+            $this->call(ParisheTableSeeder::class);
+            $this->call(StateTableSeeder::class);
             $this->call(PersonTableSeeder::class);
             $this->call(ClientTableSeeder::class);
             $this->call(CourierTableSeeder::class);
