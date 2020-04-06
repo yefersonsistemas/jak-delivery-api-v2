@@ -85,7 +85,7 @@ class ArabianController extends Controller
         return response()->json([
             'arabian' => $arabian,
             'description' => $description,
-            'message' , 'Cambios guardados exitosamente.!']);
+            'message' => 'Cambios guardados exitosamente.!']);
     }
     /**
      * Show the form for creating a new resource.
