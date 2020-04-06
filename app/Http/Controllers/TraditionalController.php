@@ -150,6 +150,12 @@ class TraditionalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $traditional = Food_Traditional::find($id);
+        $description = Description_Traditional::where('traditional_id', $traditional->id)->first();
+
+        $traditional->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

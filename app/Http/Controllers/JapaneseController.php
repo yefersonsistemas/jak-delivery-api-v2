@@ -151,6 +151,12 @@ class JapaneseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $japanese = Food_Japanese::find($id);
+        $description = Description_Japanese::where('japanese_id', $japanese->id)->first();
+
+        $japanese->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

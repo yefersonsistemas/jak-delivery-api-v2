@@ -149,6 +149,12 @@ class MexicanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mexican = Food_Mexican::find($id);
+        $description = Description_Mexican::where('mexican_id', $mexican->id)->first();
+
+        $mexican->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

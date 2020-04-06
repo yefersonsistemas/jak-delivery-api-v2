@@ -150,6 +150,12 @@ class PizzaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pizza = Food_Pizza::find($id);
+        $description = Description_Pizza::where('pizza_id', $pizza->id)->first();
+
+        $pizza->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

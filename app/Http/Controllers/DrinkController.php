@@ -151,6 +151,12 @@ class DrinkController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $drink = Drink::find($id);
+        $description = Description_Drink::where('drink_id', $drink->id)->first();
+
+        $drink->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

@@ -150,6 +150,12 @@ class KoreanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $korean = Food_Korean::find($id);
+        $description = Description_Korean::where('korean_id', $korean->id)->first();
+
+        $korean->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

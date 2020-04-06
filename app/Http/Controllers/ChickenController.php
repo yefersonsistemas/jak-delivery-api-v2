@@ -150,6 +150,12 @@ class ChickenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $chicken = Food_Chicken::find($id);
+        $description = Description_Chicken::where('chicken_id', $chicken->id)->first();
+
+        $chicken->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

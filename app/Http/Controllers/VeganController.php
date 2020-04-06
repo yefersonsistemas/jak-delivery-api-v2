@@ -153,6 +153,12 @@ class VeganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vegan = Food_Vegan::find($id);
+        $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
+
+        $vegan->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

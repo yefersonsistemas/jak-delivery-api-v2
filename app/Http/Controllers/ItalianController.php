@@ -150,6 +150,12 @@ class ItalianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Italian = Food_Italian::find($id);
+        $description = Description_Italian::where('Italian_id', $Italian->id)->first();
+
+        $Italian->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

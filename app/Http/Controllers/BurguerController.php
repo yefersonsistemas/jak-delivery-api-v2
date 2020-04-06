@@ -150,6 +150,12 @@ class BurguerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $burguer = Food_Burguer::find($id);
+        $description = Description_Burguer::where('burguer_id', $burguer->id)->first();
+
+        $burguer->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

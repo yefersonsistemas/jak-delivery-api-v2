@@ -150,6 +150,12 @@ class ArabianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $arabian = Food_Arabian::find($id);
+        $description = Description_Arabian::where('arabian_id', $arabian->id)->first();
+
+        $arabian->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

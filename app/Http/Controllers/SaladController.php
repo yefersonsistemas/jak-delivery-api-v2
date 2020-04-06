@@ -150,6 +150,12 @@ class SaladController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $salad = Food_Salad::find($id);
+        $description = Description_Salad::where('salad_id', $salad->id)->first();
+
+        $salad->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

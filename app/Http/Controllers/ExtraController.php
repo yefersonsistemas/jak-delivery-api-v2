@@ -150,6 +150,12 @@ class ExtraController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $extra = Extra::find($id);
+        $description = Description_Extra::where('extra_id', $extra->id)->first();
+
+        $extra->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

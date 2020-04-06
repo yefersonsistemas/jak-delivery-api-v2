@@ -150,6 +150,12 @@ class IndianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $indian = Food_Indian::find($id);
+        $description = Description_Indian::where('indian_id', $indian->id)->first();
+
+        $indian->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }
