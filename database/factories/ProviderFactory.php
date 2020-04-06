@@ -4,15 +4,13 @@
 
 use App\Provider;
 use Faker\Generator as Faker;
+use App\Typepayment;
 
 $factory->define(Provider::class, function (Faker $faker) {
-    
+      $typepayment = Typepayment::inRandomOrder()->first();
     return [
-        'type_dni' => 'J',
-        'dni' => $faker->numberBetween(100000, 900000),
-        'name' => $faker->firstName,
-        'lastname'=> $faker->lastName,
-        'phone' => $faker->numberBetween(04140000000, 04260000000),
-        'email' => $faker->email,
+        'person_id' => $faker->firstName,
+        'price_delivery'=> $faker->lastName,
+        'typepayment' => $typepayment->id,
     ];
 });

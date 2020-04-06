@@ -15,26 +15,20 @@ class CreateProvidersTable extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type_dni', ['V', 'E', 'J']);
-            $table->string('dni');
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email');
+            $table->unsignedBigInteger('person_id');
             $table->string('price_delivery');
-            $table->unsignedBigInteger('address_id');
             $table->unsignedBigInteger('typepayment_id');
             $table->timestamps();
 
-            $table->foreign('address_id')
+            $table->foreign('person_id')
             ->references('id')
-            ->on('address')
+            ->on('person')
             ->onDelete('CASCADE');
 
             $table->foreign('typepayment_id')
             ->references('id')
             ->on('typepayment')
             ->onDelete('CASCADE');
-        
         });
     }
 

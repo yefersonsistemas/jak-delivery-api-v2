@@ -15,13 +15,19 @@ class CreatePersonTable extends Migration
     {
         Schema::create('person', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type_dni', ['V', 'E']);
+            $table->enum('type_dni', ['V', 'E', 'J']);
             $table->string('dni');
             $table->string('name');
-            $table->string('lastname');
+            $table->string('lastname')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->unsignedBigInteger('address_id');
             $table->timestamps();
+
+            $table->foreign('address_id')
+            ->references('id')
+            ->on('address')
+            ->onDelete('CASCADE');
         });
     }
 
