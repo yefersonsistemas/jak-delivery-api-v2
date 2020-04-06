@@ -66,6 +66,27 @@ class ArabianController extends Controller
 
         return response()->json('Guardado con exito');
     }
+
+    public function editArabian(Request $request, $id){
+        // dd($id, $request->name);
+        $arabian = Food_Arabian::find($id);
+        $description = Description_Arabian::where('arabian_id', $arabian->id)->first();
+
+        $arabian->name = $request->name;
+        $arabian->price_bs = $request->price_bs;
+        $arabian->price_us = $request->price_ud;
+        $arabian->type = $request->type;
+        $arabian->save();
+
+        // dd($arabian);
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'arabian' => $arabian,
+            'description' => $description,
+            'message' , 'Cambios guardados exitosamente.!']);
+    }
     /**
      * Show the form for creating a new resource.
      *

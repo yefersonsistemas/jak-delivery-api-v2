@@ -61,6 +61,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'foodA'], function () {
             Route::post('arabian', 'ArabianController@arabian');
             Route::post('create/arabian', 'ArabianController@photoArabian');
+            Route::put('edit/arabian/{id}', 'ArabianController@editArabian');
+            
         });
 
         Route::group(['prefix' => 'foodM'], function () {

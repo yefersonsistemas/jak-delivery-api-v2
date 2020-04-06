@@ -89,7 +89,7 @@ class AuthController extends Controller
         try {
            
                 $person = Person::whereEmail($request->email)->first();
-                // dd($_user->email);
+                // dd($person);
 
                 if ($person == null) {
                     return response()->json([
