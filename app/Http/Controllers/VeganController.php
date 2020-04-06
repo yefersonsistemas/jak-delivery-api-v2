@@ -40,7 +40,7 @@ class VeganController extends Controller
         $vegan =  Food_Vegan::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -69,6 +69,26 @@ class VeganController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editVegan(Request $request, $id){
+        // dd($id, $request->name);
+        $vegan = Food_Vegan::find($id);
+        $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
+
+        $vegan->name = $request->name;
+        $vegan->price_bs = $request->price_bs;
+        $vegan->price_us = $request->price_us;
+        $vegan->type = $request->type;
+        $vegan->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'vegan' => $vegan,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
     /**
      * Show the form for creating a new resource.

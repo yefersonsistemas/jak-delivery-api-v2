@@ -40,7 +40,7 @@ class KoreanController extends Controller
         $korean =  Food_Korean::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class KoreanController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editKorean(Request $request, $id){
+        // dd($id, $request->name);
+        $korean = Food_Korean::find($id);
+        $description = Description_Korean::where('korean_id', $korean->id)->first();
+
+        $korean->name = $request->name;
+        $korean->price_bs = $request->price_bs;
+        $korean->price_us = $request->price_us;
+        $korean->type = $request->type;
+        $korean->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'korean' => $korean,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

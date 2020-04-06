@@ -40,7 +40,7 @@ class ArabianController extends Controller
         $arabian =  Food_Arabian::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -74,7 +74,7 @@ class ArabianController extends Controller
 
         $arabian->name = $request->name;
         $arabian->price_bs = $request->price_bs;
-        $arabian->price_us = $request->price_ud;
+        $arabian->price_us = $request->price_us;
         $arabian->type = $request->type;
         $arabian->save();
 

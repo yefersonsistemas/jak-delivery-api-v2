@@ -40,7 +40,7 @@ class SaladController extends Controller
         $salad =  Food_Salad::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class SaladController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editSalad(Request $request, $id){
+        // dd($id, $request->name);
+        $salad = Food_Salad::find($id);
+        $description = Description_Salad::where('salad_id', $salad->id)->first();
+
+        $salad->name = $request->name;
+        $salad->price_bs = $request->price_bs;
+        $salad->price_us = $request->price_us;
+        $salad->type = $request->type;
+        $salad->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'salad' => $salad,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

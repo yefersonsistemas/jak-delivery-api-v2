@@ -40,7 +40,7 @@ class TraditionalController extends Controller
         $traditional =  Food_Traditional::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class TraditionalController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editTraditional(Request $request, $id){
+        // dd($id, $request->name);
+        $traditional = Food_Traditional::find($id);
+        $description = Description_Traditional::where('traditional_id', $traditional->id)->first();
+
+        $traditional->name = $request->name;
+        $traditional->price_bs = $request->price_bs;
+        $traditional->price_us = $request->price_us;
+        $traditional->type = $request->type;
+        $traditional->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'traditional' => $traditional,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

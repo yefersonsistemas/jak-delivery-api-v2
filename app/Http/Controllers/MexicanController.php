@@ -67,6 +67,25 @@ class MexicanController extends Controller
         return response()->json('Guardado con exito');
     }
 
+     public function editMexican(Request $request, $id){
+        // dd($id, $request->name);
+        $mexican = Food_Mexican::find($id);
+        $description = Description_Mexican::where('mexican_id', $mexican->id)->first();
+
+        $mexican->name = $request->name;
+        $mexican->price_bs = $request->price_bs;
+        $mexican->price_us = $request->price_us;
+        $mexican->type = $request->type;
+        $mexican->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'mexican' => $mexican,
+            'message' => 'Cambios guardados exitosamente.!']);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

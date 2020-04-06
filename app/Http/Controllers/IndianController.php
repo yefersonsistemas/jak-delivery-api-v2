@@ -40,7 +40,7 @@ class IndianController extends Controller
         $indian =  Food_Indian::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class IndianController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editIndian(Request $request, $id){
+        // dd($id, $request->name);
+        $indian = Food_Indian::find($id);
+        $description = Description_Indian::where('indian_id', $indian->id)->first();
+
+        $indian->name = $request->name;
+        $indian->price_bs = $request->price_bs;
+        $indian->price_us = $request->price_us;
+        $indian->type = $request->type;
+        $indian->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'indian' => $indian,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

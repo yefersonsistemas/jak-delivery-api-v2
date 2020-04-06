@@ -40,7 +40,7 @@ class PizzaController extends Controller
         $pizza =  Food_Pizza::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class PizzaController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editPizza(Request $request, $id){
+        // dd($id, $request->name);
+        $pizza = Food_Pizza::find($id);
+        $description = Description_Pizza::where('pizza_id', $pizza->id)->first();
+
+        $pizza->name = $request->name;
+        $pizza->price_bs = $request->price_bs;
+        $pizza->price_us = $request->price_us;
+        $pizza->type = $request->type;
+        $pizza->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'pizza' => $pizza,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

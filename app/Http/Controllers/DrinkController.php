@@ -40,7 +40,7 @@ class DrinkController extends Controller
         $drink =  Drink::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type_drink'   => $request->type_drink,
             'providers_id' => $provider->id,
         ]);
@@ -66,6 +66,26 @@ class DrinkController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editDrink(Request $request, $id){
+        // dd($id, $request->name);
+        $drink = Drink::find($id);
+        $description = Description_Drink::where('drink_id', $drink->id)->first();
+
+        $drink->name = $request->name;
+        $drink->price_bs = $request->price_bs;
+        $drink->price_us = $request->price_us;
+        $drink->type_drink = $request->type_drink;
+        $drink->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([            
+            'drink' => $drink,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

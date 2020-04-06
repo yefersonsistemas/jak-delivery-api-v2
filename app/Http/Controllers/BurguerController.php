@@ -42,7 +42,7 @@ class BurguerController extends Controller
         $burguer =  Food_Burguer::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -69,6 +69,24 @@ class BurguerController extends Controller
         return response()->json('Guardado con exito');
     }
 
+    public function editBurguer(Request $request, $id){
+        // dd($id, $request->name);
+        $burguer = Food_Burguer::find($id);
+        $description = Description_Burguer::where('burguer_id', $burguer->id)->first();
+
+        $burguer->name = $request->name;
+        $burguer->price_bs = $request->price_bs;
+        $burguer->price_us = $request->price_us;
+        $burguer->type = $request->type;
+        $burguer->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'burguer' => $burguer,
+            'message' => 'Cambios guardados exitosamente.!']);
+    }
     /**
      * Show the form for creating a new resource.
      *

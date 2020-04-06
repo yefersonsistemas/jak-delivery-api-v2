@@ -40,7 +40,7 @@ class ChineseController extends Controller
         $chinese =  Food_Chinese::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_ud'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class ChineseController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editChinese(Request $request, $id){
+        // dd($id, $request->name);
+        $chinese = Food_Chinese::find($id);
+        $description = Description_Chinese::where('chinese_id', $chinese->id)->first();
+
+        $chinese->name = $request->name;
+        $chinese->price_bs = $request->price_bs;
+        $chinese->price_us = $request->price_us;
+        $chinese->type = $request->type;
+        $chinese->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'chinese' => $chinese,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

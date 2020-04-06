@@ -40,7 +40,7 @@ class ChickenController extends Controller
         $chicken =  Food_Chicken::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class ChickenController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editChicken(Request $request, $id){
+        // dd($id, $request->name);
+        $chicken = Food_Chicken::find($id);
+        $description = Description_Chicken::where('chicken_id', $chicken->id)->first();
+
+        $chicken->name = $request->name;
+        $chicken->price_bs = $request->price_bs;
+        $chicken->price_us = $request->price_us;
+        $chicken->type = $request->type;
+        $chicken->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'chicken' => $chicken,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

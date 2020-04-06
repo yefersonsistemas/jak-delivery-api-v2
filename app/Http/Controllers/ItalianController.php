@@ -40,7 +40,7 @@ class ItalianController extends Controller
         $italian =  Food_Italian::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class ItalianController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editItalian(Request $request, $id){
+        // dd($id, $request->name);
+        $italian = Food_Italian::find($id);
+        $description = Description_Italian::where('italian_id', $italian->id)->first();
+
+        $italian->name = $request->name;
+        $italian->price_bs = $request->price_bs;
+        $italian->price_us = $request->price_us;
+        $italian->type = $request->type;
+        $italian->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'italian' => $italian,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

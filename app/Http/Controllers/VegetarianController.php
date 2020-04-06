@@ -40,7 +40,7 @@ class VegetarianController extends Controller
         $vegetarian =  Food_Vegetarian::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class VegetarianController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editVegetarian(Request $request, $id){
+        // dd($id, $request->name);
+        $vegetarian = Food_Vegetarian::find($id);
+        $description = Description_Vegetarian::where('vegetarian_id', $vegetarian->id)->first();
+
+        $vegetarian->name = $request->name;
+        $vegetarian->price_bs = $request->price_bs;
+        $vegetarian->price_us = $request->price_us;
+        $vegetarian->type = $request->type;
+        $vegetarian->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'vegetarian' => $vegetarian,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

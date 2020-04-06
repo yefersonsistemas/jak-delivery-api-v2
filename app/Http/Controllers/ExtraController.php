@@ -40,7 +40,7 @@ class ExtraController extends Controller
         $extra =  Extra::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type_extra'   => $request->type_extra,
             'providers_id' => $provider->id,
         ]);
@@ -65,6 +65,26 @@ class ExtraController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editExtra(Request $request, $id){
+        // dd($id, $request->name);
+        $extra = Extra::find($id);
+        $description = Description_Extra::where('extra_id', $extra->id)->first();
+
+        $extra->name = $request->name;
+        $extra->price_bs = $request->price_bs;
+        $extra->price_us = $request->price_us;
+        $extra->type_extra = $request->type_extra;
+        $extra->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'extra' => $extra,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

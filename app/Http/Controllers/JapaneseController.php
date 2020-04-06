@@ -41,7 +41,7 @@ class JapaneseController extends Controller
         $japanese =  Food_Japanese::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -66,6 +66,26 @@ class JapaneseController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
+    }
+
+    
+    public function editJapanese(Request $request, $id){
+        // dd($id, $request->name);
+        $japanese = Food_Japanese::find($id);
+        $description = Description_Japanese::where('japanese_id', $japanese->id)->first();
+
+        $japanese->name = $request->name;
+        $japanese->price_bs = $request->price_bs;
+        $japanese->price_us = $request->price_us;
+        $japanese->type = $request->type;
+        $japanese->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'japanese' => $japanese,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
