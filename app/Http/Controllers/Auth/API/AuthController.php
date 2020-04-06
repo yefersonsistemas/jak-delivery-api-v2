@@ -7,11 +7,7 @@ use App\Http\Requests\Api\UserLoginRequest;
 use App\Http\Requests\Api\UserRegisterRequest;
 use App\Person;
 use App\User;
-// use App\Models\User;
-use App\Provider;
 use App\Address;
-use App\Client;
-use App\Courier;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -66,7 +62,7 @@ class AuthController extends Controller
             'email'    => $request->email,
             'phone'    => $request->phone,
             'address_id' => $address->id,
-        ]);-
+        ]);
 
         $user = User::create([
             'person_id' => $person->id,
