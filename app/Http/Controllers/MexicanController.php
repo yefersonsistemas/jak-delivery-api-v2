@@ -30,9 +30,25 @@ class MexicanController extends Controller
         return response()->json($mexican);
     }
 
-      public function photoMexican(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+         // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -67,46 +83,6 @@ class MexicanController extends Controller
         return response()->json('Guardado con exito');
     }
 
-     public function editMexican(Request $request, $id){
-        // dd($id, $request->name);
-        $mexican = Food_Mexican::find($id);
-        $description = Description_Mexican::where('mexican_id', $mexican->id)->first();
-
-        $mexican->name = $request->name;
-        $mexican->price_bs = $request->price_bs;
-        $mexican->price_us = $request->price_us;
-        $mexican->type = $request->type;
-        $mexican->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'mexican' => $mexican,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -138,7 +114,22 @@ class MexicanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+             // dd($id, $request->name);
+        $mexican = Food_Mexican::find($id);
+        $description = Description_Mexican::where('mexican_id', $mexican->id)->first();
+
+        $mexican->name = $request->name;
+        $mexican->price_bs = $request->price_bs;
+        $mexican->price_us = $request->price_us;
+        $mexican->type = $request->type;
+        $mexican->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'mexican' => $mexican,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

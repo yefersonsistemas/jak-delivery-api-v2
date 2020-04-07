@@ -31,9 +31,25 @@ class JapaneseController extends Controller
         return response()->json($japanese);
     }
 
-      public function photoJapanese(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+         // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -68,47 +84,6 @@ class JapaneseController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editJapanese(Request $request, $id){
-        // dd($id, $request->name);
-        $japanese = Food_Japanese::find($id);
-        $description = Description_Japanese::where('japanese_id', $japanese->id)->first();
-
-        $japanese->name = $request->name;
-        $japanese->price_bs = $request->price_bs;
-        $japanese->price_us = $request->price_us;
-        $japanese->type = $request->type;
-        $japanese->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'japanese' => $japanese,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -140,7 +115,22 @@ class JapaneseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+           // dd($id, $request->name);
+        $japanese = Food_Japanese::find($id);
+        $description = Description_Japanese::where('japanese_id', $japanese->id)->first();
+
+        $japanese->name = $request->name;
+        $japanese->price_bs = $request->price_bs;
+        $japanese->price_us = $request->price_us;
+        $japanese->type = $request->type;
+        $japanese->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'japanese' => $japanese,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

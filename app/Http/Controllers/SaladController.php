@@ -30,9 +30,25 @@ class SaladController extends Controller
         return response()->json($salad);
     }
 
-      public function photoSalad(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+            // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -67,47 +83,6 @@ class SaladController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editSalad(Request $request, $id){
-        // dd($id, $request->name);
-        $salad = Food_Salad::find($id);
-        $description = Description_Salad::where('salad_id', $salad->id)->first();
-
-        $salad->name = $request->name;
-        $salad->price_bs = $request->price_bs;
-        $salad->price_us = $request->price_us;
-        $salad->type = $request->type;
-        $salad->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'salad' => $salad,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -139,7 +114,22 @@ class SaladController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         // dd($id, $request->name);
+        $salad = Food_Salad::find($id);
+        $description = Description_Salad::where('salad_id', $salad->id)->first();
+
+        $salad->name = $request->name;
+        $salad->price_bs = $request->price_bs;
+        $salad->price_us = $request->price_us;
+        $salad->type = $request->type;
+        $salad->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'salad' => $salad,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

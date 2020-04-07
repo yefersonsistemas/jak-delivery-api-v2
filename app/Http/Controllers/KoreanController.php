@@ -30,9 +30,25 @@ class KoreanController extends Controller
         return response()->json($korean);
     }
 
-      public function photoKorean(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+          // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -67,47 +83,6 @@ class KoreanController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editKorean(Request $request, $id){
-        // dd($id, $request->name);
-        $korean = Food_Korean::find($id);
-        $description = Description_Korean::where('korean_id', $korean->id)->first();
-
-        $korean->name = $request->name;
-        $korean->price_bs = $request->price_bs;
-        $korean->price_us = $request->price_us;
-        $korean->type = $request->type;
-        $korean->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'korean' => $korean,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -139,7 +114,22 @@ class KoreanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            // dd($id, $request->name);
+        $korean = Food_Korean::find($id);
+        $description = Description_Korean::where('korean_id', $korean->id)->first();
+
+        $korean->name = $request->name;
+        $korean->price_bs = $request->price_bs;
+        $korean->price_us = $request->price_us;
+        $korean->type = $request->type;
+        $korean->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'korean' => $korean,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

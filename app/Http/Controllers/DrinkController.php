@@ -30,9 +30,25 @@ class DrinkController extends Controller
         return response()->json($drink);
     }
 
-      public function photodrink(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+             // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -68,47 +84,6 @@ class DrinkController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editDrink(Request $request, $id){
-        // dd($id, $request->name);
-        $drink = Drink::find($id);
-        $description = Description_Drink::where('drink_id', $drink->id)->first();
-
-        $drink->name = $request->name;
-        $drink->price_bs = $request->price_bs;
-        $drink->price_us = $request->price_us;
-        $drink->type_drink = $request->type_drink;
-        $drink->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([            
-            'drink' => $drink,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -140,7 +115,22 @@ class DrinkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+               // dd($id, $request->name);
+        $drink = Drink::find($id);
+        $description = Description_Drink::where('drink_id', $drink->id)->first();
+
+        $drink->name = $request->name;
+        $drink->price_bs = $request->price_bs;
+        $drink->price_us = $request->price_us;
+        $drink->type_drink = $request->type_drink;
+        $drink->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([            
+            'drink' => $drink,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

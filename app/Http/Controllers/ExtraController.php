@@ -30,9 +30,25 @@ class ExtraController extends Controller
         return response()->json($extra);
     }
 
-      public function photoextra(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+          // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -67,47 +83,6 @@ class ExtraController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editExtra(Request $request, $id){
-        // dd($id, $request->name);
-        $extra = Extra::find($id);
-        $description = Description_Extra::where('extra_id', $extra->id)->first();
-
-        $extra->name = $request->name;
-        $extra->price_bs = $request->price_bs;
-        $extra->price_us = $request->price_us;
-        $extra->type_extra = $request->type_extra;
-        $extra->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'extra' => $extra,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -139,7 +114,22 @@ class ExtraController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($id, $request->name);
+        $extra = Extra::find($id);
+        $description = Description_Extra::where('extra_id', $extra->id)->first();
+
+        $extra->name = $request->name;
+        $extra->price_bs = $request->price_bs;
+        $extra->price_us = $request->price_us;
+        $extra->type_extra = $request->type_extra;
+        $extra->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'extra' => $extra,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

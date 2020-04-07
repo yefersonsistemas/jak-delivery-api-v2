@@ -30,9 +30,25 @@ class ItalianController extends Controller
         return response()->json($italian);
     }
 
-      public function photoItalian(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+          // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -67,47 +83,6 @@ class ItalianController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editItalian(Request $request, $id){
-        // dd($id, $request->name);
-        $italian = Food_Italian::find($id);
-        $description = Description_Italian::where('italian_id', $italian->id)->first();
-
-        $italian->name = $request->name;
-        $italian->price_bs = $request->price_bs;
-        $italian->price_us = $request->price_us;
-        $italian->type = $request->type;
-        $italian->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'italian' => $italian,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -139,7 +114,22 @@ class ItalianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+             // dd($id, $request->name);
+        $italian = Food_Italian::find($id);
+        $description = Description_Italian::where('italian_id', $italian->id)->first();
+
+        $italian->name = $request->name;
+        $italian->price_bs = $request->price_bs;
+        $italian->price_us = $request->price_us;
+        $italian->type = $request->type;
+        $italian->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'italian' => $italian,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

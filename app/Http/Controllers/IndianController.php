@@ -30,9 +30,26 @@ class IndianController extends Controller
         return response()->json($indian);
     }
 
-      public function photoIndian(Request $request)
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+           // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -67,47 +84,6 @@ class IndianController extends Controller
         return response()->json('Guardado con exito');
     }
 
-    
-    public function editIndian(Request $request, $id){
-        // dd($id, $request->name);
-        $indian = Food_Indian::find($id);
-        $description = Description_Indian::where('indian_id', $indian->id)->first();
-
-        $indian->name = $request->name;
-        $indian->price_bs = $request->price_bs;
-        $indian->price_us = $request->price_us;
-        $indian->type = $request->type;
-        $indian->save();
-
-        $description->description = $request->description;
-        $description->save();
-
-        return response()->json([
-            'indian' => $indian,
-            'message' => 'Cambios guardados exitosamente.!']);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -139,7 +115,22 @@ class IndianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          // dd($id, $request->name);
+        $indian = Food_Indian::find($id);
+        $description = Description_Indian::where('indian_id', $indian->id)->first();
+
+        $indian->name = $request->name;
+        $indian->price_bs = $request->price_bs;
+        $indian->price_us = $request->price_us;
+        $indian->type = $request->type;
+        $indian->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'indian' => $indian,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
