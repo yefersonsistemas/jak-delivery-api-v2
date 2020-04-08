@@ -62,6 +62,32 @@ class OrderController extends Controller
         'drink', 'extra', 'salad', 'vegan', 'vegetarian', 'traditional', 'chinese', 'liquor', 'fruit', 'greengrocer',
         'victual', 'delicatesse', 'bakery', 'fridge', 'lunch', 'typepayment')->where('id', $id)->first();
 
+        $arabe = Food_Arabian::with('description')->get();
+        $rapida = Food_Burguer::with('description')->get();
+        $china = Food_Chinese::with('description')->get();
+        $japonesa = Food_Japanese::with('description')->get();
+        $corana = Food_Korean::with('description')->get();
+        $italiana = Food_Italian::with('description')->get();
+        $india = Food_Indian::with('description')->get();
+        $pollo = Food_Chicken::with('description')->get();
+        $pizza_c = Food_Pizza::with('description')->get();
+        $mexicana = Food_Mexican::with('description')->get();
+        $enslada = Food_Salad::with('description')->get();
+        $vegetariana = Food_Vegetarian::with('description')->get();
+        $vegano = Food_Vegan::with('description')->get();
+        $tradicional = Food_Traditional::with('description')->get();
+        $licor = Food_Liquor_Store::with('description')->get();
+        $fruta = Food_Fruit_Store::with('description')->get();
+        $vivere = Victual::with('description')->get();
+        $verdura = Greengrocer::with('description')->get();
+        $charcuteria = Delicatesse::with('description')->get();
+        $panaderia = Bakery::with('description')->get();
+        $desayuno = Lunch::with('description')->get();
+        $bebida = Drink::with('description')->get();
+        $extra_c = Extra::with('description')->get();
+        $carne = Fridge::with('description')->get();
+        $pago = Typepayment::get();
+
         //se decodifica el tipo comida solicitada
         $arabian = Food_Arabian::explode(',', $order->arabian_id);
         $chinese = Food_Chinese::explode(',', $order->chinese_id);
@@ -96,11 +122,11 @@ class OrderController extends Controller
         if(!empty($arabian)){
             for ($i=0; $i < count($arabian) ; $i++) {          //buscando datos de cada comida
                 $arabian[] = Food_Arabian::find($arabian[$i]);
-                    $total += $arabian[$i]->price_bs;
+                    $total += $Arabian[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $arabian = null;
+            $Arabian = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -108,11 +134,11 @@ class OrderController extends Controller
         if(!empty($burguer)){
             for ($i=0; $i < count($burguer) ; $i++) {         
                 $burguer[] = Food_Burguer::find($burguer[$i]);
-                    $total += $burguer[$i]->price_bs;
+                    $total += $Burguer[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $burguer = null;
+            $Burguer = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -120,11 +146,11 @@ class OrderController extends Controller
         if(!empty($indian)){
             for ($i=0; $i < count($indian) ; $i++) {         
                 $indian[] = Food_Indian::find($indian[$i]);
-                    $total += $indian[$i]->price_bs;
+                    $total += $Indian[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $indian = null;
+            $Indian = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -132,11 +158,11 @@ class OrderController extends Controller
         if(!empty($italian)){
             for ($i=0; $i < count($italian) ; $i++) {         
                 $italian[] = Food_Italian::find($italian[$i]);
-                    $total += $italian[$i]->price_bs;
+                    $total += $Italian[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $italian = null;
+            $Italian = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -144,11 +170,11 @@ class OrderController extends Controller
         if(!empty($pizza)){
             for ($i=0; $i < count($pizza) ; $i++) {         
                 $pizza[] = Food_Pizza::find($pizza[$i]);
-                    $total += $pizza[$i]->price_bs;
+                    $total += $Pizza[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $pizza = null;
+            $Pizza = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -156,11 +182,11 @@ class OrderController extends Controller
         if(!empty($chinese)){
             for ($i=0; $i < count($chinese) ; $i++) {         
                 $chinese[] = Food_cChinese::find($chinese[$i]);
-                    $total += $chinese[$i]->price_bs;
+                    $total += $Chinese[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $chinese = null;
+            $Chinese = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -168,11 +194,11 @@ class OrderController extends Controller
         if(!empty($japanese)){
             for ($i=0; $i < count($japanese) ; $i++) {         
                 $japanese[] = Food_Japanese::find($japanese[$i]);
-                    $total += $japanese[$i]->price_bs;
+                    $total += $Japanese[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $japanese = null;
+            $Japanese = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -180,11 +206,11 @@ class OrderController extends Controller
         if(!empty($mexican)){
             for ($i=0; $i < count($mexican) ; $i++) {         
                 $mexican[] = Food_Mexican::find($mexican[$i]);
-                    $total += $mexican[$i]->price_bs;
+                    $total += $Mexican[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $mexican = null;
+            $Mexican = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -192,11 +218,11 @@ class OrderController extends Controller
         if(!empty($korean)){
             for ($i=0; $i < count($korean) ; $i++) {         
                 $korean[] = Food_Korean::find($korean[$i]);
-                    $total += $korean[$i]->price_bs;
+                    $total += $Korean[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $korean = null;
+            $Korean = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -204,11 +230,11 @@ class OrderController extends Controller
         if(!empty($chicken)){
             for ($i=0; $i < count($chicken) ; $i++) {         
                 $chicken[] = Food_Chicken::find($chicken[$i]);
-                    $total += $chicken[$i]->price_bs;
+                    $total += $Chicken[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $chicken = null;
+            $Chicken = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -216,11 +242,11 @@ class OrderController extends Controller
         if(!empty($salad)){
             for ($i=0; $i < count($salad) ; $i++) {         
                 $salad[] = Food_Salad::find($salad[$i]);
-                    $total += $salad[$i]->price_bs;
+                    $total += $Salad[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $salad = null;
+            $Salad = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -228,11 +254,11 @@ class OrderController extends Controller
         if(!empty($vegan)){
             for ($i=0; $i < count($vegan) ; $i++) {         
                 $vegan[] = Food_Vegan::find($vegan[$i]);
-                    $total += $vegan[$i]->price_bs;
+                    $total += $Vegan[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $vegan = null;
+            $Vegan = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -240,11 +266,11 @@ class OrderController extends Controller
         if(!empty($vegetarian)){
             for ($i=0; $i < count($vegetarian) ; $i++) {         
                 $vegetarian[] = Food_Vegetarian::find($vegetarian[$i]);
-                    $total += $vegetarian[$i]->price_bs;
+                    $total += $Vegetarian[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $vegetarian = null;
+            $Vegetarian = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -252,11 +278,11 @@ class OrderController extends Controller
         if(!empty($traditional)){
             for ($i=0; $i < count($traditional) ; $i++) {         
                 $traditional[] = Food_traditional::find($traditional[$i]);
-                    $total += $traditional[$i]->price_bs;
+                    $total += $Traditional[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $traditional = null;
+            $Traditional = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -264,11 +290,11 @@ class OrderController extends Controller
         if(!empty($extra)){
             for ($i=0; $i < count($extra) ; $i++) {         
                 $extra[] = Extra::find($extra[$i]);
-                    $total += $extra[$i]->price_bs;
+                    $total += $Extra[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $extra = null;
+            $Extra = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -276,11 +302,11 @@ class OrderController extends Controller
         if(!empty($drink)){
             for ($i=0; $i < count($drink) ; $i++) {         
                 $drink[] = Drink::find($drink[$i]);
-                    $total += $drink[$i]->price_bs;
+                    $total += $Drink[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $drink = null;
+            $Drink = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -288,11 +314,11 @@ class OrderController extends Controller
         if(!empty($liquor)){
             for ($i=0; $i < count($liquor) ; $i++) {         
                 $liquor[] = liquor_store::find($liquor[$i]);
-                    $total += $liquor[$i]->price_bs;
+                    $total += $Liquor[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $liquor = null;
+            $Liquor = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -300,11 +326,11 @@ class OrderController extends Controller
         if(!empty($fruit)){
             for ($i=0; $i < count($fruit) ; $i++) {         
                 $fruit[] = Fruit_Store::find($fruit[$i]);
-                    $total += $fruit[$i]->price_bs;
+                    $total += $Fruit[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $fruit = null;
+            $Fruit = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -312,11 +338,11 @@ class OrderController extends Controller
         if(!empty($victual)){
             for ($i=0; $i < count($victual) ; $i++) {         
                 $victual[] = Victual::find($victual[$i]);
-                    $total += $victual[$i]->price_bs;
+                    $total += $Victual[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $victual = null;
+            $Victual = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -324,11 +350,11 @@ class OrderController extends Controller
         if(!empty($delicatesse)){
             for ($i=0; $i < count($delicatesse) ; $i++) {         
                 $delicatesse[] = Delicatesse::find($delicatesse[$i]);
-                    $total += $delicatesse[$i]->price_bs;
+                    $total += $Delicatesse[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $delicatesse = null;
+            $Delicatesse = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -336,11 +362,11 @@ class OrderController extends Controller
         if(!empty($bakery)){
             for ($i=0; $i < count($bakery) ; $i++) {         
                 $bakery[] = Bakery::find($bakery[$i]);
-                    $total += $bakery[$i]->price_bs;
+                    $total += $Bakery[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $bakery = null;
+            $Bakery = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -348,11 +374,11 @@ class OrderController extends Controller
         if(!empty($lunch)){
             for ($i=0; $i < count($lunch) ; $i++) {         
                 $lunch[] = Lunch::find($lunch[$i]);
-                    $total += $lunch[$i]->price_bs;
+                    $total += $Lunch[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $lunch = null;
+            $Lunch = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -360,11 +386,11 @@ class OrderController extends Controller
         if(!empty($greengrocer)){
             for ($i=0; $i < count($greengrocer) ; $i++) {         
                 $greengrocer[] = Greengrocer::find($greengrocer[$i]);
-                    $total += $greengrocer[$i]->price_bs;
+                    $total += $Greengrocer[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $greengrocer = null;
+            $Greengrocer = null;
             $total_bs = null;
             $total_us = null;
         }
@@ -372,11 +398,11 @@ class OrderController extends Controller
         if(!empty($fridge)){
             for ($i=0; $i < count($fridge) ; $i++) {         
                 $fridge[] = fridge::find($fridge[$i]);
-                    $total += $fridge[$i]->price_bs;
+                    $total += $Fridge[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $fridge = null;
+            $Fridge = null;
             $total_bs = null;
             $total_us = null;
         }

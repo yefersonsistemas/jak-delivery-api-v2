@@ -24,9 +24,14 @@ class Provider extends Model
         return $this->belongsTo('App\Address', 'address_id');
     }
 
+      public function person()
+    {
+        return $this->belongsTo('App\Person');
+    }
+
     public function user()
     {
-        return $this->hasOne('App\User', 'provider_id');
+        return $this->hasOne('App\User');
     }
 
     public function delicatesse()

@@ -22,4 +22,8 @@ class Food_Japanese extends Model
     {
         return $this->morphOne('App\Image', 'imageable');
     }
+
+      public function description() {
+        return $this->belongsTo('App\Description_Japanese');
+    }
 }
