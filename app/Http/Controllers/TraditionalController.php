@@ -30,7 +30,23 @@ class TraditionalController extends Controller
         return response()->json($traditional);
     }
 
-      public function photoTraditional(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         // dd($request);
         
@@ -40,7 +56,7 @@ class TraditionalController extends Controller
         $traditional =  Food_Traditional::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,27 +81,6 @@ class TraditionalController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -119,7 +114,22 @@ class TraditionalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            // dd($id, $request->name);
+        $traditional = Food_Traditional::find($id);
+        $description = Description_Traditional::where('traditional_id', $traditional->id)->first();
+
+        $traditional->name = $request->name;
+        $traditional->price_bs = $request->price_bs;
+        $traditional->price_us = $request->price_us;
+        $traditional->type = $request->type;
+        $traditional->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'traditional' => $traditional,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -130,6 +140,12 @@ class TraditionalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $traditional = Food_Traditional::find($id);
+        $description = Description_Traditional::where('traditional_id', $traditional->id)->first();
+
+        $traditional->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

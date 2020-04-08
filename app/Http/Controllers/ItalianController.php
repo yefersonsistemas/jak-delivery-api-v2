@@ -30,9 +30,25 @@ class ItalianController extends Controller
         return response()->json($italian);
     }
 
-      public function photoItalian(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+          // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -40,7 +56,7 @@ class ItalianController extends Controller
         $italian =  Food_Italian::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,27 +81,6 @@ class ItalianController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -119,7 +114,22 @@ class ItalianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+             // dd($id, $request->name);
+        $italian = Food_Italian::find($id);
+        $description = Description_Italian::where('italian_id', $italian->id)->first();
+
+        $italian->name = $request->name;
+        $italian->price_bs = $request->price_bs;
+        $italian->price_us = $request->price_us;
+        $italian->type = $request->type;
+        $italian->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'italian' => $italian,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -130,6 +140,12 @@ class ItalianController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Italian = Food_Italian::find($id);
+        $description = Description_Italian::where('Italian_id', $Italian->id)->first();
+
+        $Italian->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

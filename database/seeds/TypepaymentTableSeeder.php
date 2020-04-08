@@ -14,9 +14,9 @@ class TypepaymentTableSeeder extends Seeder
     {
         Typepayment::truncate();
         
-        factory(Typepayment::class)->create([
-            'name' => 'Efectivo',
-        ]);
+        // factory(Typepayment::class)->create([
+        //     'name' => 'Efectivo',
+        // ]);
 
         factory(Typepayment::class)->create([
             'name' => 'Pago Móvil',

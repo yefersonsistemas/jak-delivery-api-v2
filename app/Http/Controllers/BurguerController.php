@@ -31,8 +31,24 @@ class BurguerController extends Controller
         
         return response()->json($burguer);
     }
+    
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
 
-    public function photoBurguer(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         // dd($request);
         
@@ -42,7 +58,7 @@ class BurguerController extends Controller
         $burguer =  Food_Burguer::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -67,27 +83,6 @@ class BurguerController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -121,7 +116,22 @@ class BurguerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+             // dd($id, $request->name);
+        $burguer = Food_Burguer::find($id);
+        $description = Description_Burguer::where('burguer_id', $burguer->id)->first();
+
+        $burguer->name = $request->name;
+        $burguer->price_bs = $request->price_bs;
+        $burguer->price_us = $request->price_us;
+        $burguer->type = $request->type;
+        $burguer->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'burguer' => $burguer,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -132,6 +142,12 @@ class BurguerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $burguer = Food_Burguer::find($id);
+        $description = Description_Burguer::where('burguer_id', $burguer->id)->first();
+
+        $burguer->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

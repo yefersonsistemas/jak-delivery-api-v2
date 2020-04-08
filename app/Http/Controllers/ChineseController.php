@@ -30,9 +30,25 @@ class ChineseController extends Controller
         return response()->json($chinese);
     }
 
-      public function photoChinese(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+             // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -40,7 +56,7 @@ class ChineseController extends Controller
         $chinese =  Food_Chinese::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_ud'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,27 +81,6 @@ class ChineseController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -119,7 +114,22 @@ class ChineseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          // dd($id, $request->name);
+        $chinese = Food_Chinese::find($id);
+        $description = Description_Chinese::where('chinese_id', $chinese->id)->first();
+
+        $chinese->name = $request->name;
+        $chinese->price_bs = $request->price_bs;
+        $chinese->price_us = $request->price_us;
+        $chinese->type = $request->type;
+        $chinese->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'chinese' => $chinese,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**

@@ -30,7 +30,25 @@ class ChickenController extends Controller
         return response()->json($chicken);
     }
 
-      public function photoChicken(Request $request)
+    
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         // dd($request);
         
@@ -40,7 +58,7 @@ class ChickenController extends Controller
         $chicken =  Food_Chicken::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,27 +83,6 @@ class ChickenController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -119,7 +116,22 @@ class ChickenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+                // dd($id, $request->name);
+        $chicken = Food_Chicken::find($id);
+        $description = Description_Chicken::where('chicken_id', $chicken->id)->first();
+
+        $chicken->name = $request->name;
+        $chicken->price_bs = $request->price_bs;
+        $chicken->price_us = $request->price_us;
+        $chicken->type = $request->type;
+        $chicken->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'chicken' => $chicken,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -130,6 +142,12 @@ class ChickenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $chicken = Food_Chicken::find($id);
+        $description = Description_Chicken::where('chicken_id', $chicken->id)->first();
+
+        $chicken->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

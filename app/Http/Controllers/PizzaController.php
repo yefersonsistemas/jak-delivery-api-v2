@@ -30,9 +30,25 @@ class PizzaController extends Controller
         return response()->json($pizza);
     }
 
-      public function photoPizza(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+             // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -40,7 +56,7 @@ class PizzaController extends Controller
         $pizza =  Food_Pizza::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -65,27 +81,6 @@ class PizzaController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -119,7 +114,22 @@ class PizzaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            // dd($id, $request->name);
+        $pizza = Food_Pizza::find($id);
+        $description = Description_Pizza::where('pizza_id', $pizza->id)->first();
+
+        $pizza->name = $request->name;
+        $pizza->price_bs = $request->price_bs;
+        $pizza->price_us = $request->price_us;
+        $pizza->type = $request->type;
+        $pizza->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'pizza' => $pizza,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -130,6 +140,12 @@ class PizzaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pizza = Food_Pizza::find($id);
+        $description = Description_Pizza::where('pizza_id', $pizza->id)->first();
+
+        $pizza->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

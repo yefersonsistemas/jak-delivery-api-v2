@@ -23,9 +23,9 @@ class MunicipalityTableSeeder extends Seeder
             'name' => 'Crespo',
         ]);
 
-        factory(Municipality::class)->create([
-            'name' => 'Iribarren',
-        ]);
+        // factory(Municipality::class)->create([
+        //     'name' => 'Iribarren',
+        // ]);
 
         factory(Municipality::class)->create([
             'name' => 'Jiménez',

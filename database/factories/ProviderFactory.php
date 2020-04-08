@@ -11,6 +11,6 @@ $factory->define(Provider::class, function (Faker $faker) {
     return [
         'person_id' => $faker->firstName,
         'price_delivery'=> $faker->lastName,
-        'typepayment' => $typepayment->id,
+        'typepayment_id' => $typepayment->id,
     ];
 });

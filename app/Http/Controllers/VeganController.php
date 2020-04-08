@@ -30,9 +30,25 @@ class VeganController extends Controller
         return response()->json($vegan);
     }
 
-      public function photoVegan(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        // dd($request);
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+                // dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -40,7 +56,7 @@ class VeganController extends Controller
         $vegan =  Food_Vegan::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
-            'price_ud'     => $request->price_ud,
+            'price_us'     => $request->price_us,
             'type'         => $request->type,
             'providers_id' => $provider->id,
         ]);
@@ -69,26 +85,6 @@ class VeganController extends Controller
         $image->save();
 
         return response()->json('Guardado con exito');
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -122,7 +118,22 @@ class VeganController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          // dd($id, $request->name);
+        $vegan = Food_Vegan::find($id);
+        $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
+
+        $vegan->name = $request->name;
+        $vegan->price_bs = $request->price_bs;
+        $vegan->price_us = $request->price_us;
+        $vegan->type = $request->type;
+        $vegan->save();
+
+        $description->description = $request->description;
+        $description->save();
+
+        return response()->json([
+            'vegan' => $vegan,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -133,6 +144,12 @@ class VeganController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vegan = Food_Vegan::find($id);
+        $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
+
+        $vegan->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

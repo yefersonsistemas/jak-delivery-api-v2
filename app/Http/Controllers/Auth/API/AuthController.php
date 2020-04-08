@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers\Auth\Api ;
 
-use App\BranchOffice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\UserLoginRequest;
 use App\Http\Requests\Api\UserRegisterRequest;
@@ -89,7 +88,7 @@ class AuthController extends Controller
         try {
            
                 $person = Person::whereEmail($request->email)->first();
-                // dd($_user->email);
+                // dd($person);
 
                 if ($person == null) {
                     return response()->json([

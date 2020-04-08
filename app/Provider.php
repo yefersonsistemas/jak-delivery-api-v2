@@ -3,15 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Illuminate\Notifications\Notifiable;
+// use Laravel\Passport\HasApiTokens;
+// use Spatie\Permission\Traits\HasRoles;
 
 class Provider extends Model
 {
-    use HasApiTokens, Notifiable, HasRoles;
+    // use HasApiTokens, Notifiable, HasRoles;
     
     protected $table = 'providers';
 
