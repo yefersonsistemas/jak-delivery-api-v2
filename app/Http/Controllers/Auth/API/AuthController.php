@@ -7,6 +7,7 @@ use App\Http\Requests\Api\UserLoginRequest;
 use App\Http\Requests\Api\UserRegisterRequest;
 use App\Person;
 use App\User;
+use App\Courier;
 use App\Provider;
 use App\Address;
 use App\Client;
