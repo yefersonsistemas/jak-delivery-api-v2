@@ -167,7 +167,7 @@ class UserTableSeeder extends Seeder
             'dni' => '944297860',
             'name' => 'el perro de la 42',
             'lastname' => null,
-            'phone' => '02522612523',
+            'phone' => '02522612588',
             'email' => 'elperro@hotmail.com',
             'address_id' => $address->id,
         ]);
@@ -203,7 +203,7 @@ class UserTableSeeder extends Seeder
             'dni' => '000123860',
             'name' => 'china town',
             'lastname' => null,
-            'phone' => '02522612523',
+            'phone' => '02522612510',
             'email' => 'chinatown@hotmail.com',
             'address_id' => $address->id,
         ]);
