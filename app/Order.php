@@ -29,4 +29,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\Courier', 'courier_id');
     }
+
+      public function assigment()
+    {
+        return $this->belongsTo('App\AssigmentOrder');
+    }
 }

@@ -17,4 +17,9 @@ class Courier extends Model
     public function person() {
         return $this->belongsTo('App\Person');
     }
+
+      public function order()
+    {
+        return $this->hasMany('App\Order');
+    }
 }

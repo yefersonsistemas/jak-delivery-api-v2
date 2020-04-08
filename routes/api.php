@@ -141,5 +141,10 @@ Route::group(['prefix' => 'auth'], function () {
             Route::delete('{id}', 'SaladController@destroy');
         });
 
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('order/day', 'OrderController@index');
+            Route::post('postulate', 'OrderController@assigment');
+        });
+
 
 });

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Order;
+use App\AssigmentOrder;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -13,9 +17,28 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $order = Order::whereDate('created_at', Carbon::now()->format('d-m-Y'))->get();
+
+        return response()->json($order);
     }
 
+    public function assigment($id){
+
+        $user = Auth::id();  //trae el courier en sesion que se postula
+        $courier = Courier::with('person')->where('id', $user)->first();  //compara el user y lo busca en la tabla courier
+        $order = Order::find($id);  //busca el id de la orden que se asignara
+
+        $postulado = AssigmentOrder::create([  //se crea el registro de la asignacion del pedido
+             'courier_id' => $courier->id,
+             'order_id' => $order,
+        ]);
+
+        $order->courier_id = $courier->id;  //se actualiza la orden y se guarda el courier que la entregara
+        $order->save();
+
+        return response()->json($order);
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +57,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
