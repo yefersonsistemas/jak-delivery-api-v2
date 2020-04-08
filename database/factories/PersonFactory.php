@@ -15,7 +15,7 @@ $factory->define(Person::class, function (Faker $faker) {
         'lastname'=> $faker->lastName,
         'phone' => $faker->numberBetween(04140000000, 04260000000),
         'email' => $faker->email,
-        'addres_id' => $address->id,
+        'address_id' => $address->id,
 
     ];
 });

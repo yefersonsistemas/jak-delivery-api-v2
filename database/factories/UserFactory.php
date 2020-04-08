@@ -5,6 +5,7 @@
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use App\Person;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,12 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    // $person = Person::inRandomOrder()->first();
+    $person = Person::inRandomOrder()->first();
     // $provider = Provider::inRandomOrder()->first();
-    $$courier = Courier::inRandomOrder()->first();
+    // $courier = Courier::inRandomOrder()->first();
     return [
         // 'name' => $faker->name,
-        'person_id' => null,
-        'provider_id' => null,
+        'person_id' =>  $person->id,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
