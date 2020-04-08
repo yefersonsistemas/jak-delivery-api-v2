@@ -15,16 +15,10 @@ class CreateCouriersTable extends Migration
     {
         Schema::create('couriers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('person_id');
             $table->enum('type_vehicle', ['Moto', 'Automovil']);
             $table->integer('bussiness_delivery');
-            $table->unsignedBigInteger('person_id');
-            $table->unsignedBigInteger('address_id');
             $table->timestamps();
-
-            $table->foreign('address_id')
-            ->references('id')
-            ->on('address')
-            ->onDelete('CASCADE');
 
             $table->foreign('person_id')
             ->references('id')

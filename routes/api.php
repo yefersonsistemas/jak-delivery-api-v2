@@ -73,19 +73,39 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('create/korean', 'KoreanController@photoKorean');
         });
 
-         Route::group(['prefix' => 'foodP'], function () {
+         Route::group(['prefix' => 'foodP'], function () {  //pollo
             Route::post('chicken', 'ChickenController@chicken');
             Route::post('create/chicken', 'ChickenController@photoChicken');
         });
 
-          Route::group(['prefix' => 'foodV'], function () {
+          Route::group(['prefix' => 'foodV'], function () { //vegetarian
             Route::post('vegetarian', 'VegetarianController@vegetarian');
             Route::post('create/vegetarian', 'vegetarianController@photoVegetarian');
         });
 
-          Route::group(['prefix' => 'foodVe'], function () {
+          Route::group(['prefix' => 'foodVe'], function () { //vegan
             Route::post('vegan', 'VeganController@vegan');
             Route::post('create/vegan', 'VeganController@photoVegan');
+        });
+
+         Route::group(['prefix' => 'foodPi'], function () { //pizza
+            Route::post('pizza', 'PizzaController@pizza');
+            Route::post('create/pizza', 'PizzaController@photoPizza');
+        });
+
+         Route::group(['prefix' => 'foodD'], function () {
+            Route::post('drink', 'DrinkController@drink');
+            Route::post('create/drink', 'DrinkController@photoDrink');
+        });
+
+         Route::group(['prefix' => 'foodE'], function () {
+            Route::post('extra', 'ExtraController@extra');
+            Route::post('create/extra', 'ExtraController@photoExtra');
+        });
+
+         Route::group(['prefix' => 'foodS'], function () {
+            Route::post('salad', 'SaladController@salad');
+            Route::post('create/salad', 'SaladController@photoSalad');
         });
 
 

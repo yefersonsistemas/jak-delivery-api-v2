@@ -18,14 +18,20 @@ class DatabaseSeeder extends Seeder
             $this->call(MunicipalityTableSeeder::class);
             $this->call(ParisheTableSeeder::class);
             $this->call(StateTableSeeder::class);
-            $this->call(PersonTableSeeder::class);
-            $this->call(ClientTableSeeder::class);
-            $this->call(CourierTableSeeder::class);
-            $this->call(ProviderTableSeeder::class);
+            // $this->call(AddressTableSeeder::class);
+            // $this->call(PersonTableSeeder::class);
+            // $this->call(ClientTableSeeder::class);
+            // $this->call(CourierTableSeeder::class);
+            // $this->call(ProviderTableSeeder::class);
             $this->call(UserTableSeeder::class);
-            $this->call(TypepaymentTableSeeder::class);
-            $this->call(BurguerTableSeeder::class);
-            $this->call(DescriptionBurguerTableSeeder::class);
+            // $this->call(TypepaymentTableSeeder::class);
+            // $this->call(ImageTableSeeder::class);
+            // $this->call(BurguerTableSeeder::class);
+            // $this->call(DescriptionBurguerTableSeeder::class);
+            // $this->call(VeganTableSeeder::class);
+            // $this->call(DescriptionVeganTableSeeder::class);
+            // $this->call(VegetarianTableSeeder::class);
+            // $this->call(DescriptionVegetarianTableSeeder::class);
             Schema::enableForeignKeyConstraints();
         }
 }

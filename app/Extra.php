@@ -9,7 +9,7 @@ class Extra extends Model
     protected $table = 'extras';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'type_extra', 'providers_id'
+        'name', 'price_bs', 'price_ud', 'type_extra', 'providers_id'
     ];
 
     public function provider()

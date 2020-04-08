@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Food_Salad;
+use App\Description_Salad;
+use App\Image;
 
 class SaladController extends Controller
 {
@@ -14,6 +18,53 @@ class SaladController extends Controller
     public function index()
     {
         //
+    }
+
+    public function salad(Request $request){
+        // dd($request);
+        $user = User::find($request->id);
+        // dd($user);
+        $salad = Food_Salad::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
+        // dd( $salad); 
+        
+        return response()->json($salad);
+    }
+
+      public function photoSalad(Request $request)
+    {
+        // dd($request);
+        
+        $provider = User::find($request->id);
+        // dd( $provider);
+        
+        $salad =  Food_Salad::create([
+            'name'         => $request->name,
+            'price_bs'     => $request->price_bs,
+            'price_ud'     => $request->price_ud,
+            'type'         => $request->type,
+            'providers_id' => $provider->id,
+        ]);
+        
+        $description = Description_Salad::create([
+            'description' => $request->description,
+            'providers_id' => $provider->id,
+            'salads_id' =>  $salad->id,
+        ]);
+        
+        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // dd($image);
+        // $path = $image->store('public/salad');  //se guarda en la carpeta public
+        // dd($path);
+        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en salad
+        // dd($path);
+        $image = new Image;
+        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        $image->path = $request->image;
+        $image->imageable_type = "App\Food_Salad";
+        $image->imageable_id = $salad->id;
+        $image->save();
+
+        return response()->json('Guardado con exito');
     }
 
     /**
