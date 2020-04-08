@@ -147,5 +147,11 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('pedido/{id}/{usd}', 'OrderController@store');
         });
 
+         Route::group(['prefix' => 'providers'], function () {
+            Route::get('proveedor', 'ProviderController@index');
+        });
+
+
+
 
 });
