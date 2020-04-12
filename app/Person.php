@@ -32,7 +32,7 @@ class Person extends Model
         return $this->belongsTo('App\Courier');
     }
 
-      public function provider()
+    public function provider()
     {
         return $this->belongsTo('App\Provider');
     }

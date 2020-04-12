@@ -151,7 +151,10 @@ Route::group(['prefix' => 'auth'], function () {
             Route::get('proveedor', 'ProviderController@index');
         });
 
-
+        Route::group(['prefix' => 'profiles'], function () {
+            route::post('profile', 'UserController@profile' );
+            route::post('profile/edit', 'UserController@profile_edit' );
+        });
 
 
 });
