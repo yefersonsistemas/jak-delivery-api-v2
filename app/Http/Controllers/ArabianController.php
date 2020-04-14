@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\Food_Arabian;
@@ -30,42 +31,6 @@ class ArabianController extends Controller
         return response()->json($arabian);
     }
 
-    //  public function photoArabian(Request $request)
-    // {
-    //     // dd($request);
-        
-    //     $provider = User::find($request->id);
-    //     // dd( $provider);
-        
-    //     $arabian =  Food_Arabian::create([
-    //         'name'         => $request->name,
-    //         'price_bs'     => $request->price_bs,
-    //         'price_us'     => $request->price_us,
-    //         'type'         => $request->type,
-    //         'providers_id' => $provider->id,
-    //     ]);
-        
-    //     $description = Description_Arabian::create([
-    //         'description' => $request->description,
-    //         'providers_id' => $provider->id,
-    //         'arabian_id' =>  $arabian->id,
-    //     ]);
-        
-    //     // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
-    //     // dd($image);
-    //     // $path = $image->store('public/arabian');  //se guarda en la carpeta public
-    //     // dd($path);
-    //     // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en arabian
-    //     // dd($path);
-    //     $image = new Image;
-    //     // $image->path = $path;  //esta es la forma original si se guardara la img en storage
-    //     $image->path = $request->image;
-    //     $image->imageable_type = "App\Food_Arabian";
-    //     $image->imageable_id = $arabian->id;
-    //     $image->save();
-
-    //     return response()->json('Guardado con exito');
-    // }
 
     /**
      * Show the form for creating a new resource.
@@ -85,7 +50,7 @@ class ArabianController extends Controller
      */
     public function store(Request $request)
     {
-        //    dd($request);
+        //dd($request);
         
         $provider = User::find($request->id);
         // dd( $provider);
@@ -151,7 +116,7 @@ class ArabianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($id,$request);
+        dd($id,$request);
         $arabian = Food_Arabian::find($id);
         $description = Description_Arabian::where('arabian_id', $arabian->id)->first();
 

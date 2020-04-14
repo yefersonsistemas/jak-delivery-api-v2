@@ -29,6 +29,8 @@ use App\Description_Pizza;
 use App\Drink;
 use App\Description_Drink;
 use App\Image;
+use App\Client;
+use App\Courier;
 
 use App\Traits\ImageFactory;
 use Spatie\Permission\Models\Permission;
@@ -49,6 +51,8 @@ class UserTableSeeder extends Seeder
         Address::truncate();
         Provider::truncate();
         Image::truncate();
+        Client::truncate();
+        Courier::truncate();
         Food_Burguer::truncate();
         Description_Burguer::truncate();
         Food_Japanese::truncate();
@@ -234,7 +238,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Efectivo',
         ]);
 
-        $provider = factory(Provider::class)->create([
+        $provider2 = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 100000,
             'typepayment_id' =>  $typepayment->id,
@@ -245,14 +249,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 150000,
             'price_us'     => 1,
             'type'         => 'hamburguesa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
         ]);
         
         $this->to('comida-rapida', $burguer->id, 'App\Food_Burguer');
 
         $description = factory(Description_Burguer::class)->create([
             'description' => 'Doble carne y huevo frito',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
             'burguer_id' =>  $burguer->id,
         ]);
 
@@ -261,7 +265,7 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 180000,
             'price_us'     => 2,
             'type'         => 'pollo',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
         ]);
 
         
@@ -269,7 +273,7 @@ class UserTableSeeder extends Seeder
         
         $description = factory(Description_Chicken::class)->create([
             'description' => 'pollo asado familiar con ensalada dulce y 4 hallaquitas',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
             'chicken_id' =>  $chicken->id,
         ]);
 
@@ -278,14 +282,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 230000,
             'price_us'     => 4,
             'type'         => 'pizza',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
         ]);
         
         $this->to('pizza', $pizza->id, 'App\Food_Pizza');
 
         $description = factory(Description_Pizza::class)->create([
             'description' => 'pimenton, cebolla, aceituna negra y champiñon',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
             'pizza_id' =>  $pizza->id,
         ]);
 
@@ -294,7 +298,7 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 200000,
             'price_us'     => 2,
             'type'         => 'falafe',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
         ]);
 
         
@@ -302,7 +306,7 @@ class UserTableSeeder extends Seeder
         
         $description = factory(Description_Arabian::class)->create([
             'description' => 'rollo de carne molida relleno con ensalada',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
             'arabian_id' =>  $arabian->id,
         ]);
 
@@ -311,14 +315,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 60000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola negra',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
             'drinks_id' =>  $drink->id,
         ]);
 
@@ -327,14 +331,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 60000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola negra',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider2->id,
             'drinks_id' =>  $drink1->id,
         ]);
 
@@ -369,7 +373,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Efectivo',
         ]);
 
-        $provider = factory(Provider::class)->create([
+        $provider3 = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 80000,
             'typepayment_id' =>  $typepayment->id,
@@ -380,14 +384,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 200000,
             'price_us'     => 4,
             'type'         => 'pizza',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
         ]);
         
         $this->to('pizza', $pizza->id, 'App\Food_Pizza');
 
         $description = factory(Description_Pizza::class)->create([
             'description' => 'pimenton, cebolla, aceituna negra y champiñon',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
             'pizza_id' =>  $pizza->id,
         ]);
 
@@ -397,14 +401,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 200000,
             'price_us'     => 4,
             'type'         => 'pizza',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
         ]);
         
         $this->to('pizza', $pizza1->id, 'App\Food_Pizza');
 
         $description = factory(Description_Pizza::class)->create([
             'description' => 'maiz dulce, tocineta y quso',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
             'pizza_id' =>  $pizza1->id,
         ]);
 
@@ -414,14 +418,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 60000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola negra',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
             'drinks_id' =>  $drink->id,
         ]);
 
@@ -430,14 +434,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 60000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola negra',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider3->id,
             'drinks_id' =>  $drink1->id,
         ]);
 
@@ -471,7 +475,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Efectivo',
         ]);
 
-        $provider = factory(Provider::class)->create([
+        $provider4 = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 120000,
             'typepayment_id' =>  $typepayment->id,
@@ -482,14 +486,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 150000,
             'price_us'     => 1,
             'type'         => 'perro',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
         ]);
         
         $this->to('comida-rapida', $burguer->id, 'App\Food_Burguer');
 
         $description = factory(Description_Burguer::class)->create([
             'description' => 'papita rallada o ensalda',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
             'burguer_id' =>  $burguer->id,
         ]);
 
@@ -498,14 +502,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 200000,
             'price_us'     => 2,
             'type'         => 'perro',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
         ]);
         
         $this->to('comida-rapida', $burguer1->id, 'App\Food_Burguer');
 
         $description = factory(Description_Burguer::class)->create([
             'description' => 'queso, jamon, tocineta y papas naturales',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
             'burguer_id' =>  $burguer1->id,
         ]);
 
@@ -514,14 +518,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 250000,
             'price_us'     => 2,
             'type'         => 'perro',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
         ]);
         
         $this->to('comida-rapida', $burguer2->id, 'App\Food_Burguer');
 
         $description = factory(Description_Burguer::class)->create([
             'description' => 'salchicha polaca, papas naturales',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
             'burguer_id' =>  $burguer2->id,
         ]);
   
@@ -531,14 +535,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 50000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola negra',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
             'drinks_id' =>  $drink->id,
         ]);
 
@@ -547,14 +551,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 50000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola roja',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
             'drinks_id' =>  $drink1->id,
         ]);
 
@@ -563,14 +567,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 50000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
         ]);
 
         $this->to('bebidas', $drink2->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola naranja',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider4->id,
             'drinks_id' =>  $drink2->id,
         ]);
 
@@ -604,7 +608,7 @@ class UserTableSeeder extends Seeder
             'name' => 'Efectivo',
         ]);
 
-        $provider = factory(Provider::class)->create([
+        $provider5 = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 150000,
             'typepayment_id' =>  $typepayment->id,
@@ -615,14 +619,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 150000,
             'price_us'     => 1,
             'type'         => 'arroz',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
         
         $this->to('china', $chinese->id, 'App\Food_chinese');
 
         $description = factory(Description_chinese::class)->create([
             'description' => 'arroz con trozos de jamon, huevo frito',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'chinese_id' =>  $chinese->id,
         ]);
 
@@ -632,14 +636,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 120000,
             'price_us'     => 1,
             'type'         => 'ensalada',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
         
         $this->to('china', $chinese1->id, 'App\Food_chinese');
 
         $description = factory(Description_chinese::class)->create([
             'description' => 'ensalada de vegetales',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'chinese_id' =>  $chinese1->id,
         ]);
 
@@ -649,14 +653,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 150000,
             'price_us'     => 1,
             'type'         => 'pollo',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
         
         $this->to('china', $chinese2->id, 'App\Food_chinese');
 
         $description = factory(Description_chinese::class)->create([
             'description' => 'bolitas de pollo frito con salsa dulce',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'chinese_id' =>  $chinese2->id,
         ]);
 
@@ -666,14 +670,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 150000,
             'price_us'     => 1,
             'type'         => 'lumpia',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
         
         $this->to('china', $chinese3->id, 'App\Food_chinese');
 
         $description = factory(Description_chinese::class)->create([
             'description' => 'rollo frito de harina con ensalada',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'chinese_id' =>  $chinese3->id,
         ]);
   
@@ -683,14 +687,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 60000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola negra',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'drinks_id' =>  $drink->id,
         ]);
 
@@ -699,14 +703,14 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 90000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
 
         $this->to('bebidas', $drink1->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola roja',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'drinks_id' =>  $drink1->id,
         ]);
 
@@ -715,16 +719,198 @@ class UserTableSeeder extends Seeder
             'price_bs'     => 70000,
             'price_us'     => 0.5,
             'type_drink'   => 'gaseosa',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
         ]);
 
         $this->to('bebidas', $drink2->id, 'App\Drink');
         
         $description = factory(Description_drink::class)->create([
             'description' => 'cola naranja',
-            'providers_id' => $provider->id,
+            'providers_id' => $provider5->id,
             'drinks_id' =>  $drink2->id,
         ]);
 
+        //============creacion de 1er cliente===========================
+
+        $address = factory(Address::class)->create([
+            'states_id' => $state->id,
+            'cities_id' => $city->id,
+            'municipalities_id' => $municipality->id,
+            'parishes_id' => $parishe->id,
+            'address' => 'calle 8 con carrera 20',
+        ]);
+
+        $person = factory(Person::class)->create([
+            'type_dni' => 'V',
+            'dni' => '14184032',
+            'name' => 'Maria',
+            'lastname' => 'Cordova',
+            'phone' => '04142612523',
+            'email' => 'mariacordova@hotmail.com',
+            'address_id' => $address->id,
+        ]);
+
+        $user = factory(User::class)->create([
+            'person_id' => $person->id,
+            'email' => $person->email,
+        ])->assignRole('client');
+
+        factory(Client::class)->create([
+            'person_id' => $person->id,
+        ]);
+
+        //============creacion de 2do cliente===========================
+
+        $address = factory(Address::class)->create([
+            'states_id' => $state->id,
+            'cities_id' => $city->id,
+            'municipalities_id' => $municipality->id,
+            'parishes_id' => $parishe->id,
+            'address' => 'calle 33 con venezuela',
+        ]);
+
+        $person = factory(Person::class)->create([
+            'type_dni' => 'V',
+            'dni' => '14184035',
+            'name' => 'Juan',
+            'lastname' => 'Perez',
+            'phone' => '04142612510',
+            'email' => 'juanperez@hotmail.com',
+            'address_id' => $address->id,
+        ]);
+
+        $user = factory(User::class)->create([
+            'person_id' => $person->id,
+            'email' => $person->email,
+        ])->assignRole('client');
+
+        factory(Client::class)->create([
+            'person_id' => $person->id,
+        ]);
+
+
+        //============creacion de 3er cliente===========================
+
+        $address = factory(Address::class)->create([
+            'states_id' => $state->id,
+            'cities_id' => $city->id,
+            'municipalities_id' => $municipality->id,
+            'parishes_id' => $parishe->id,
+            'address' => 'calle 28 entre carreras 27 y 28',
+        ]);
+
+        $person = factory(Person::class)->create([
+            'type_dni' => 'V',
+            'dni' => '14184040',
+            'name' => 'Elena',
+            'lastname' => 'Suarez',
+            'phone' => '04242612510',
+            'email' => 'elenasuarez@hotmail.com',
+            'address_id' => $address->id,
+        ]);
+
+        $user = factory(User::class)->create([
+            'person_id' => $person->id,
+            'email' => $person->email,
+        ])->assignRole('client');
+
+        factory(Client::class)->create([
+            'person_id' => $person->id,
+        ]);
+
+
+        //============creacion de 1er repartidor===========================
+
+        $address = factory(Address::class)->create([
+            'states_id' => $state->id,
+            'cities_id' => $city->id,
+            'municipalities_id' => $municipality->id,
+            'parishes_id' => $parishe->id,
+            'address' => 'calle 28 entre carreras 12 y 13',
+        ]);
+
+        $person = factory(Person::class)->create([
+            'type_dni' => 'V',
+            'dni' => '12184040',
+            'name' => 'Marcos',
+            'lastname' => 'Rojas',
+            'phone' => '04245302523',
+            'email' => 'marcosrojas@gmail.com',
+            'address_id' => $address->id,
+        ]);
+
+        $user = factory(User::class)->create([
+            'person_id' => $person->id,
+            'email' => $person->email,
+        ])->assignRole('client');
+
+        factory(Courier::class)->create([
+            'person_id' => $person->id,
+            'type_vehicle' => 'Moto',
+            'bussiness_delivery' => $provider2->id,
+        ]);
+
+
+        //============creacion de 2do repartidor===========================
+
+        $address = factory(Address::class)->create([
+            'states_id' => $state->id,
+            'cities_id' => $city->id,
+            'municipalities_id' => $municipality->id,
+            'parishes_id' => $parishe->id,
+            'address' => 'calle 27 con venezuela',
+        ]);
+
+        $person = factory(Person::class)->create([
+            'type_dni' => 'V',
+            'dni' => '12184200',
+            'name' => 'Pedro',
+            'lastname' => 'Puerta',
+            'phone' => '04245302124',
+            'email' => 'pedropuerta@gmail.com',
+            'address_id' => $address->id,
+        ]);
+
+        $user = factory(User::class)->create([
+            'person_id' => $person->id,
+            'email' => $person->email,
+        ])->assignRole('client');
+
+        factory(Courier::class)->create([
+            'person_id' => $person->id,
+            'type_vehicle' => 'Moto',
+            'bussiness_delivery' => $provider3->id,
+        ]);
+
+        //============creacion de 3er repartidor===========================
+
+        $address = factory(Address::class)->create([
+            'states_id' => $state->id,
+            'cities_id' => $city->id,
+            'municipalities_id' => $municipality->id,
+            'parishes_id' => $parishe->id,
+            'address' => 'avenida 20 con calle 12',
+        ]);
+
+        $person = factory(Person::class)->create([
+            'type_dni' => 'V',
+            'dni' => '12154251',
+            'name' => 'Carlos',
+            'lastname' => 'Moreno',
+            'phone' => '04242552523',
+            'email' => 'carlosmoreno@gmail.com',
+            'address_id' => $address->id,
+        ]);
+
+        $user = factory(User::class)->create([
+            'person_id' => $person->id,
+            'email' => $person->email,
+        ])->assignRole('client');
+
+        factory(Courier::class)->create([
+            'person_id' => $person->id,
+            'type_vehicle' => 'Moto',
+            'bussiness_delivery' => $provider5->id,
+        ]);
     }
 }
