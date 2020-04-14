@@ -842,7 +842,7 @@ class UserTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'person_id' => $person->id,
             'email' => $person->email,
-        ])->assignRole('client');
+        ])->assignRole('client', 'courier');
 
         factory(Courier::class)->create([
             'person_id' => $person->id,
@@ -874,7 +874,7 @@ class UserTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'person_id' => $person->id,
             'email' => $person->email,
-        ])->assignRole('client');
+        ])->assignRole('client', 'courier');
 
         factory(Courier::class)->create([
             'person_id' => $person->id,
@@ -905,7 +905,7 @@ class UserTableSeeder extends Seeder
         $user = factory(User::class)->create([
             'person_id' => $person->id,
             'email' => $person->email,
-        ])->assignRole('client');
+        ])->assignRole('client', 'courier');
 
         factory(Courier::class)->create([
             'person_id' => $person->id,
