@@ -25,7 +25,7 @@ class ArabianController extends Controller
         // dd($request);
         $user = User::find($request->id);
         // dd($user);
-        $arabian = Food_Arabian::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
+        $arabian = Food_Arabian::with('image')->where('providers_id', $user->id)->get(); 
         // dd( $arabian); 
         
         return response()->json($arabian);

@@ -8,6 +8,31 @@ use Carbon\Carbon;
 use App\Order;
 use App\AssigmentOrder;
 use Illuminate\Support\Facades\Auth;
+use App\Food_Arabian;
+use App\Food_Mexican;
+use App\Food_Japanese;
+use App\Food_Italian;
+use App\Food_Indian;
+use App\Food_Chicken;
+use App\Food_Chinese;
+use App\Food_Korean;
+use App\Food_Traditional;
+use App\Food_Pizza;
+use App\Food_Salad;
+use App\Food_Vegan;
+use App\Food_Vegetarian;
+use App\Drink;
+use App\Extra;
+use App\Food_Burguer;
+use App\Fridge;
+use App\Fruit_Store;
+use App\Greengrocer;
+use App\Liquor_Store;
+use App\Lunch;
+use App\Delicatesse;
+use App\Victual;
+use App\Bakery;
+use App\Typepayment;
 
 class OrderController extends Controller
 {
@@ -18,16 +43,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::whereDate('created_at', Carbon::now()->format('d-m-Y'))->get();
+        // $order = Order::whereDate('created_at', Carbon::now()->format('d-m-Y'))->get();
+        $order = Order::get();
+        // dd($order);
 
         return response()->json($order);
     }
 
-    public function assigment($id){
+    public function assigment(Request $request){
 
+        // dd($request);
         $user = Auth::id();  //trae el courier en sesion que se postula
         $courier = Courier::with('person')->where('id', $user)->first();  //compara el user y lo busca en la tabla courier
-        $order = Order::find($id);  //busca el id de la orden que se asignara
+        $order = Order::find($request->id);  //busca el id de la orden que se asignara
 
         $postulado = AssigmentOrder::create([  //se crea el registro de la asignacion del pedido
              'courier_id' => $courier->id,
@@ -56,12 +84,15 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, $Usd)
+    public function store(Request $request)//$usd variable q trae el monto del dolar al dia y pasar com parametro en el metodo
     {
-        $dolar = $Usd;
+        // dd($request);
+        $dolar = 100000;
         $order = Order::with('burguer','arabian','italian', 'indian', 'mexican', 'korean', 'japanese', 'pizza', 'chicken', 
         'drink', 'extra', 'salad', 'vegan', 'vegetarian', 'traditional', 'chinese', 'liquor', 'fruit', 'greengrocer',
-        'victual', 'delicatesse', 'bakery', 'fridge', 'lunch', 'typepayment')->where('id', $id)->first();
+        'victual', 'delicatesse', 'bakery', 'fridge', 'lunch', 'typepayment')->where('id', $request->id)->first();
+
+        // dd(count(explode(',', $order->food_burguer_id)));
 
         $arabe = Food_Arabian::with('description')->get();
         $rapida = Food_Burguer::with('description')->get();
@@ -77,8 +108,8 @@ class OrderController extends Controller
         $vegetariana = Food_Vegetarian::with('description')->get();
         $vegano = Food_Vegan::with('description')->get();
         $tradicional = Food_Traditional::with('description')->get();
-        $licor = Food_Liquor_Store::with('description')->get();
-        $fruta = Food_Fruit_Store::with('description')->get();
+        $licor = Liquor_Store::with('description')->get();
+        $fruta = Fruit_Store::with('description')->get();
         $vivere = Victual::with('description')->get();
         $verdura = Greengrocer::with('description')->get();
         $charcuteria = Delicatesse::with('description')->get();
@@ -90,32 +121,31 @@ class OrderController extends Controller
         $pago = Typepayment::get();
 
         //se decodifica el tipo comida solicitada
-        $arabian = Food_Arabian::explode(',', $order->arabian_id);
-        $chinese = Food_Chinese::explode(',', $order->chinese_id);
-        $indian = Food_Indian::explode(',', $order->indian_id);
-        $italian = Food_Italian::explode(',', $order->italian_id);
-        $chicken = Food_Chicken::explode(',', $order->chicken_id);
-        $pizza = Food_Pizza::explode(',', $order->pizza_id);
-        $korean = Food_Korean::explode(',', $order->korean_id);
-        $mexican = Food_Mexican::explode(',', $order->mexican_id);
-        $japanese = Food_Japanese::explode(',', $order->japanese_id);
-        $salad = Food_Salad::explode(',', $order->salad_id);
-        $vegan = Food_Vegan::explode(',', $order->vegan_id);
-        $vegetarian = Food_Vegetarian::explode(',', $order->vegetarian_id);
-        $traditional = Food_Traditional::explode(',', $order->traditional_id);
-        $burguer = Food_Burguer::explode(',', $order->burguer_id);
-        $drink = Drink::explode(',', $order->drink_id);
-        $extra = Extra::explode(',', $order->extra_id);
-        $liquor = liquor_Store::explode(',', $order->liquor_id);
-        $fruit = Fruit_Store::explode(',', $order->fruit_id);
-        $greengrocer = Greengrocer::explode(',', $order->greengrocer_id);
-        $victual = Victual::explode(',', $order->victual_id);
-        $delicatesse = Delicatesse::explode(',', $order->delicatesse_id);
-        $bakery = Bakery::explode(',', $order->bakery_id);
-        $fridge = Fridge::explode(',', $order->fridge_id);
-        $lunch = Lunch::explode(',', $order->lunch_id);
-        $typepayment = Typepayment::explode(',', $order->typepayment_id);
-
+        $arabian = explode(',', $order->arabian_id);
+        $chinese = explode(',', $order->chinese_id);
+        $indian = explode(',', $order->indian_id);
+        $italian = explode(',', $order->italian_id);
+        $pizza = explode(',', $order->pizza_id);
+        $korean = explode(',', $order->korean_id);
+        $mexican = explode(',', $order->mexican_id);
+        $japanese = explode(',', $order->japanese_id);
+        $salad = explode(',', $order->salad_id);
+        $vegan = explode(',', $order->vegan_id);
+        $vegetarian = explode(',', $order->vegetarian_id);
+        $traditional = explode(',', $order->traditional_id);
+        $burguer = explode(',', $order->food_burguer_id);
+        $chicken = explode(',', $order->food_chicken_id);
+        $drink = explode(',', $order->drinks_id);
+        $extra = explode(',', $order->extra_id);
+        $liquor = explode(',', $order->liquor_id);
+        $fruit = explode(',', $order->fruit_id);
+        $greengrocer = explode(',', $order->greengrocer_id);
+        $victual = explode(',', $order->victual_id);
+        $delicatesse = explode(',', $order->delicatesse_id);
+        $bakery = explode(',', $order->bakery_id);
+        $fridge = explode(',', $order->fridge_id);
+        $lunch = explode(',', $order->lunch_id);
+        $typepayment = explode(',', $order->typepayment_id);
 
         $total_bs=0;
         $total_us=0;
@@ -123,11 +153,11 @@ class OrderController extends Controller
         if(!empty($arabian)){
             for ($i=0; $i < count($arabian) ; $i++) {          //buscando datos de cada comida
                 $arabian[] = Food_Arabian::find($arabian[$i]);
-                    $total += $Arabian[$i]->price_bs;
+                    $total += $arabian[$i]->price_bs;
                     $total_us = $total * $dolar;
             }
         }else{
-            $Arabian = null;
+            $arabian = null;
             $total_bs = null;
             $total_us = null;
         }

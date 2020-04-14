@@ -132,7 +132,7 @@ class Order extends Model
 
       public function delicatesse()
     {
-        return $this->belongsTo('App\Delicatese');
+        return $this->belongsTo('App\Delicatesse');
     }
     
       public function lunch()
@@ -147,7 +147,7 @@ class Order extends Model
 
       public function typepayment()
     {
-        return $this->belongsTo('App\Ttypepayment');
+        return $this->belongsTo('App\Typepayment');
     }
 
       public function greengrocer()
