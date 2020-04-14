@@ -18,12 +18,12 @@ class TypepaymentTableSeeder extends Seeder
         //     'name' => 'Efectivo',
         // ]);
 
-        factory(Typepayment::class)->create([
-            'name' => 'Pago Móvil',
-        ]);
+        // factory(Typepayment::class)->create([
+        //     'name' => 'Pago Móvil',
+        // ]);
 
-        factory(Typepayment::class)->create([
-            'name' => 'Transferencia',
-        ]);
+        // factory(Typepayment::class)->create([
+        //     'name' => 'Transferencia',
+        // ]);
     }
 }

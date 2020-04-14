@@ -53,6 +53,7 @@ class UserTableSeeder extends Seeder
         Image::truncate();
         Client::truncate();
         Courier::truncate();
+        Typepayment::truncate();
         Food_Burguer::truncate();
         Description_Burguer::truncate();
         Food_Japanese::truncate();
@@ -91,6 +92,18 @@ class UserTableSeeder extends Seeder
             'name' => 'Catedral',
         ]);
 
+        $typepayment = factory(Typepayment::class)->create([
+            'name' => 'Efectivo',
+        ]);
+
+        factory(Typepayment::class)->create([
+            'name' => 'Pago Móvil',
+        ]);
+
+        factory(Typepayment::class)->create([
+            'name' => 'Transferencia',
+        ]);
+
         //========== 1er proveedor=======================================
 
         $address = factory(Address::class)->create([
@@ -116,9 +129,6 @@ class UserTableSeeder extends Seeder
             'email' => $person->email,
         ])->assignRole('client');
 
-        $typepayment = factory(Typepayment::class)->create([
-            'name' => 'Efectivo',
-        ]);
 
         $provider = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -233,10 +243,6 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
-
-        $typepayment = factory(Typepayment::class)->create([
-            'name' => 'Efectivo',
-        ]);
 
         $provider2 = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -369,10 +375,6 @@ class UserTableSeeder extends Seeder
             'email' => $person->email,
         ])->assignRole('client');
 
-        $typepayment = factory(Typepayment::class)->create([
-            'name' => 'Efectivo',
-        ]);
-
         $provider3 = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 80000,
@@ -470,10 +472,6 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
-
-        $typepayment = factory(Typepayment::class)->create([
-            'name' => 'Efectivo',
-        ]);
 
         $provider4 = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -603,10 +601,6 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
-
-        $typepayment = factory(Typepayment::class)->create([
-            'name' => 'Efectivo',
-        ]);
 
         $provider5 = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -847,7 +841,7 @@ class UserTableSeeder extends Seeder
         factory(Courier::class)->create([
             'person_id' => $person->id,
             'type_vehicle' => 'Moto',
-            'bussiness_delivery' => $provider2->id,
+            'bussiness_delivery' => $provider->id,
         ]);
 
 
@@ -879,7 +873,7 @@ class UserTableSeeder extends Seeder
         factory(Courier::class)->create([
             'person_id' => $person->id,
             'type_vehicle' => 'Moto',
-            'bussiness_delivery' => $provider3->id,
+            'bussiness_delivery' => $provider4->id,
         ]);
 
         //============creacion de 3er repartidor===========================
