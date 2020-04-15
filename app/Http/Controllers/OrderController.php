@@ -168,7 +168,7 @@ class OrderController extends Controller
         
         $total_a = 0;
         if ($pedido->food_arabian_id != null) {
-            foreach ($order as $pedido) {
+            foreach ($order->food_arabian_id as $pedido) {
                 $orden_id[] = explode(',', $pedido->food_arabian_id); //decodificando los procedimientos en $encontrado
                 if ($orden_id != null) {
                     for ($i=0; $i < count($orden_id); $i++) {

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Person;
 use App\User;
+use App\Person;
 use App\Address;
-use Illuminate\Support\Facades\Auth;
-
 class UserController extends Controller
 {
     /**
@@ -31,6 +28,7 @@ class UserController extends Controller
         'user' => $user,
         'profile' => $profile]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -81,13 +79,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //  dd($request, $id); 
+        // dd($request); 
 
-        $user = User::where('id', $id)->first();
-        // dd( $user);
-        $person = Person::where('id', $user->id)->with('user', 'address')->first();
+        $user = User::with('person')->where('id', $request->id)->first();
+        // dd($user->person);
+        $person = Person::where('id', $user->person_id)->first();
         // dd($person);
         $address = Address::where('id', $person->address_id)->first();
         // dd($address);
@@ -116,27 +114,6 @@ class UserController extends Controller
         ]);
     }
 
-    
-    // public function discontinued(Request $request){ 
-      
-    //     $reservation = Reservation::find($request->id);
-        
-    //     if (!empty($reservation)) {
-          
-    //         $reservation->discontinued = 'Suspendido';
-    
-    //         if ($reservation->save()){
-    //             $this->reason($request);
-    //             return response()->json([
-    //                 'message' => 'Cita suspendida', 
-    //             ]);
-    //         }
-    //     }else{
-    //         return response()->json([
-    //             'message' => 'No se pudo suspender la cita',
-    //         ]);
-    //     }
-    // }
 
     /**
      * Remove the specified resource from storage.
@@ -149,5 +126,4 @@ class UserController extends Controller
         //
     }
 
- 
 }
