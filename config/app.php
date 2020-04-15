@@ -123,6 +123,18 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    /**
+     * Definicion de cdn para las imagenes que sera usado con el helper.php
+     */
+    // 'cdn_enabled' => true,
+    // 'cdn_domain' => 'proyecto-a-api.com',
+    // 'cdn_protocol' => 'http',
+    
+    //agregar esto en composer.json y correr composer dump-autoload para que agarre el cambio
+    // "files": [
+    //     "app/helpers.php"
+    // ]
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -163,6 +175,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Spatie\Permission\PermissionServiceProvider::class,
+        
 
         /*
          * Package Service Providers...

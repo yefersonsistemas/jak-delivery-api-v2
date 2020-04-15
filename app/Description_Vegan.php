@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Description_Vegan extends Model
 {
-    protected $table = 'description_vegan';
+    protected $table = 'description_vegans';
 
     protected $fillable = [
-        'description', 'providers_id', 'vegan_id'
+        'description', 'providers_id', 'vegans_id'
     ];
 
     public function provider()

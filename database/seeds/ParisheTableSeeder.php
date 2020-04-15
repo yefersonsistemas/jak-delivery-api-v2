@@ -26,9 +26,9 @@ class ParisheTableSeeder extends Seeder
             'name' => 'Buena Vista',
         ]);
 
-        factory(Parishe::class)->create([
-            'name' => 'Catedral',
-        ]);
+        // factory(Parishe::class)->create([
+        //     'name' => 'Catedral',
+        // ]);
 
         factory(Parishe::class)->create([
             'name' => 'El Cuji',

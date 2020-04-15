@@ -29,4 +29,134 @@ class Order extends Model
     {
         return $this->belongsTo('App\Courier', 'courier_id');
     }
+
+      public function assigment()
+    {
+        return $this->belongsTo('App\AssigmentOrder');
+    }
+
+      public function burguer()
+    {
+        return $this->belongsTo('App\Food_Burguer');
+    }
+
+      public function arabian()
+    {
+        return $this->belongsTo('App\Food_Arabian');
+    }
+
+      public function chinese()
+    {
+        return $this->belongsTo('App\Food_Chinese');
+    }
+
+      public function japanese()
+    {
+        return $this->belongsTo('App\Food_Japanese');
+    }
+
+      public function mexican()
+    {
+        return $this->belongsTo('App\Food_Mexican');
+    }
+
+      public function drink()
+    {
+        return $this->belongsTo('App\Drink');
+    }
+
+      public function extra()
+    {
+        return $this->belongsTo('App\Extra');
+    }
+
+      public function salad()
+    {
+        return $this->belongsTo('App\Food_Salad');
+    }
+
+      public function vegan()
+    {
+        return $this->belongsTo('App\Food_Vegan');
+    }
+
+      public function vegetarian()
+    {
+        return $this->belongsTo('App\Food_Vegetarian');
+    }
+
+      public function indian()
+    {
+        return $this->belongsTo('App\Food_Indian');
+    }
+
+      public function italian()
+    {
+        return $this->belongsTo('App\Food_Italian');
+    }
+
+      public function korean()
+    {
+        return $this->belongsTo('App\Food_Korean');
+    }
+
+      public function traditional()
+    {
+        return $this->belongsTo('App\Food_Traditional');
+    }
+
+      public function pizza()
+    {
+        return $this->belongsTo('App\Food_Pizza');
+    }
+
+      public function chicken()
+    {
+        return $this->belongsTo('App\Food_Chicken');
+    }
+
+      public function liquor()
+    {
+        return $this->belongsTo('App\Liquor_Store');
+    }
+
+      public function bakery()
+    {
+        return $this->belongsTo('App\Bakery');
+    }
+
+      public function victual()
+    {
+        return $this->belongsTo('App\Victual');
+    }
+
+      public function delicatesse()
+    {
+        return $this->belongsTo('App\Delicatese');
+    }
+    
+      public function lunch()
+    {
+        return $this->belongsTo('App\Lunch');
+    }
+
+      public function fridge()
+    {
+        return $this->belongsTo('App\Fridge');
+    }
+
+      public function typepayment()
+    {
+        return $this->belongsTo('App\Ttypepayment');
+    }
+
+      public function greengrocer()
+    {
+        return $this->belongsTo('App\Greengrocer');
+    }
+
+      public function fruit()
+    {
+        return $this->belongsTo('App\Fruit_Store');
+    }
 }

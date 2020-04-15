@@ -5,10 +5,13 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'clients_id', 'providers_id', 'couriers_id'
+        'email', 'password', 'person_id'
     ];
 
     /**
@@ -37,15 +40,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function clients() {
-        return $this->belongsTo('App\Client', 'clients_id');
+    public function person() {
+        return $this->belongsTo('App\Person');
     }
 
-    public function providers() {
-        return $this->belongsTo('App\Provider', 'providers_id');
-    }
-
-    public function couriers() {
-        return $this->belongsTo('App\Courier', 'couriers_id');
-    }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Food_Vegan extends Model
 {
-    protected $table = 'food_vegan';
+    protected $table = 'food_vegans';
 
     protected $fillable = [
 
@@ -16,5 +16,10 @@ class Food_Vegan extends Model
 
     public function provider() {
         return $this->belongsTo('AppProvider', 'providers_id');
+    }
+
+      public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
     }
 }

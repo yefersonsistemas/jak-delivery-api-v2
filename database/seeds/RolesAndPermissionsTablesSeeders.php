@@ -21,9 +21,12 @@ class RolesAndPermissionsTablesSeeders extends Seeder
         Permission::truncate();
 
         //Roles de usuarios
+        Role::create(['name' => 'admin']);
         Role::create(['name' => 'client']);
-        Role::create(['name' => 'provider']);
         Role::create(['name' => 'courier']);
+        Role::create(['name' => 'bakery']);
+        Role::create(['name' => 'restaurant']);
+        Role::create(['name' => 'market']);
         
         //Permiso del rol client
         Permission::create(['name' => 'realizar pedido']);

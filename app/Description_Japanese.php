@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Description_Japenese extends Model
+class Description_Japanese extends Model
 {
     
     protected $table = 'description_japanese';

@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Drink extends Model
 {
-    protected $table = 'drink';
+    protected $table = 'drinks';
 
     protected $fillable = [
 
-        'name', 'providers_id'
+        'name', 'price_bs', 'price_ud', 'type_drink', 'providers_id'
 
     ];
 
@@ -18,4 +18,8 @@ class Drink extends Model
         return $this->belongsTo('App\Provider', 'providers_id');
     }
 
+      public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
+    }
 }
