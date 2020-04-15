@@ -20,13 +20,13 @@ class UserController extends Controller
 
     public function profile(Request $request)
     {
-        $user = User::with('person')->where('id', $request->id)->first();
+        $user = User::with('person.address')->where('id', $request->id)->first();
         
         $profile = Person::with('address')->where('id', $user->person_id)->first();
         // dd($profile);
         return response()->json([ 
-        'user' => $user,
-        'profile' => $profile]);
+            //'profile' => $profile,
+        'user' => $user,]);
     }
 
     /**
@@ -85,7 +85,7 @@ class UserController extends Controller
 
         $user = User::where('id', $request->id)->first();
         // dd( $user);
-        $person = Person::where('id', $user->person_id)->with('user', 'address')->first();
+        $person = Person::with('user', 'address')->where('id', $user->person_id)->first();
         // dd($person);
         $address = Address::where('id', $person->address_id)->first();
         // dd($address);
