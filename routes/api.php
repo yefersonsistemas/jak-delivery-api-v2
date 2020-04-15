@@ -145,7 +145,8 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'orders'], function () {
             Route::get('order/day', 'OrderController@index');
             Route::post('postulate/{id}', 'OrderController@assigment');
-            Route::post('pedido/{id}/{usd}', 'OrderController@store');
+            // Route::post('pedido/{id}/{usd}', 'OrderController@store');
+            Route::post('pedido/{id}', 'OrderController@store');
         });
 
          Route::group(['prefix' => 'providers'], function () {
