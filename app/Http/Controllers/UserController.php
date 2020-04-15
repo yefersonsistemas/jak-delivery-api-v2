@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\State;
-use App\City;
-use App\Municipality;
-use App\Parishe;
-use Spatie\Permission\Models\Role;
 
-class AddressController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,18 +13,15 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $state = State::get();
-        $city = City::get();
-        $municipality = Municipality::get();
-        $parishe = Parishe::get();
-
-        return response()->json([
-        'estado' => $state, 
-        'ciudad' => $city, 
-        'municipio' => $municipality, 
-        'parroquia' => $parishe] );
+        //
     }
-    
+
+    public function profile(Request $request)
+    {
+        $user = 'hola'; //User::whit('person')->where('id', $request->id)->first();
+
+        return response()->json(['user' => $user]);
+    }
     /**
      * Show the form for creating a new resource.
      *

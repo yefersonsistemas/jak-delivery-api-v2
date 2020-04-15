@@ -33,7 +33,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        // dd($request);
+        // dd($request); 
         $user = Person::where('email', $request->email)->with('user')->first();
         // dd($user);
                 
@@ -92,7 +92,7 @@ class AuthController extends Controller
 
                 if ($person == null) {
                     return response()->json([
-                        'person' => 'Usuario no registrado'], 401);
+                        'person' => 'Usuario no registrado'], 401); 
                 }
 
                 $user = User::where('person_id', $person->id)->first();
@@ -137,5 +137,16 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Se desconectó con éxito',
         ]);
+    }
+
+    public function profile(Request $request)
+    {
+        $user = User::with('person')->where('id', $request->id)->first();
+        
+        $profile = Person::with('address')->where('id', $user->person_id)->first();
+        // dd($profile);
+        return response()->json([ 
+        'user' => $user,
+        'profile' => $profile]);
     }
 }
