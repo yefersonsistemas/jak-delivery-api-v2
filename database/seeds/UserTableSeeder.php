@@ -10,12 +10,33 @@ use App\Municipality;
 use App\Parishe;
 use App\City;
 use App\Typepayment;
+use App\Food_Burguer;
+use App\Description_Burguer;
+use App\Food_Italian;
+use App\Description_Italian;
+use App\Food_Chicken;
+use App\Description_Chicken;
+use App\Food_Chinese;
+use App\Description_Chinese;
+use App\Food_Japanese;
+use App\Description_Japanese;
+use App\Food_Arabian;
+use App\Description_Arabian;
+use App\Food_Mexican;
+use App\Description_Mexican;
+use App\Food_Pizza;
+use App\Description_Pizza;
+use App\Drink;
+use App\Description_Drink;
+use App\Image;
 
+use App\Traits\ImageFactory;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserTableSeeder extends Seeder
 {
+    use ImageFactory;
     /**
      * Run the database seeds.
      *
@@ -27,6 +48,28 @@ class UserTableSeeder extends Seeder
         Person::truncate();
         Address::truncate();
         Provider::truncate();
+        Image::truncate();
+        Food_Burguer::truncate();
+        Description_Burguer::truncate();
+        Food_Japanese::truncate();
+        Description_Japanese::truncate();
+        Food_Chinese::truncate();
+        Description_Chinese::truncate();
+        Food_Chicken::truncate();
+        Description_Chicken::truncate();
+        Food_Mexican::truncate();
+        Description_Mexican::truncate();
+        Food_Pizza::truncate();
+        Description_Pizza::truncate();
+        Food_Italian::truncate();
+        Description_Italian::truncate();
+        Food_Arabian::truncate();
+        Description_Arabian::truncate();
+        Drink::truncate();
+        Description_Drink::truncate();
+        
+        
+        // $this->deleteDirectory(storage_path('/app/public/comida-rapida'));
         
         $state = factory(State::class)->create([
             'name' => 'Lara',
@@ -78,6 +121,88 @@ class UserTableSeeder extends Seeder
             'price_delivery' => 50000,
             'typepayment_id' =>  $typepayment->id,
         ]);
+        
+        $burguer =  factory(Food_Burguer::class)->create([
+            'name'         => 'Hamburguesa texa',
+            'price_bs'     => 450000,
+            'price_us'     => 4,
+            'type'         => 'hamburguesa',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('comida-rapida', $burguer->id, 'App\Food_Burguer');
+
+        $description = factory(Description_Burguer::class)->create([
+            'description' => 'Doble carne y huevo frito',
+            'providers_id' => $provider->id,
+            'burguer_id' =>  $burguer->id,
+        ]);
+
+        $burguer1 =  factory(Food_Burguer::class)->create([
+            'name'         => 'Hamburguesa sencilla',
+            'price_bs'     => 100000,
+            'price_us'     => 1,
+            'type'         => 'hamburguesa',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('comida-rapida', $burguer1->id, 'App\Food_Burguer');
+
+        $description = factory(Description_Burguer::class)->create([
+            'description' => 'carne y ensalada',
+            'providers_id' => $provider->id,
+            'burguer_id' =>  $burguer1->id,
+        ]);
+
+        $chicken =  factory(Food_Chicken::class)->create([
+            'name'         => 'Pollo asado',
+            'price_bs'     => 200000,
+            'price_us'     => 2,
+            'type'         => 'pollo',
+            'providers_id' => $provider->id,
+        ]);
+
+        
+        $this->to('pollo', $chicken->id, 'App\Food_chicken');
+        
+        $description = factory(Description_Chicken::class)->create([
+            'description' => 'pollo asado familiar con ensalada dulce y 4 hallaquitas',
+            'providers_id' => $provider->id,
+            'chicken_id' =>  $chicken->id,
+        ]);
+
+        $drink =  factory(Drink::class)->create([
+            'name'         => 'cocacola ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink->id,
+        ]);
+
+        $drink1 =  factory(Drink::class)->create([
+            'name'         => 'kolita ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'kolita',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink1->id,
+        ]);
+
 
         //========== 2do proveedor=======================================
 
@@ -115,6 +240,105 @@ class UserTableSeeder extends Seeder
             'typepayment_id' =>  $typepayment->id,
         ]);
 
+        $burguer =  factory(Food_Burguer::class)->create([
+            'name'         => 'Hamburguesa sencilla',
+            'price_bs'     => 150000,
+            'price_us'     => 1,
+            'type'         => 'hamburguesa',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('comida-rapida', $burguer->id, 'App\Food_Burguer');
+
+        $description = factory(Description_Burguer::class)->create([
+            'description' => 'Doble carne y huevo frito',
+            'providers_id' => $provider->id,
+            'burguer_id' =>  $burguer->id,
+        ]);
+
+        $chicken =  factory(Food_Chicken::class)->create([
+            'name'         => 'Pollo asado',
+            'price_bs'     => 180000,
+            'price_us'     => 2,
+            'type'         => 'pollo',
+            'providers_id' => $provider->id,
+        ]);
+
+        
+        $this->to('pollo', $chicken->id, 'App\Food_Chicken');
+        
+        $description = factory(Description_Chicken::class)->create([
+            'description' => 'pollo asado familiar con ensalada dulce y 4 hallaquitas',
+            'providers_id' => $provider->id,
+            'chicken_id' =>  $chicken->id,
+        ]);
+
+        $pizza =  factory(Food_Pizza::class)->create([
+            'name'         => 'Pizza vegetariana',
+            'price_bs'     => 230000,
+            'price_us'     => 4,
+            'type'         => 'pizza',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('pizza', $pizza->id, 'App\Food_Pizza');
+
+        $description = factory(Description_Pizza::class)->create([
+            'description' => 'pimenton, cebolla, aceituna negra y champiñon',
+            'providers_id' => $provider->id,
+            'pizza_id' =>  $pizza->id,
+        ]);
+
+        $arabian =  factory(Food_Arabian::class)->create([
+            'name'         => 'falafe',
+            'price_bs'     => 200000,
+            'price_us'     => 2,
+            'type'         => 'falafe',
+            'providers_id' => $provider->id,
+        ]);
+
+        
+        $this->to('arabe', $arabian->id, 'App\Food_Arabian');
+        
+        $description = factory(Description_Arabian::class)->create([
+            'description' => 'rollo de carne molida relleno con ensalada',
+            'providers_id' => $provider->id,
+            'arabian_id' =>  $arabian->id,
+        ]);
+
+        $drink =  factory(Drink::class)->create([
+            'name'         => 'cocacola ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink->id,
+        ]);
+
+        $drink1 =  factory(Drink::class)->create([
+            'name'         => 'malta ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink1->id,
+        ]);
+
+
        //========== 3er proveedor=======================================
 
         
@@ -149,6 +373,72 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'price_delivery' => 80000,
             'typepayment_id' =>  $typepayment->id,
+        ]);
+
+        $pizza =  factory(Food_Pizza::class)->create([
+            'name'         => 'Pizza vegetariana',
+            'price_bs'     => 200000,
+            'price_us'     => 4,
+            'type'         => 'pizza',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('pizza', $pizza->id, 'App\Food_Pizza');
+
+        $description = factory(Description_Pizza::class)->create([
+            'description' => 'pimenton, cebolla, aceituna negra y champiñon',
+            'providers_id' => $provider->id,
+            'pizza_id' =>  $pizza->id,
+        ]);
+
+        
+        $pizza1 =  factory(Food_Pizza::class)->create([
+            'name'         => 'Pizza con maiz',
+            'price_bs'     => 200000,
+            'price_us'     => 4,
+            'type'         => 'pizza',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('pizza', $pizza1->id, 'App\Food_Pizza');
+
+        $description = factory(Description_Pizza::class)->create([
+            'description' => 'maiz dulce, tocineta y quso',
+            'providers_id' => $provider->id,
+            'pizza_id' =>  $pizza1->id,
+        ]);
+
+
+        $drink =  factory(Drink::class)->create([
+            'name'         => 'cocacola ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink->id,
+        ]);
+
+        $drink1 =  factory(Drink::class)->create([
+            'name'         => 'malta ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink1->id,
         ]);
 
        //========== 4to proveedor=======================================
@@ -187,6 +477,103 @@ class UserTableSeeder extends Seeder
             'typepayment_id' =>  $typepayment->id,
         ]);
 
+        $burguer =  factory(Food_Burguer::class)->create([
+            'name'         => 'perro sencillo',
+            'price_bs'     => 150000,
+            'price_us'     => 1,
+            'type'         => 'perro',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('comida-rapida', $burguer->id, 'App\Food_Burguer');
+
+        $description = factory(Description_Burguer::class)->create([
+            'description' => 'papita rallada o ensalda',
+            'providers_id' => $provider->id,
+            'burguer_id' =>  $burguer->id,
+        ]);
+
+        $burguer1 =  factory(Food_Burguer::class)->create([
+            'name'         => 'perro especial',
+            'price_bs'     => 200000,
+            'price_us'     => 2,
+            'type'         => 'perro',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('comida-rapida', $burguer1->id, 'App\Food_Burguer');
+
+        $description = factory(Description_Burguer::class)->create([
+            'description' => 'queso, jamon, tocineta y papas naturales',
+            'providers_id' => $provider->id,
+            'burguer_id' =>  $burguer1->id,
+        ]);
+
+        $burguer2 =  factory(Food_Burguer::class)->create([
+            'name'         => 'perro polaco',
+            'price_bs'     => 250000,
+            'price_us'     => 2,
+            'type'         => 'perro',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('comida-rapida', $burguer2->id, 'App\Food_Burguer');
+
+        $description = factory(Description_Burguer::class)->create([
+            'description' => 'salchicha polaca, papas naturales',
+            'providers_id' => $provider->id,
+            'burguer_id' =>  $burguer2->id,
+        ]);
+  
+
+        $drink =  factory(Drink::class)->create([
+            'name'         => 'cocacola ',
+            'price_bs'     => 50000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink->id,
+        ]);
+
+        $drink1 =  factory(Drink::class)->create([
+            'name'         => 'kolita ',
+            'price_bs'     => 50000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola roja',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink1->id,
+        ]);
+
+        $drink2 =  factory(Drink::class)->create([
+            'name'         => 'naranja ',
+            'price_bs'     => 50000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink2->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola naranja',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink2->id,
+        ]);
+
         //========== 5to proveedor=======================================
 
         
@@ -223,6 +610,121 @@ class UserTableSeeder extends Seeder
             'typepayment_id' =>  $typepayment->id,
         ]);
 
+        $chinese =  factory(Food_chinese::class)->create([
+            'name'         => 'arroz frito',
+            'price_bs'     => 150000,
+            'price_us'     => 1,
+            'type'         => 'arroz',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('china', $chinese->id, 'App\Food_chinese');
+
+        $description = factory(Description_chinese::class)->create([
+            'description' => 'arroz con trozos de jamon, huevo frito',
+            'providers_id' => $provider->id,
+            'chinese_id' =>  $chinese->id,
+        ]);
+
+        
+        $chinese1 =  factory(Food_chinese::class)->create([
+            'name'         => 'shop suey',
+            'price_bs'     => 120000,
+            'price_us'     => 1,
+            'type'         => 'ensalada',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('china', $chinese1->id, 'App\Food_chinese');
+
+        $description = factory(Description_chinese::class)->create([
+            'description' => 'ensalada de vegetales',
+            'providers_id' => $provider->id,
+            'chinese_id' =>  $chinese1->id,
+        ]);
+
+        
+        $chinese2 =  factory(Food_chinese::class)->create([
+            'name'         => 'pollo agridulce',
+            'price_bs'     => 150000,
+            'price_us'     => 1,
+            'type'         => 'pollo',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('china', $chinese2->id, 'App\Food_chinese');
+
+        $description = factory(Description_chinese::class)->create([
+            'description' => 'bolitas de pollo frito con salsa dulce',
+            'providers_id' => $provider->id,
+            'chinese_id' =>  $chinese2->id,
+        ]);
+
+        
+        $chinese3 =  factory(Food_chinese::class)->create([
+            'name'         => 'lumpia',
+            'price_bs'     => 150000,
+            'price_us'     => 1,
+            'type'         => 'lumpia',
+            'providers_id' => $provider->id,
+        ]);
+        
+        $this->to('china', $chinese3->id, 'App\Food_chinese');
+
+        $description = factory(Description_chinese::class)->create([
+            'description' => 'rollo frito de harina con ensalada',
+            'providers_id' => $provider->id,
+            'chinese_id' =>  $chinese3->id,
+        ]);
+  
+
+        $drink =  factory(Drink::class)->create([
+            'name'         => 'cocacola ',
+            'price_bs'     => 60000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola negra',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink->id,
+        ]);
+
+          $drink1 =  factory(Drink::class)->create([
+            'name'         => 'kolita ',
+            'price_bs'     => 90000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink1->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola roja',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink1->id,
+        ]);
+
+        $drink2 =  factory(Drink::class)->create([
+            'name'         => 'naranja ',
+            'price_bs'     => 70000,
+            'price_us'     => 0.5,
+            'type_drink'   => 'gaseosa',
+            'providers_id' => $provider->id,
+        ]);
+
+        $this->to('bebidas', $drink2->id, 'App\Drink');
+        
+        $description = factory(Description_drink::class)->create([
+            'description' => 'cola naranja',
+            'providers_id' => $provider->id,
+            'drinks_id' =>  $drink2->id,
+        ]);
 
     }
 }
