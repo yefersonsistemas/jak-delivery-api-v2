@@ -145,6 +145,8 @@ class AuthController extends Controller
         
         $profile = Person::with('address')->where('id', $user->person_id)->first();
         // dd($profile);
-        return response()->json(['profile' => $profile]);
+        return response()->json([ 
+        'user' => $user,
+        'profile' => $profile]);
     }
 }
