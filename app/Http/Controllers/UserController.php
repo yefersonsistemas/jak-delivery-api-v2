@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\User;
+use App\Person;
+use App\Address;
 class UserController extends Controller
 {
     /**
@@ -18,10 +20,15 @@ class UserController extends Controller
 
     public function profile(Request $request)
     {
-        $user = 'hola'; //User::whit('person')->where('id', $request->id)->first();
-
-        return response()->json(['user' => $user]);
+        $user = User::with('person')->where('id', $request->id)->first();
+        
+        $profile = Person::with('address')->where('id', $user->person_id)->first();
+        // dd($profile);
+        return response()->json([ 
+        'user' => $user,
+        'profile' => $profile]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -72,10 +79,41 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //  dd($request); 
+
+        $user = User::where('id', $request->id)->first();
+        // dd( $user);
+        $person = Person::where('id', $user->person_id)->with('user', 'address')->first();
+        // dd($person);
+        $address = Address::where('id', $person->address_id)->first();
+        // dd($address);
+                
+        if ($person != null) {   
+            
+            $person->type_dni = $request->type_dni;
+            $person->dni = $request->dni;
+            $person->name = $request->name;
+            $person->lastname = $request->lastname;
+            $person->email = $request->email;
+            $person->phone = $request->phone;
+            $person->save();
+            
+            $address->address =  $request->address;
+            $address->save();
+
+            $user->email = $request->email;
+            $user->save();
+          
+        }
+        // dd($user);
+
+        return response()->json([
+            'message' => 'Usuario actualizado',
+        ]);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -87,5 +125,5 @@ class UserController extends Controller
     {
         //
     }
+
 }
- 
