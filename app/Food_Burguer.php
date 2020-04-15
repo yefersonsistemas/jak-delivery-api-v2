@@ -21,4 +21,8 @@ class Food_Burguer extends Model
     {
         return $this->morphOne('App\Image', 'imageable');
     }
+
+      public function description() {
+        return $this->belongsTo('App\Description_Burguer');
+    }
 }

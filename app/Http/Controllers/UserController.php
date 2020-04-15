@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Person;
+use App\User;
+use App\Address;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -16,6 +21,16 @@ class UserController extends Controller
         //
     }
 
+    public function profile(Request $request)
+    {
+        $user = User::with('person')->where('id', $request->id)->first();
+        
+        $profile = Person::with('address')->where('id', $user->person_id)->first();
+        // dd($profile);
+        return response()->json([ 
+        'user' => $user,
+        'profile' => $profile]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -68,7 +83,37 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //  dd($request, $id); 
+
+        $user = User::where('id', $id)->first();
+        // dd( $user);
+        $person = Person::where('id', $user->id)->with('user', 'address')->first();
+        // dd($person);
+        $address = Address::where('id', $person->address_id)->first();
+        // dd($address);
+                
+        if ($person != null) {   
+            
+            $person->type_dni = $request->type_dni;
+            $person->dni = $request->dni;
+            $person->name = $request->name;
+            $person->lastname = $request->lastname;
+            $person->email = $request->email;
+            $person->phone = $request->phone;
+            $person->save();
+            
+            $address->address =  $request->address;
+            $address->save();
+
+            $user->email = $request->email;
+            $user->save();
+          
+        }
+        // dd($user);
+
+        return response()->json([
+            'message' => 'Usuario actualizado',
+        ]);
     }
 
     /**
@@ -81,4 +126,5 @@ class UserController extends Controller
     {
         //
     }
+
 }

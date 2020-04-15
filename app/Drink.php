@@ -22,4 +22,8 @@ class Drink extends Model
     {
         return $this->morphOne('App\Image', 'imageable');
     }
+
+    public function description() {
+        return $this->belongsTo('App\Description_Drink');
+    }
 }

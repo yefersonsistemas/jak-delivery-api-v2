@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\State;
 use App\City;
 use App\Municipality;
 use App\Parishe;
+use Spatie\Permission\Models\Role;
 
 class AddressController extends Controller
 {
@@ -28,7 +30,7 @@ class AddressController extends Controller
         'municipio' => $municipality, 
         'parroquia' => $parishe] );
     }
-
+    
     /**
      * Show the form for creating a new resource.
      *

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Provider;
 
 class ProviderController extends Controller
 {
@@ -13,7 +15,9 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        //
+        $provider = Provider::with('person.user')->get();
+
+        return response()->json($provider);
     }
 
     /**
