@@ -116,6 +116,28 @@ class UserController extends Controller
         ]);
     }
 
+    
+    // public function discontinued(Request $request){ 
+      
+    //     $reservation = Reservation::find($request->id);
+        
+    //     if (!empty($reservation)) {
+          
+    //         $reservation->discontinued = 'Suspendido';
+    
+    //         if ($reservation->save()){
+    //             $this->reason($request);
+    //             return response()->json([
+    //                 'message' => 'Cita suspendida', 
+    //             ]);
+    //         }
+    //     }else{
+    //         return response()->json([
+    //             'message' => 'No se pudo suspender la cita',
+    //         ]);
+    //     }
+    // }
+
     /**
      * Remove the specified resource from storage.
      *
