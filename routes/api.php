@@ -27,6 +27,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('logout', 'Auth\API\AuthController@logout');
         Route::get('address', 'AddressController@index');
         Route::post('profile', 'Auth\API\AuthController@profile');
+        Route::put('update/{id}', 'UserController@update');
 
 
         Route::group(['prefix' => 'foodB'], function () {

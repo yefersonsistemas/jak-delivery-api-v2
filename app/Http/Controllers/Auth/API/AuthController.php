@@ -138,15 +138,4 @@ class AuthController extends Controller
             'message' => 'Se desconectó con éxito',
         ]);
     }
-
-    public function profile(Request $request)
-    {
-        $user = User::with('person')->where('id', $request->id)->first();
-        
-        $profile = Person::with('address')->where('id', $user->person_id)->first();
-        // dd($profile);
-        return response()->json([ 
-        'user' => $user,
-        'profile' => $profile]);
-    }
 }

@@ -169,8 +169,9 @@ class OrderController extends Controller
 
         $typepayment = explode(',', $order->typepayment_id);
 
-        $total_bs=0;
-        $total_us=0;
+        $total = 0;
+        $total_us = 0;
+        $total_p = 0;
 
         foreach ($order as $pedido) {
             if ($pedido->food_arabian_id != null) {
