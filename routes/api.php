@@ -25,8 +25,10 @@ Route::group(['prefix' => 'auth'], function () {
         Route::post('login', 'Auth\API\AuthController@login');
         Route::post('register', 'Auth\API\AuthController@register');
         Route::get('logout', 'Auth\API\AuthController@logout');
-   
         Route::get('address', 'AddressController@index');
+        Route::post('profile', 'UserController@profile');
+        Route::post('update', 'UserController@update');
+
 
         Route::group(['prefix' => 'foodB'], function () {
             Route::post('burguer', 'BurguerController@burguer');
@@ -144,7 +146,9 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'orders'], function () {
             Route::get('order/day', 'OrderController@index');
             Route::post('postulate/{id}', 'OrderController@assigment');
-            Route::post('pedido/{id}/{usd}', 'OrderController@store');
+            Route::post('create/pedido', 'OrderController@createOrder');
+            // Route::post('pedido/{id}/{usd}', 'OrderController@store');
+            Route::post('pedido/{id}', 'OrderController@store');
         });
 
          Route::group(['prefix' => 'providers'], function () {

@@ -12,6 +12,6 @@ $factory->define(Courier::class, function (Faker $faker) {
         'person_id' => $person->id,
         'type_vehicle' => $faker->randomElement(['Moto', 'Automóvil']),
         // 'business_delivery' => $faker->numberBetween(1, 3),
-        'business_delivery' => $faker->randomNumber, //contiene el id de la persona o empresa que proporciona el repartidor
+        'bussiness_delivery' => $faker->randomNumber, //contiene el id de la persona o empresa que proporciona el repartidor
     ];
 });
