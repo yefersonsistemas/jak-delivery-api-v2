@@ -24,7 +24,7 @@ class UserController extends Controller
         // dd($request);
 
         $user = User::find($request->id);
-        dd($user);
+        // dd($user);
         // $profile = Person::with('address')->where('id', $user->person_id)->get();
         // dd($profile);
         return response()->json(['profile' => $user]);
