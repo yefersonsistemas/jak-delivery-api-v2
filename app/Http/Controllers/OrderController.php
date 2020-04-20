@@ -127,150 +127,32 @@ class OrderController extends Controller
         $provider = Provider::with('person.user')->find($request->id);
         // dd($provider);
        
-        if($request->name == 'arabian'){
-            $arabian = Food_Arabian::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-            $arabian  = null;
-        }
-
-        if($request->name == 'burguer'){
-            $burguer = Food_Burguer::with('description')->get();
-        }else{
-            $burguer = null;
-        }
-
-        if($request->name == 'chinese'){
-            $chinese = Food_Chinese::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-            $chinese  = null;
-        }
-
-        if($request->name == 'chicken'){
-             $chicken = Food_Chicken::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-           $chicken = null;
-        }
-
-        if($request->name == 'indian'){
-             $indian = Food_Indian::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $indian  = null;
-        }
-
-        if($request->name == 'italian'){
-             $italian = Food_Italian::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $italian  = null;
-        }
-
-        if($request->name == 'korean'){
-             $korean = Food_Korean::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $korean  = null;
-        }
-
-        if($request->name == 'japanese'){
-             $japanese = Food_Japanese::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $japanese  = null;
-        }
-
-        
-        if($request->name == 'pizza'){
-            $pizza = Food_Pizza::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $pizza  = null;
-        }
-        
-        if($request->name == 'mexican'){
-            $mexican = Food_Mexican::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $mexican  = null;
-        }
-        
-        if($request->name == 'salad'){
-            $salad = Food_Salad::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $salad  = null;
-        }
-        
-        if($request->name == 'vegetarian'){
-            $vegetarian = Food_Vegetarian::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $vegetarian  = null;
-        }
-        
-        if($request->name == 'vegan'){
-            $vegan = Food_Vegan::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-         $vegan   = null;
-        }
-        
-        if($request->name == 'traditional'){
-            $traditional = Food_Traditional::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $traditional  = null;
-        }
-        
-        if($request->name == 'liquor'){
-            $liquor = Liquor_Store::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-         $liquor   = null;
-        }
-        
-        if($request->name == 'fruit'){
-            $fruit = Fruit_Store::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-         $fruit   = null;
-        }
-        
-        if($request->name == 'victual'){
-            $victual = Victual::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $victual  = null;
-        }
-        
-        if($request->name == 'greengrocer'){
-            $greengrocer = Greengrocer::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-         $greengrocer   = null;
-        }
-        
-        if($request->name == 'delicatesse'){
-            $delicatesse = Delicatesse::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $delicatesse  = null;
-        }
-        
-        if($request->name == 'bakery'){
-            $bakery = Bakery::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $bakery  = null;
-        }
-        
-        if($request->name == 'lunch'){
-            $lunch = Lunch::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $lunch  = null;
-        }
-
-        if($request->name == 'drink'){
-            $drink = Drink::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-          $drink  = null;
-        }
-        
-        if($request->name == 'extra'){
-            $extra = Extra::with('description')->where('providers_id', $provider->id)->get();  
-        }else{
-         $extra   = null;
-        }
-        
-        if($request->name == 'fridge'){
-            $fridge = Fridge::with('description')->where('providers_id', $provider->id)->get();
-        }else{
-         $fridge   = null;
-        }
+      
+        $arabian = Food_Arabian::with('description')->where('providers_id', $provider->id)->get();
+        $burguer = Food_Burguer::with('description')->where('providers_id', $provider->id)->get();
+        $chinese = Food_Chinese::with('description')->where('providers_id', $provider->id)->get();
+        $chicken = Food_Chicken::with('description')->where('providers_id', $provider->id)->get();
+        $indian = Food_Indian::with('description')->where('providers_id', $provider->id)->get();
+        $italian = Food_Italian::with('description')->where('providers_id', $provider->id)->get();
+        $korean = Food_Korean::with('description')->where('providers_id', $provider->id)->get();
+        $japanese = Food_Japanese::with('description')->where('providers_id', $provider->id)->get();
+        $pizza = Food_Pizza::with('description')->where('providers_id', $provider->id)->get();
+        $mexican = Food_Mexican::with('description')->where('providers_id', $provider->id)->get();
+        $salad = Food_Salad::with('description')->where('providers_id', $provider->id)->get();
+        $vegetarian = Food_Vegetarian::with('description')->where('providers_id', $provider->id)->get();
+        $vegan = Food_Vegan::with('description')->where('providers_id', $provider->id)->get();
+        $traditional = Food_Traditional::with('description')->where('providers_id', $provider->id)->get();
+        $liquor = Liquor_Store::with('description')->where('providers_id', $provider->id)->get();
+        $fruit = Fruit_Store::with('description')->where('providers_id', $provider->id)->get();
+        $victual = Victual::with('description')->where('providers_id', $provider->id)->get();
+        $greengrocer = Greengrocer::with('description')->where('providers_id', $provider->id)->get();
+        $delicatesse = Delicatesse::with('description')->where('providers_id', $provider->id)->get();
+        $bakery = Bakery::with('description')->where('providers_id', $provider->id)->get();
+        $lunch = Lunch::with('description')->where('providers_id', $provider->id)->get();
+        $drink = Drink::with('description')->where('providers_id', $provider->id)->get();
+        $extra = Extra::with('description')->where('providers_id', $provider->id)->get();  
+        $fridge = Fridge::with('description')->where('providers_id', $provider->id)->get();
+       
 
         $all =  [$chinese, $extra, $salad, $vegetarian, $vegan, $traditional, $chicken, $drink, $delicatesse, $indian, $italian, $burguer,
                 $mexican, $japanese, $arabian, $korean, $victual, $fridge, $fruit, $lunch, $liquor, $greengrocer, $bakery, $pizza];
