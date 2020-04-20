@@ -175,7 +175,8 @@ class OrderController extends Controller
         // dd($request);
         $order = Order::with('burguer','arabian','italian', 'indian', 'mexican', 'korean', 'japanese', 'pizza', 'chicken', 
         'drink', 'extra', 'salad', 'vegan', 'vegetarian', 'traditional', 'chinese', 'liquor', 'fruit', 'greengrocer',
-        'victual', 'delicatesse', 'bakery', 'fridge', 'lunch', 'typepayment')->where('id', $request->id)->first();
+        'victual', 'delicatesse', 'bakery', 'fridge', 'lunch', 'typepayment', 'client.person.user', 'courier.person.user',
+        'provider.person.user')->where('id', $request->id)->first();
         // dd($order);
 
         //se decodifica el tipo de comida solicitada
