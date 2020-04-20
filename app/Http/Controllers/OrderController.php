@@ -45,7 +45,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
+        $order = Order::with('client.person.user', 'courier.person.user', 'provider.person.user')->whereDate('created_at', Carbon::now()->format('Y-m-d'))->get();
         // dd($order);
 
         return response()->json($order);

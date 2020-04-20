@@ -29,6 +29,6 @@ class Client extends Model
 
     public function order()
     {
-        return $this->hasMany('App\Order', 'clients_id');
+        return $this->hasOne('App\Order');
     }
 }

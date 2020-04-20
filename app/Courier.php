@@ -18,8 +18,8 @@ class Courier extends Model
         return $this->belongsTo('App\Person');
     }
 
-      public function order()
+     public function order()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasOne('App\Order');
     }
 }

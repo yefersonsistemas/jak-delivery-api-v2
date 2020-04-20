@@ -19,6 +19,11 @@ class Provider extends Model
         'person_id', 'typepayment_id', 'price_delivery'
     ];
 
+      public function order()
+    {
+        return $this->hasOne('App\Order');
+    }
+
     public function address()
     {
         return $this->belongsTo('App\Address', 'address_id');

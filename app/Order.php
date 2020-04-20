@@ -22,12 +22,12 @@ class Order extends Model
 
     public function client()
     {
-        return $this->hasOne('App\Client');
+        return $this->belongsTo('App\Client', 'clients_id');
     }
 
     public function courier()
     {
-        return $this->belongsTo('App\Courier', 'courier_id');
+        return $this->belongsTo('App\Courier', 'couriers_id');
     }
 
       public function assigment()
