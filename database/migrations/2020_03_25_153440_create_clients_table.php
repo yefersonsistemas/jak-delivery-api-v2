@@ -16,11 +16,17 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('person_id');
+            $table->unsignedBigInteger('address_id');
             $table->timestamps();
 
             $table->foreign('person_id')
             ->references('id')
             ->on('person')
+            ->onDelete('CASCADE');
+
+            $table->foreign('address_id')
+            ->references('id')
+            ->on('address')
             ->onDelete('CASCADE');
         });
     }

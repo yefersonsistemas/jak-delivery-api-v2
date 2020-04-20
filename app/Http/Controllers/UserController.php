@@ -81,11 +81,11 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        //  dd($request); 
+        // dd($request); 
 
-        $user = User::where('id', $request->id)->first();
-        // dd( $user);
-        $person = Person::with('user', 'address')->where('id', $user->person_id)->first();
+        $user = User::with('person')->where('id', $request->id)->first();
+        // dd($user->person);
+        $person = Person::where('id', $user->person_id)->first();
         // dd($person);
         $address = Address::where('id', $person->address_id)->first();
         // dd($address);
@@ -111,6 +111,7 @@ class UserController extends Controller
 
         return response()->json([
             'message' => 'Usuario actualizado',
+            // 'address' => $address
         ]);
     }
 

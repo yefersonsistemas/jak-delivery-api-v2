@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             $this->call(UserTableSeeder::class);
             // $this->call(ImageTableSeeder::class);
             $this->call(BurguerTableSeeder::class);
-            // $this->call(DescriptionBurguerTableSeeder::class);
+            $this->call(DescriptionBurguerTableSeeder::class);
             // $this->call(VeganTableSeeder::class);
             // $this->call(DescriptionVeganTableSeeder::class);
             // $this->call(VegetarianTableSeeder::class);
