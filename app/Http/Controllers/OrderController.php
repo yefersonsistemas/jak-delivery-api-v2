@@ -660,6 +660,10 @@ class OrderController extends Controller
         }else{
             $typepayment = null;
         }
+
+        $persons = ['client' => $order->client->person->name.' '.$order->client->person->lastname,
+        'courier' => $order->courier->person->name.' '.$order->courier->person->lastname,
+        'provider' => $order->provider->person->name];
         
         $pedido =  [$name_chin, $name_e, $name_s, $name_v, $name_ve, $name_t, $name_chik, $name_d, $name_de, $name_in, $name_i, $name_b,
                     $name_m, $name_j, $name_a, $name_k, $name_vi, $name_f, $name_fru, $name_l, $name_li, $name_g, $name_ba, $name_p];
@@ -669,6 +673,7 @@ class OrderController extends Controller
         // dd($pedido, $total, $total_us, $pago);
 
         return response()->json([
+            'persons' => $persons,
             'pedido' => $pedido,
             'Total bs' => $total, 
             'Total us' => $total_us, 
