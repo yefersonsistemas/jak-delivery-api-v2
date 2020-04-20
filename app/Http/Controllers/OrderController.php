@@ -33,6 +33,8 @@ use App\Delicatesse;
 use App\Victual;
 use App\Bakery;
 use App\Typepayment;
+use App\Client;
+use App\Provider;
 
 class OrderController extends Controller
 {
@@ -83,37 +85,11 @@ class OrderController extends Controller
     {
         // dd($request);
 
-        $arabe = Food_Arabian::with('description')->get();
-        $rapida = Food_Burguer::with('description')->get();
-        $china = Food_Chinese::with('description')->get();
-        $japonesa = Food_Japanese::with('description')->get();
-        $corana = Food_Korean::with('description')->get();
-        $italiana = Food_Italian::with('description')->get();
-        $india = Food_Indian::with('description')->get();
-        $pollo = Food_Chicken::with('description')->get();
-        $pizza_c = Food_Pizza::with('description')->get();
-        $mexicana = Food_Mexican::with('description')->get();
-        $enslada = Food_Salad::with('description')->get();
-        $vegetariana = Food_Vegetarian::with('description')->get();
-        $vegano = Food_Vegan::with('description')->get();
-        $tradicional = Food_Traditional::with('description')->get();
-        $licor = Liquor_Store::with('description')->get();
-        $fruta = Fruit_Store::with('description')->get();
-        $vivere = Victual::with('description')->get();
-        $verdura = Greengrocer::with('description')->get();
-        $charcuteria = Delicatesse::with('description')->get();
-        $panaderia = Bakery::with('description')->get();
-        $desayuno = Lunch::with('description')->get();
-        $bebida = Drink::with('description')->get();
-        $extra_c = Extra::with('description')->get();
-        $carne = Fridge::with('description')->get();
-        $pago = Typepayment::get();
-
         $order = Order::create([
         'clients_id' => $request->clients_id, 
         'couriers_id' => $request->couriers_id, 
-        'status' => 'Pendiente', 
         'providers_id' => $request->providers_id, 
+        'status' => 'Pendiente', 
         'food_arabian_id' => $request->food_arabian_id, 
         'food_chinese_id' => $request->food_chinese_id, 
         'food_burguer_id' => $request->food_burguer_id, 
@@ -128,7 +104,7 @@ class OrderController extends Controller
         'food_traditional_id' => $request->food_traditional_id, 
         'food_japanese_id' => $request->food_japanese_id,
         'food_mexican_id' => $request->food_mexican_id, 
-        'extras_id' => $request->typepayment_id, 
+        'extras_id' => $request->extras_id, 
         'drinks_id' => $request->drinks_id, 
         'bakeries_id' => $request->bakeries_id, 
         'liquor_store_id' => $request->liquor_store_id, 
@@ -146,434 +122,672 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
+     public function food(Request $request){
+        // dd($request);
+        $provider = Provider::with('person.user')->find($request->id);
+        // dd($provider);
+       
+        if($request->name == 'arabian'){
+            $arabian = Food_Arabian::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+            $arabian  = null;
+        }
+
+        if($request->name == 'burguer'){
+            $burguer = Food_Burguer::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+            $burguer = null;
+        }
+
+        if($request->name == 'chinese'){
+            $chinese = Food_Chinese::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+            $chinese  = null;
+        }
+
+        if($request->name == 'chicken'){
+             $chicken = Food_Chicken::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+           $chicken = null;
+        }
+
+        if($request->name == 'indian'){
+             $indian = Food_Indian::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $indian  = null;
+        }
+
+        if($request->name == 'italian'){
+             $italian = Food_Italian::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $italian  = null;
+        }
+
+        if($request->name == 'korean'){
+             $korean = Food_Korean::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $korean  = null;
+        }
+
+        if($request->name == 'japanese'){
+             $japanese = Food_Japanese::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $japanese  = null;
+        }
+
+        
+        if($request->name == 'pizza'){
+            $pizza = Food_Pizza::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $pizza  = null;
+        }
+        
+        if($request->name == 'mexican'){
+            $mexican = Food_Mexican::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $mexican  = null;
+        }
+        
+        if($request->name == 'salad'){
+            $salad = Food_Salad::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $salad  = null;
+        }
+        
+        if($request->name == 'vegetarian'){
+            $vegetarian = Food_Vegetarian::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $vegetarian  = null;
+        }
+        
+        if($request->name == 'vegan'){
+            $vegan = Food_Vegan::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+         $vegan   = null;
+        }
+        
+        if($request->name == 'traditional'){
+            $traditional = Food_Traditional::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $traditional  = null;
+        }
+        
+        if($request->name == 'liquor'){
+            $liquor = Liquor_Store::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+         $liquor   = null;
+        }
+        
+        if($request->name == 'fruit'){
+            $fruit = Fruit_Store::with('description')->where('providers_id', $provider->id)->where('providers_id', $provider->id)->get();
+        }else{
+         $fruit   = null;
+        }
+        
+        if($request->name == 'victual'){
+            $victual = Victual::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $victual  = null;
+        }
+        
+        if($request->name == 'greengrocer'){
+            $greengrocer = Greengrocer::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+         $greengrocer   = null;
+        }
+        
+        if($request->name == 'delicatesse'){
+            $delicatesse = Delicatesse::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $delicatesse  = null;
+        }
+        
+        if($request->name == 'bakery'){
+            $bakery = Bakery::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $bakery  = null;
+        }
+        
+        if($request->name == 'lunch'){
+            $lunch = Lunch::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $lunch  = null;
+        }
+
+        if($request->name == 'drink'){
+            $drink = Drink::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+          $drink  = null;
+        }
+        
+        if($request->name == 'extra'){
+            $extra = Extra::with('description')->where('providers_id', $provider->id)->get();  
+        }else{
+         $extra   = null;
+        }
+        
+        if($request->name == 'fridge'){
+            $fridge = Fridge::with('description')->where('providers_id', $provider->id)->get();
+        }else{
+         $fridge   = null;
+        }
+
+        $all =  [$chinese, $extra, $salad, $vegetarian, $vegan, $traditional, $chicken, $drink, $delicatesse, $indian, $italian, $burguer,
+                $mexican, $japanese, $arabian, $korean, $victual, $fridge, $fruit, $lunch, $liquor, $greengrocer, $bakery, $pizza];
+
+
+        return response()->json($all);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)//$usd variable q trae el monto del dolar al dia y pasar com parametro en el metodo
+    public function store(Request $request)
     {
         // dd($request);
-        $dolar = 100000;
         $order = Order::with('burguer','arabian','italian', 'indian', 'mexican', 'korean', 'japanese', 'pizza', 'chicken', 
         'drink', 'extra', 'salad', 'vegan', 'vegetarian', 'traditional', 'chinese', 'liquor', 'fruit', 'greengrocer',
         'victual', 'delicatesse', 'bakery', 'fridge', 'lunch', 'typepayment')->where('id', $request->id)->first();
         // dd($order);
 
-        //se decodifica el tipo comida solicitada
-
-        $total_us = 0;
-        $total = 0;
+        //se decodifica el tipo de comida solicitada
         
-        $total_a = 0;
-        if ($pedido->food_arabian_id != null) {
-            foreach ($order->food_arabian_id as $pedido) {
-                $orden_id[] = explode(',', $pedido->food_arabian_id); //decodificando los procedimientos en $encontrado
+        $total_a = 0; 
+        $dolar_a = 0;
+        if ($order->food_arabian_id != null) {
+                $orden_id = explode(',', $order->food_arabian_id); 
                 if ($orden_id != null) {
                     for ($i=0; $i < count($orden_id); $i++) {
                         $arabian[] = Food_Arabian::find($orden_id[$i]);
                         $total_a += $arabian[$i]->price_bs;
+                        $dolar_a += $arabian[$i]->price_us;
+                        $name_a[] = $arabian[$i]->name;
                     }
+                }
+        }else{
+            $arabian = null;
+            $total_a = 0;
+            $dolar_a = 0;
+            $name_a = null;
+        }
+
+        $total_b = 0;
+        $dolar_b = 0;
+        if ($order->food_burguer_id != null) {
+                $orden_id = explode(',', $order->food_burguer_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $burguer[] = Food_Burguer::find($orden_id[$i]);
+                        $total_b += $burguer[$i]->price_bs;
+                        $dolar_b += $burguer[$i]->price_us;
+                        $name_b[] = $burguer[$i]->name;
+                    }
+                }
+        }else{
+            $burguer = null;
+            $total_b = 0;
+            $dolar_b = 0;
+            $name_b = null;
+        }
+
+        $total_chik;
+        $dolar_chik = 0;
+        if ($order->food_chicken_id != null) {
+            $orden_id = explode(',', $order->food_chicken_id); 
+            if ($orden_id != null) {
+                for ($i=0; $i < count($orden_id); $i++) {
+                    $chicken[] = Food_Chicken::find($orden_id[$i]);
+                    $total_chik += $chicken[$i]->price_bs;
+                    $dolar_chik += $chicken[$i]->price_us;
+                    $name_chik[] = $chicken[$i]->name;
                 }
             }
         }else{
-            $arabian = null;
-            $total_a = null;
+            $chicken = null;
+            $total_chik = 0;
+            $dolar_chik = 0;
+            $name_chik = null;
         }
 
-        dd($total_a);
+        $total_chin = 0;
+        $dolar_chin = 0;
+        if ($order->food_chinese_id != null) {
+            $orden_id = explode(',', $order->food_chinese_id); 
+            if ($orden_id != null) {
+                for ($i=0; $i < count($orden_id); $i++) {
+                    $chinese[] = Food_Chinese::find($orden_id[$i]);
+                    $total_chin += $chinese[$i]->price_bs;
+                    $dolar_chin += $chinese[$i]->price_us;
+                    $name_chin[] =$chinese[$i]->name;
+                }
+            }
+        }else{
+            $chinese = null;
+            $total_chin = 0;
+            $dolar_chin = 0;
+            $name_chin = null;
+        }
 
-        // $total_b = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_burguer_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_burguer_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $burguer[] = Food_Burguer::find($orden_id[$i]);
-        //                 $total_b += $burguer[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $burguer = null;
-        //         $total_b = null;
-        //     }
-        // }
+        $total_in = 0;
+        $dolar_in = 0;
+        if ($order->food_indian_id != null) {
+                $orden_id = explode(',', $order->food_indian_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $indian[] = Food_Indian::find($orden_id[$i]);
+                        $total_in += $indian[$i]->price_bs;
+                        $dolar_in += $indian[$i]->price_us;
+                        $name_in[] = $indian[$i]->name;
+                    }
+                }
+        }else{
+            $indian = null;
+            $total_in = 0;
+            $dolar_in = 0;
+            $name_in = null;
+        }
 
-        // $total_chik;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_chicken_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_chicken_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $chicken[] = Food_Chicken::find($orden_id[$i]);
-        //                 $total_chik += $chicken[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $chicken = null;
-        //         $total_chik = null;
-        //     }
-        // }
+        $total_i = 0;
+        $dolar_i = 0;
+        if ($order->food_italian_id != null) {
+                $orden_id = explode(',', $order->food_italian_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $italian[] = Food_Italian::find($orden_id[$i]);
+                        $total_i += $italian[$i]->price_bs;
+                        $dolar_i += $italian[$i]->price_us;
+                        $name_i[] = $italian[$i]->name;
+                    }
+                }
+        }else{
+            $italian = null;
+            $total_i = 0;
+            $dolar_i = 0;
+            $name_i = null;
+        }
 
-        // $total_chin = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_chinese_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_chinese_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $chinese[] = Food_Chinese::find($orden_id[$i]);
-        //                 $total_chin += $chinese[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $chinese = null;
-        //         $total_chin = null;
-        //     }
-        // }
+        $total_j = 0;
+        $dolar_j = 0;
+        if ($order->food_japanese_id != null) {
+                $orden_id = explode(',', $order->food_japanese_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $japanese[] = Food_Japanese::find($orden_id[$i]);
+                        $total_j += $japanese[$i]->price_bs;
+                        $dolar_j += $japanese[$i]->price_us;
+                        $name_j[] = $japanese[$i]->name;
+                    }
+                }
+        }else{
+            $japanese = null;
+            $total_j = 0;
+            $dolar_j = 0;
+            $name_j = null;
+        }
 
-        // $total_in = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_indian_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_indian_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $indian[] = Food_Indian::find($orden_id[$i]);
-        //                 $total_in += $indian[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $indian = null;
-        //         $total_in = null;
-        //     }
-        // }
+        $total_m = 0;
+        $dolar_m = 0;
+        if ($order->food_mexican_id != null) {
+                $orden_id = explode(',', $order->food_mexican_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $mexican[] = Food_Mexican::find($orden_id[$i]);
+                        $total_m += $mexican[$i]->price_bs;
+                        $dolar_m += $mexican[$i]->price_us;
+                        $name_m[] = $mexican[$i]->name;
+                    }
+                }
+        }else{
+            $mexican = null;
+            $total_m = 0;
+            $dolar_m = 0;
+            $name_m = null;
+        }
 
-        // $total_i = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_italian_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_italian_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $italian[] = Food_Italian::find($orden_id[$i]);
-        //                 $total_i += $italian[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $italian = null;
-        //         $total_i = null;
-        //     }
-        // }
+        $total_k =0;
+        $dolar_k = 0;
+        if ($order->food_korean_id != null) {
+                $orden_id = explode(',', $order->food_korean_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $korean[] = Food_Korean::find($orden_id[$i]);
+                        $total_k += $korean[$i]->price_bs;
+                        $dolar_k += $korean[$i]->price_us;
+                        $name_k[] = $korean[$i]->name;
+                    }
+                }
+        }else{
+            $korean = null;
+            $total_k = 0;
+            $dolar_k = 0;
+            $name_k = null;
+        }
 
-        // $total_j = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_japanese_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_japanese_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $japanese[] = Food_Japanese::find($orden_id[$i]);
-        //                 $total_j += $japanese[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $japanese = null;
-        //         $total_j = null;
-        //     }
-        // }
+        $total_p = 0;
+        $dolar_p = 0;
+        if ($order->food_pizza_id != null) {
+                $orden_id = explode(',', $order->food_pizza_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $pizza[] = Food_Pizza::find($orden_id[$i]);
+                        $total_p += $pizza[$i]->price_bs;
+                        $dolar_p += $pizza[$i]->price_us;
+                        $name_p[] = $pizza[$i]->name;
+                    }
+                }
+        }else{
+            $pizza = null;
+            $total_p = 0;
+            $dolar_p = 0;
+            $name_p = null;
+        }
 
-        // $total_m = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_mexican_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_mexican_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $mexican[] = Food_Mexican::find($orden_id[$i]);
-        //                 $total_m += $mexican[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $mexican = null;
-        //         $total_m = null;
-        //     }
-        // }
+        $total_s = 0;
+        $dolar_s = 0;
+        if ($order->food_salad_id != null) {
+                $orden_id = explode(',', $order->food_salad_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $salad[] = Food_Salad::find($orden_id[$i]);
+                        $total_s += $salad[$i]->price_bs;
+                        $dolar_s += $salad[$i]->price_us;
+                        $name_s[] = $salad[$i]->name;
+                    }
+                }
+        }else{
+            $salad = null;
+            $total_s = 0;
+            $dolar_s = 0;
+            $name_s = null;
+        }
 
-        // $total_k =0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_korean_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_korean_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $korean[] = Food_Korean::find($orden_id[$i]);
-        //                 $total_k += $korean[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $korean = null;
-        //         $total_k = null;
-        //     }
-        // }
+        $total_t = 0;
+        $dolar_t = 0;
+        if ($order->food_traditional_id != null) {
+                $orden_id = explode(',', $order->food_traditional_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $traditional[] = Food_Traditional::find($orden_id[$i]);
+                        $total_t += $traditional[$i]->price_bs;
+                        $dolar_t += $traditional[$i]->price_us;
+                        $name_t[] = $traditional[$i]->name;
+                    }
+                }
+        }else{
+            $traditional = null;
+            $total_t = 0;
+            $dolar_t = 0;
+            $name_t = null;
+        }
 
-        // $total_p = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_pizza_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_pizza_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $pizza[] = Food_Pizza::find($orden_id[$i]);
-        //                 $total_p += $pizza[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $pizza = null;
-        //         $total_p = null;
-        //     }
-        // }
+        $total_ve = 0;
+        $dolar_ve = 0;
+        if ($order->food_vegan_id != null) {
+                $orden_id = explode(',', $order->food_vegan_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $vegan[] = Food_Vegan::find($orden_id[$i]);
+                        $total_ve += $vegan[$i]->price_bs;
+                        $dolar_ve += $vegan[$i]->price_us;
+                        $name_ve[] = $vegan[$i]->name;
+                    }
+                }
+        }else{
+            $vegan = null;
+            $total_ve = 0;
+            $dolar_ve = 0;
+            $name_ve = null;
+        }
 
-        // $total_s = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_salad_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_salad_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $salad[] = Food_Salad::find($orden_id[$i]);
-        //                 $total_s += $salad[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $salad = null;
-        //         $total_s = null;
-        //     }
-        // }
+        $total_v = 0;
+        $dolar_v = 0;
+        if ($order->food_vegetarian_id != null) {
+                $orden_id = explode(',', $order->food_vegetarian_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $vegetarian[] = Food_Vegetarian::find($orden_id[$i]);
+                        $total_v += $vegetarian[$i]->price_bs;
+                        $dolar_v += $vegetarian[$i]->price_us;
+                        $name_v[] = $vegetarian[$i]->name;
+                    }
+                }
+        }else{
+            $vegetarian = null;
+            $total_v = 0;
+            $dolar_v = 0;
+            $name_v = null;
+        }
 
-        // $total_t = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_traditional_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_traditional_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $traditional[] = Food_Traditional::find($orden_id[$i]);
-        //                 $total_t += $traditional[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $traditional = null;
-        //         $total_t = null;
-        //     }
-        // }
+        $total_d =0;
+        $dolar_de = 0;
+        if ($order->delicatesse_id != null) {
+                $orden_id = explode(',', $order->delicatesse_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $delicatesse[] = Delicatesse::find($orden_id[$i]);
+                        $total_de += $delicatesse[$i]->price_bs;
+                        $dolar_de += $delicatesse[$i]->price_us;
+                        $name_de[] = $delicatesse[$i]->name;
+                    }
+                }
+        }else{
+            $delicatesse = null;
+            $total_de = 0;
+            $dolar_de = 0;
+            $name_de = null;
+        }
 
-        // $total_ve = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_vegan_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_vegan_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $vegan[] = Food_Vegan::find($orden_id[$i]);
-        //                 $total_ve += $vegan[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $vegan = null;
-        //         $total_ve = null;
-        //     }
-        // }
+        $total_ba =0;
+        $dolar_ba = 0;
+        if ($order->bakeries_id != null) {
+                $orden_id = explode(',', $order->bakeries_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $bakery[] = Bakery::find($orden_id[$i]);
+                        $total_ba += $bakery[$i]->price_bs;
+                        $dolar_ba += $bakery[$i]->price_us;
+                        $name_ba[] = $bakery[$i]->name;
+                    }
+                }
+        }else{
+            $bakery = null;
+            $total_ba = 0;
+            $dolar_ba = 0;
+            $name_ba = null;
+        }
 
-        // $total_v = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->food_vegetarian_id != null) {
-        //         $orden_id[] = explode(',', $pedido->food_vegetarian_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $vegetarian[] = Food_Vegetarian::find($orden_id[$i]);
-        //                 $total_v += $vegetarian[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $vegetarian = null;
-        //         $total_v = null;
-        //     }
-        // }
+        $total_f = 0;
+        $dolar_f = 0;
+        if ($order->fridge_id != null) {
+                $orden_id = explode(',', $order->fridge_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $fridge = Fridge::find($orden_id[$i]);
+                        $total_f += $fridge[$i]->price_bs;
+                        $dolar_f += $fridge[$i]->price_us;
+                        $name_f[] = $fridge[$i]->name;
+                    }
+                }
+        }else{
+            $fridge = null;
+            $total_f = 0;
+            $dolar_f = 0;
+            $name_f = null;
+        }
 
-        // $total_d =0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->delicatesse_id != null) {
-        //         $orden_id[] = explode(',', $pedido->delicatesse_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $delicatesse[] = Delicatesse::find($orden_id[$i]);
-        //                 $total_d += $delicatesse[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $delicatesse = null;
-        //         $total_d = null;
-        //     }
-        // }
+        $total_fru = 0;
+        $dolar_fru = 0;
+        if ($order->fruit_store_id != null) {
+                $orden_id = explode(',', $order->fruit_store_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $fruit[] = Fruit_Store::find($orden_id[$i]);
+                        $total_fru += $fruit[$i]->price_bs;
+                        $dolar_fru += $fruit[$i]->price_us;
+                        $name_fru[] = $fruit[$i]->name;
+                    }
+                }
+        }else{
+            $fruit = null;
+            $total_fru = 0;
+            $dolar_fru = 0;
+            $name_fru = null;
+        }
 
-        // $total_ba =0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->bakeries_id != null) {
-        //         $orden_id[] = explode(',', $pedido->bakeries_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $bakery[] = Bakery::find($orden_id[$i]);
-        //                 $total_ba += $bakery[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $bakery = null;
-        //         $total_ba = null;
-        //     }
-        // }
+        $total_li = 0;
+        $dolar_li = 0;
+        if ($order->liquor_store_id != null) {
+                $orden_id = explode(',', $order->liquor_store_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $liquor[] = Liquor_Store::find($orden_id[$i]);
+                        $total_li += $liquor[$i]->price_bs;
+                        $dolar_li += $liquor[$i]->price_us;
+                        $name_li[] = $liquor[$i]->name;
+                    }
+                }
+        }else{
+            $liquor = null;
+            $total_li = 0;
+            $dolar_li = 0;
+            $name_li = null;
+        }
 
-        // $total_f = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->fridge_id != null) {
-        //         $orden_id[] = explode(',', $pedido->fridge_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $fridge[] = Fridge::find($orden_id[$i]);
-        //                 $total_f += $fridge[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $fridge = null;
-        //         $total_f = null;
-        //     }
-        // }
+        $total_g = 0;
+        $dolar_g = 0;
+        if ($order->greengrocer_id != null) {
+                $orden_id = explode(',', $order->greengrocer_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $greengrocer[] = Greengrocer::find($orden_id[$i]);
+                        $total_g += $greengrocer[$i]->price_bs;
+                        $dolar_g += $greengrocer[$i]->price_us;
+                        $name_g[] = $greengrocer[$i]->name;
+                    }
+                }
+        }else{
+            $greengrocer = null;
+            $total_g = 0;
+            $dolar_g = 0;
+            $name_g = null;
+        }
 
-        // $total_fru = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->fruit_store_id != null) {
-        //         $orden_id[] = explode(',', $pedido->fruit_store_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $fruit[] = Fruit_Store::find($orden_id[$i]);
-        //                 $total_fru += $fruit[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $fruit = null;
-        //         $total_fru = null;
-        //     }
-        // }
+        $total_l = 0;
+        $dolar_l = 0;
+        if ($order->lunch_id != null) {
+                $orden_id = explode(',', $order->lunch_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $lunch[] = Lunch::find($orden_id[$i]);
+                        $total_l += $lunch[$i]->price_bs;
+                        $dolar_l += $lunch[$i]->price_us;
+                        $name_l[] = $lunch[$i]->name;
+                    }
+                }
+        }else{
+            $lunch = null;
+            $total_l = 0;
+            $dolar_l = 0;
+            $name_l = null;
+        }
 
-        // $total_li = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->liquor_store_id != null) {
-        //         $orden_id[] = explode(',', $pedido->liquor_store_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $liquor[] = Liquor_Store::find($orden_id[$i]);
-        //                 $total_li += $liquor[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $liquor = null;
-        //         $total_li = null;
-        //     }
-        // }
+        $total_vi = 0;
+        $dolar_ = 0;
+        if ($order->victuals_id != null) {
+                $orden_id = explode(',', $order->victuals_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $victual[] = Victual::find($orden_id[$i]);
+                        $total_vi += $victual[$i]->price_bs;
+                        $dolar_vi += $victual[$i]->price_us;
+                        $name_vi[] = $victual[$i]->name;
+                    }
+                }
+        }else{
+            $victual = null;
+            $total_vi = 0;
+            $dolar_vi = 0;
+            $name_vi = null;
+        }
 
-        // $total_g = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->greengrocer_id != null) {
-        //         $orden_id[] = explode(',', $pedido->greengrocer_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $greengrocer[] = Greengrocer::find($orden_id[$i]);
-        //                 $total_g += $greengrocer[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $greengrocer = null;
-        //         $total_g = null;
-        //     }
-        // }
+        $total_d = 0;
+        $dolar_d = 0;
+        if ($order->drinks_id != null) {
+                $orden_id = explode(',', $order->drinks_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $drink[] = Drink::find($orden_id[$i]);
+                        $total_d += $drink[$i]->price_bs;
+                        $dolar_d += $drink[$i]->price_us;
+                        $name_d[] =$drink[$i]->name;
+                    }
+                }
+        }else{
+            $drink = null;
+            $total_d = 0;
+            $dolar_d = 0;
+            $name_d = null;
+        }
 
-        // $total_l = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->lunch_id != null) {
-        //         $orden_id[] = explode(',', $pedido->lunch_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $lunch[] = Lunch::find($orden_id[$i]);
-        //                 $total_l += $lunch[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $lunch = null;
-        //         $total_l = null;
-        //     }
-        // }
+        $total_e = 0;
+        $dolar_e = 0;
+        if ($order->extras_id != null) {
+                $orden_id = explode(',', $order->extras_id); 
+                if ($orden_id != null) {
+                    for ($i=0; $i < count($orden_id); $i++) {
+                        $extra[] = Extra::find($orden_id[$i]);
+                        $total_e += $extra[$i]->price_bs;
+                        $dolar_e += $extra[$i]->price_us;
+                        $name_e[] = $extra[$i]->name;
+                    }
+                }
+        }else{
+            $extra = null;
+            $total_e = 0;
+            $dolar_e = 0;
+            $name_e = null;
+        }
 
-        // $total_vi = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->victuals_id != null) {
-        //         $orden_id[] = explode(',', $pedido->victuals_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $victual[] = Victual::find($orden_id[$i]);
-        //                 $total_vi += $victual[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $victual = null;
-        //         $total_vi = null;
-        //     }
-        // }
+        $total_us = 0;
+        $total = 0;
 
-        // $total_d = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->drinks_id != null) {
-        //         $orden_id[] = explode(',', $pedido->drinks_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $drink[] = Drink::find($orden_id[$i]);
-        //                 $total_d += $drink[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $drink = null;
-        //         $total_d = null;
-        //     }
-        // }
+        $total = ($total_e + $total_d + $total_s + $total_v + $total_ve + $total_t + $total_chik + $total_de +
+        $total_chin + $total_in + $total_i + $total_m + $total_j + $total_a + $total_k + $total_vi +
+        $total_f + $total_fru + $total_l + $total_li + $total_b + $total_ba + $total_p + $total_g);
 
-        // $total_e = 0;
-        // foreach ($order as $pedido) {
-        //     if ($pedido->extras_id != null) {
-        //         $orden_id[] = explode(',', $pedido->extras_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $extra[] = Extra::find($orden_id[$i]);
-        //                 $total_e += $extra[$i]->price_bs;
-        //             }
-        //         }
-        //     }else{
-        //         $extra = null;
-        //         $total_e = null;
-        //     }
-        // }
+        $total_us = ($dolar_e + $dolar_d + $dolar_s + $dolar_v + $dolar_ve + $dolar_t + $dolar_chik + $dolar_de +
+        $dolar_chin + $dolar_in + $dolar_i + $dolar_m + $dolar_j + $dolar_a + $dolar_k + $dolar_vi +
+        $dolar_f + $dolar_fru + $dolar_l + $dolar_li + $dolar_b + $dolar_ba + $dolar_p + $dolar_g);
 
-        // $total = ($total_e + $total_d + $total_s + $total_v + $total_ve + $total_t + $total_chik + 
-        // $total_chin + $total_in + $total_i + $total_m + $total_j + $total_a + $total_k + $total_vi +
-        // $total_f + $total_fru + $total_l + $total_li + $total_d + $total_b + $total_ba + $total_p + $total_g);
-
-        // $total_us = $total * $dolar;
-
-        // dd($total, $total_us);
-
-        // foreach ($order as $pedido) {
-        //     if ($pedido->typepayment_id != null) {
-        //         $orden_id[] = explode(',', $pedido->typepayment_id); 
-        //         if ($orden_id != null) {
-        //             for ($i=0; $i < count($orden_id); $i++) {
-        //                 $typepayment[] = Typepayment::find($orden_id[$i]);
-        //             }
-        //         }
-        //     }else{
-        //         $typepayment = null;
-        //     }
-        // }
+       
+        if ($order->typepayment_id != null) {
+            $orden_id = explode(',', $order->typepayment_id); 
+            if ($orden_id != null) {
+                for ($i=0; $i < count($orden_id); $i++) {
+                    $typepayment[] = Typepayment::find($orden_id[$i]);
+                    $pago[] = $typepayment[$i]->name;
+                }
+            }
+        }else{
+            $typepayment = null;
+        }
+        
+        $pedido =  [$name_chin, $name_e, $name_s, $name_v, $name_ve, $name_t, $name_chik, $name_d, $name_de, $name_in, $name_i, $name_b,
+                    $name_m, $name_j, $name_a, $name_k, $name_vi, $name_f, $name_fru, $name_l, $name_li, $name_g, $name_ba, $name_p];
 
         
+        // dd($total, $total_us, $pago);
+        // dd($pedido, $total, $total_us, $pago);
+
+        return response()->json([
+            'pedido' => $pedido,
+            'Total bs' => $total, 
+            'Total us' => $total_us, 
+            'Forma de pago' => $pago
+        ]);
     }
 
     /**

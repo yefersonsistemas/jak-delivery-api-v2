@@ -5,6 +5,30 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Provider;
+use App\Food_Arabian;
+use App\Food_Mexican;
+use App\Food_Japanese;
+use App\Food_Italian;
+use App\Food_Indian;
+use App\Food_Chicken;
+use App\Food_Chinese;
+use App\Food_Korean;
+use App\Food_Traditional;
+use App\Food_Pizza;
+use App\Food_Salad;
+use App\Food_Vegan;
+use App\Food_Vegetarian;
+use App\Drink;
+use App\Extra;
+use App\Food_Burguer;
+use App\Fridge;
+use App\Fruit_Store;
+use App\Greengrocer;
+use App\Liquor_Store;
+use App\Lunch;
+use App\Delicatesse;
+use App\Victual;
+use App\Bakery;
 
 class ProviderController extends Controller
 {
