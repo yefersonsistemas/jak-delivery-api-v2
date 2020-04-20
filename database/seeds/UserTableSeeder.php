@@ -9,7 +9,7 @@ use App\State;
 use App\Municipality;
 use App\Parishe;
 use App\City;
-use App\Typepayment;
+use App\TypePayment;
 use App\Food_Burguer;
 use App\Description_Burguer;
 use App\Food_Italian;
@@ -53,7 +53,7 @@ class UserTableSeeder extends Seeder
         Image::truncate();
         Client::truncate();
         Courier::truncate();
-        Typepayment::truncate();
+        TypePayment::truncate();
         Food_Burguer::truncate();
         Description_Burguer::truncate();
         Food_Japanese::truncate();

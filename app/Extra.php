@@ -17,12 +17,17 @@ class Extra extends Model
         return $this->belongsTo('App\Provider', 'providers_id');
     }
 
-      public function image()
+    public function image()
     {
         return $this->morphOne('App\Image', 'imageable');
     }
 
-      public function description() {
+    public function description() {
         return $this->belongsTo('App\Description_Extra');
     }
+
+    public function order() {
+        return $this->belongsTo('App\Order');
+    }
+
 }

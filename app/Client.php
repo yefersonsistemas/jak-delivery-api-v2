@@ -26,4 +26,9 @@ class Client extends Model
     {
         return $this->belongsTo('App\Person', 'person_id');
     }
+
+    public function order()
+    {
+        return $this->hasMany('App\Order', 'clients_id');
+    }
 }
