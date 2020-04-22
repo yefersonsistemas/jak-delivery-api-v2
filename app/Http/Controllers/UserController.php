@@ -89,6 +89,8 @@ class UserController extends Controller
         // dd($person);
         $address = Address::where('id', $person->address_id)->first();
         // dd($address);
+        $question = Security::where('person_id', $person->id)->first();
+        // dd($question);
                 
         if ($person != null) {   
             
@@ -105,8 +107,17 @@ class UserController extends Controller
 
             $user->email = $request->email;
             $user->save();
+
+            $question->question_1 = $request->question_1;
+            $question->answers_1 = $request->answers_1;
+            $question->question_2 = $request->question_2;
+            $question->answers_2 = $request->answers_2;
+            $question->question_3 = $request->question_3;
+            $question->answers_3 = $request->answers_3;
+            $question->save();
           
         }
+
         // dd($user);
 
         return response()->json([
