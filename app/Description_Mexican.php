@@ -19,6 +19,6 @@ class Description_Mexican extends Model
 
     public function mexican()
     {
-        return $this->belongsTo('App\Food_Mexican', 'mexican_id');
+        return $this->belongsTo('App\Food_Mexican');
     }
 }

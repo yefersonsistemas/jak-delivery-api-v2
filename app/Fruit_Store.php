@@ -24,6 +24,6 @@ class Fruit_Store extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Fruit');
+        return $this->hasOne('App\Description_Fruit', 'fruit_id');
     }
 }

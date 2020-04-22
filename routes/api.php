@@ -18,16 +18,17 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
 // Register, Login
 Route::group(['prefix' => 'auth'], function () {
  
-        Route::post('login', 'Auth\API\AuthController@login');
-        Route::post('register', 'Auth\API\AuthController@register');
+        Route::post('login', 'Auth\API\AuthController@login')->name('login');
+        Route::post('register', 'Auth\API\AuthController@register')->name('register');
         Route::get('logout', 'Auth\API\AuthController@logout');
         Route::get('address', 'AddressController@index');
         Route::post('profile', 'UserController@profile');
         Route::post('update', 'UserController@update');
+        Route::post('forgot', 'Auth\API\AuthController@forgot');
+
 
 
         Route::group(['prefix' => 'foodB'], function () {
@@ -148,7 +149,8 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('postulate/{id}', 'OrderController@assigment');
             Route::post('food', 'OrderController@food');
             Route::post('create/pedido', 'OrderController@createOrder');
-            Route::post('pedido/{id}', 'OrderController@store');
+            Route::post('pedido/{id}', 'OrderController@store');  //decodifica el pedido y lo muestra
+            Route::post('search', 'OrderController@search');
         });
 
          Route::group(['prefix' => 'providers'], function () {

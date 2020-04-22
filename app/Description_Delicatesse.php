@@ -19,6 +19,6 @@ class Description_Delicatesse extends Model
 
     public function delicatesse()
     {
-        return $this->belongsTo('App\Delicatesse', 'delicatesse_id');
+        return $this->belongsTo('App\Delicatesse');
     }
 }

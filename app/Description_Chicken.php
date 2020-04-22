@@ -19,6 +19,6 @@ class Description_Chicken extends Model
 
     public function chicken()
     {
-        return $this->belongsTo('App\Food_Chicken', 'chicken_id');
+        return $this->belongsTo('App\Food_Chicken');
     }
 }

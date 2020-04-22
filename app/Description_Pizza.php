@@ -19,6 +19,6 @@ class Description_Pizza extends Model
     }
 
     public function pizza() {
-        return $this->belongsTo('App\Food_Pizza', 'pizza_id');
+        return $this->belongsTo('App\Food_Pizza');
     }
 }

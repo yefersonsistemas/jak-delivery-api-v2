@@ -23,7 +23,7 @@ class Extra extends Model
     }
 
     public function description() {
-        return $this->belongsTo('App\Description_Extra');
+        return $this->hasOne('App\Description_Extra', 'extras_id');
     }
 
     public function order() {

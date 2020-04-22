@@ -24,6 +24,6 @@ class Victual extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Victual');
+        return $this->hasOne('App\Description_Victual', 'victuals_id');
     }
 }

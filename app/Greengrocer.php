@@ -24,6 +24,6 @@ class Greengrocer extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Greengrocer');
+        return $this->hasOne('App\Description_Greengrocer', 'greengrocer_id');
     }
 }

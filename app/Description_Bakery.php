@@ -19,6 +19,6 @@ class Description_Bakery extends Model
 
     public function bakery()
     {
-        return $this->belongsTo('App\Bakery', 'bakeries_id');
+        return $this->belongsTo('App\Bakery');
     }
 }

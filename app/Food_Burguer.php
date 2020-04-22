@@ -23,6 +23,6 @@ class Food_Burguer extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Burguer');
+        return $this->hasOne('App\Description_Burguer', 'burguer_id');
     }
 }

@@ -19,6 +19,6 @@ class Description_Greengrocer extends Model
     }
 
     public function greengrocer() {
-        return $this->belongsTo('App\Food_Greengrocer', 'greengrocer_id');
+        return $this->belongsTo('App\Food_Greengrocer');
     }
 }

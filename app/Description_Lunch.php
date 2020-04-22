@@ -19,6 +19,6 @@ class Description_Lunch extends Model
     }
 
     public function lunch() {
-        return $this->belongsTo('App\Food_Lunch', 'lunch_id');
+        return $this->belongsTo('App\Food_Lunch');
     }
 }

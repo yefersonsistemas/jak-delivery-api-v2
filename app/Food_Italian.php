@@ -23,6 +23,6 @@ class Food_Italian extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Italian');
+        return $this->hasOne('App\Description_Italian', 'italian_id');
     }
 }

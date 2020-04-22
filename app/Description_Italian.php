@@ -19,6 +19,6 @@ class Description_Italian extends Model
     }
 
     public function italian() {
-        return $this->belongsTo('App\Food_Italian', 'italian_id');
+        return $this->belongsTo('App\Food_Italian');
     }
 }

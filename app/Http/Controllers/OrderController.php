@@ -80,6 +80,112 @@ class OrderController extends Controller
         //
     }
 
+    public function search(Request $request){
+          // dd($request);
+        $provider = Provider::with('person.user')->find($request->provider_id);
+        // dd($provider);
+       
+        if($request->type == 'arabian'){
+            $food = Food_Arabian::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'burguer'){
+            $food = Food_Burguer::with('description')->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'chinese'){
+            $food = Food_Chinese::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'chicken'){
+             $food = Food_Chicken::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'indian'){
+             $food = Food_Indian::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'italian'){
+             $food = Food_Italian::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'korean'){
+             $food = Food_Korean::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'japanese'){
+             $food = Food_Japanese::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        
+        if($request->type == 'pizza'){
+            $food = Food_Pizza::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'mexican'){
+            $food = Food_Mexican::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'salad'){
+            $food = Food_Salad::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+          
+        
+        if($request->type == 'vegetarian'){
+            $food = Food_Vegetarian::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'vegan'){
+            $food = Food_Vegan::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'traditional'){
+            $food = Food_Traditional::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'liquor'){
+            $food = Liquor_Store::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'fruit'){
+            $food = Fruit_Store::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'victual'){
+            $food = Victual::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'greengrocer'){
+            $food = Greengrocer::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'delicatesse'){
+            $food = Delicatesse::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'bakery'){
+            $food = Bakery::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'lunch'){
+            $food = Lunch::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        if($request->type == 'drink'){
+            $food = Drink::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+        
+        if($request->type == 'extra'){
+            $food = Extra::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();  
+        }
+        
+        if($request->type == 'fridge'){
+            $food = Fridge::with('description')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+        }
+
+        return response()->json($food);
+
+    }
 
     public function createOrder(Request $request)
     {

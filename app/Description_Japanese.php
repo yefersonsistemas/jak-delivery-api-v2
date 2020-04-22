@@ -20,6 +20,6 @@ class Description_Japanese extends Model
 
     public function japanese()
     {
-        return $this->belongsTo('App\Food_Japanese', 'japanese_id');
+        return $this->belongsTo('App\Food_Japanese');
     }
 }

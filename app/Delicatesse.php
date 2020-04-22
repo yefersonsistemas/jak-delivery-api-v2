@@ -24,6 +24,6 @@ class Delicatesse extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Delicatesse');
+        return $this->hasOne('App\Description_Delicatesse', 'delicatesse_id');
     }
 }

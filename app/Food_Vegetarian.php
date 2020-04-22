@@ -23,6 +23,6 @@ class Food_Vegetarian extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Vegetarian');
+        return $this->hasOne('App\Description_Vegetarian', 'vegetarian_id');
     }
 }
