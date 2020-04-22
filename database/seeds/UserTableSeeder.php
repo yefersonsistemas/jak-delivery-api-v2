@@ -31,6 +31,7 @@ use App\Description_Drink;
 use App\Image;
 use App\Client;
 use App\Courier;
+use App\Security;
 
 use App\Traits\ImageFactory;
 use Spatie\Permission\Models\Permission;
@@ -47,6 +48,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         User::truncate();
+        Security::truncate();
         Person::truncate();
         Address::truncate();
         Provider::truncate();
@@ -129,6 +131,15 @@ class UserTableSeeder extends Seeder
             'email' => $person->email,
         ])->assignRole('client');
 
+        $question = factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Primer auto',
+            'answers_1' => 'Corolla',
+            'question_2' => 'Color preferido',
+            'answers_2' => 'Azul',
+            'question_3' => 'Comida favorita',
+            'answers_3' => 'Pizza',
+        ]);
 
         $provider = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -243,6 +254,16 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
+
+        $question1 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Nombre de mascota',
+            'answers_1' => 'escarabajo',
+            'question_2' => 'Alias',
+            'answers_2' => 'Caracas',
+            'question_3' => 'Programa preferido',
+            'answers_3' => 'CSI',
+        ]);
 
         $provider2 = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -375,6 +396,16 @@ class UserTableSeeder extends Seeder
             'email' => $person->email,
         ])->assignRole('client');
 
+        $question2 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Auto que quiero',
+            'answers_1' => 'Lamborghini',
+            'question_2' => 'Color preferido',
+            'answers_2' => 'Rojo',
+            'question_3' => 'Mascota',
+            'answers_3' => 'perro',
+        ]);
+
         $provider3 = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 80000,
@@ -472,6 +503,17 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
+
+        $question3 =  factory(Security::class)->create([
+           'person_id' => $person->id,
+            'question_1' => 'Artista preferido',
+            'answers_1' => 'Antonio Banderas',
+            'question_2' => 'Color preferido',
+            'answers_2' => 'Negro',
+            'question_3' => 'Raza de perro',
+            'answers_3' => 'Rottweiler',
+        ]);
+
 
         $provider4 = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -601,6 +643,16 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
+
+        $question4 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Pais para vivir',
+            'answers_1' => 'Italia',
+            'question_2' => 'Nombre de ave',
+            'answers_2' => 'colibri',
+            'question_3' => 'Estilo de ropa',
+            'answers_3' => 'Clasica',
+        ]);
 
         $provider5 = factory(Provider::class)->create([
             'person_id' => $person->id,
@@ -748,6 +800,16 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
+        
+        $question5 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Pais para vivir',
+            'answers_1' => 'España',
+            'question_2' => 'Ave que gusta',
+            'answers_2' => 'Quetzal',
+            'question_3' => 'Coleccion',
+            'answers_3' => 'Carteras',
+        ]);
 
         factory(Client::class)->create([
             'person_id' => $person->id,
@@ -777,6 +839,16 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client');
+
+        $question6 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Novela',
+            'answers_1' => 'Orgullo y prejuicio',
+            'question_2' => 'Actriz gustaria conocer',
+            'answers_2' => 'Natalie Portman',
+            'question_3' => 'Mania',
+            'answers_3' => 'Orden',
+        ]);
 
         factory(Client::class)->create([
             'person_id' => $person->id,
@@ -808,6 +880,16 @@ class UserTableSeeder extends Seeder
             'email' => $person->email,
         ])->assignRole('client');
 
+        $question7 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Saga',
+            'answers_1' => 'Crepusculo',
+            'question_2' => 'Actor',
+            'answers_2' => 'Robert Pattison',
+            'question_3' => 'Clan',
+            'answers_3' => 'Cullen',
+        ]);
+
         factory(Client::class)->create([
             'person_id' => $person->id,
         ]);
@@ -837,6 +919,16 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client', 'courier');
+
+        $question8 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Comida',
+            'answers_1' => 'China',
+            'question_2' => 'Mascota',
+            'answers_2' => 'Gato',
+            'question_3' => 'Transporte',
+            'answers_3' => 'Moto',
+        ]);
 
         factory(Courier::class)->create([
             'person_id' => $person->id,
@@ -870,6 +962,16 @@ class UserTableSeeder extends Seeder
             'email' => $person->email,
         ])->assignRole('client', 'courier');
 
+        $question9 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Color',
+            'answers_1' => 'Azul',
+            'question_2' => 'Sueño',
+            'answers_2' => 'Viajar a China',
+            'question_3' => 'Juegos',
+            'answers_3' => 'Estrategias',
+        ]);
+
         factory(Courier::class)->create([
             'person_id' => $person->id,
             'type_vehicle' => 'Moto',
@@ -900,6 +1002,16 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'email' => $person->email,
         ])->assignRole('client', 'courier');
+
+        $question10 =  factory(Security::class)->create([
+            'person_id' => $person->id,
+            'question_1' => 'Pelicula',
+            'answers_1' => 'Rapidos y furiosos',
+            'question_2' => 'Hobbie',
+            'answers_2' => 'Jugar',
+            'question_3' => 'Comida',
+            'answers_3' => 'tradicional',
+        ]);
 
         factory(Courier::class)->create([
             'person_id' => $person->id,

@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         Schema::disableForeignKeyConstraints();
-            $this->call(RolesAndPermissionsTablesSeeders::class);
-            $this->call(CityTableSeeder::class);
-            $this->call(MunicipalityTableSeeder::class);
-            $this->call(ParisheTableSeeder::class);
-            $this->call(StateTableSeeder::class);
+            // $this->call(RolesAndPermissionsTablesSeeders::class);
+            // $this->call(CityTableSeeder::class);
+            // $this->call(MunicipalityTableSeeder::class);
+            // $this->call(ParisheTableSeeder::class);
+            // $this->call(StateTableSeeder::class);
             // $this->call(AddressTableSeeder::class);
             // $this->call(PersonTableSeeder::class);
             // $this->call(ClientTableSeeder::class);
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             // $this->call(DescriptionVeganTableSeeder::class);
             // $this->call(VegetarianTableSeeder::class);
             // $this->call(DescriptionVegetarianTableSeeder::class);
-            $this->call(OrderTableSeeder::class);
+            // $this->call(OrderTableSeeder::class);
             Schema::enableForeignKeyConstraints();
         }
 }

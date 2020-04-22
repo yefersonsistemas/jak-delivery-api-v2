@@ -36,4 +36,9 @@ class Person extends Model
     {
         return $this->belongsTo('App\Provider');
     }
+
+       public function security()
+    {
+        return $this->belongsTo('App\Security', 'person_id');
+    }
 }
