@@ -39,6 +39,6 @@ class Person extends Model
 
        public function security()
     {
-        return $this->belongsTo('App\Security', 'person_id');
+        return $this->hasOne('App\Security', 'person_id');
     }
 }

@@ -15,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::with('person.security')->get();
+
+        return response()->json([ 
+        'user' => $user
+        ]);
     }
 
     public function profile(Request $request)
@@ -27,6 +31,14 @@ class UserController extends Controller
         return response()->json([ 
         'user' => $user,
         'profile' => $profile]);
+    }
+
+    public function search_User(Request $request){
+        $user = User::with('person.security')->where('id', $request->id)->first();
+
+        return response()->json([ 
+        'user' => $user
+        ]);
     }
 
     /**

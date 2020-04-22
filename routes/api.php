@@ -28,6 +28,7 @@ Route::group(['prefix' => 'auth'], function () {
         Route::post('profile', 'UserController@profile');
         Route::post('update', 'UserController@update');
         Route::post('forgot', 'Auth\API\AuthController@forgot');
+        Route::post('user/search', 'UserController@search_User');
 
 
 
