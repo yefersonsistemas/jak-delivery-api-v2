@@ -24,6 +24,6 @@ class Food_Salad extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Salad');
+        return $this->belongsTo('App\Description_Salad', 'salads_id');
     }
 }

@@ -24,6 +24,6 @@ class Lunch extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Lunch');
+        return $this->hasOne('App\Description_Lunch', 'lunch_id');
     }
 }

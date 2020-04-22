@@ -23,6 +23,6 @@ class Liquor_Store extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Liquor');
+        return $this->hasOne('App\Description_Liquor', 'liquor_id');
     }
 }

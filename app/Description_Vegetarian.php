@@ -19,6 +19,6 @@ class Description_Vegetarian extends Model
     }
 
     public function vegetarian() {
-        return $this->belongsTo('App\Food_Vegetarian', 'vegetarian_id');
+        return $this->belongsTo('App\Food_Vegetarian');
     }
 }

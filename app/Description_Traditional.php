@@ -19,6 +19,6 @@ class Description_Traditional extends Model
     }
 
     public function tradicional() {
-        return $this->belongsTo('App\Food_Tradicional', 'tradicional_id');
+        return $this->belongsTo('App\Food_Tradicional');
     }
 }

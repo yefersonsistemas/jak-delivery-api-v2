@@ -20,6 +20,6 @@ class Description_Indian extends Model
 
     public function indian()
     {
-        return $this->belongsTo('App\Food_Indian', 'indian_id');
+        return $this->belongsTo('App\Food_Indian');
     }
 }

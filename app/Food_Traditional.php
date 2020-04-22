@@ -23,6 +23,6 @@ class Food_Traditional extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Traditional');
+        return $this->hasOne('App\Description_Traditional', 'traditional_id');
     }
 }

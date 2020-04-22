@@ -96,21 +96,28 @@ class AuthController extends Controller
                 }
 
                 $user = User::where('person_id', $person->id)->first();
+                // dd($user);
 
                 if (!Hash::check($request->password, $user->password)) {
+                    // dd($user);
                     return response()->json([
                         'message' => 'Contraseña incorrecta'], 401);
                 }
 
+                // dd($user);
                 $tokenResult = $person->user->createToken('Personal Access Token');
+                // dd($tokenResult);
                 $token       = $tokenResult->token;
+                // dd($user);
 
                 if ($request->remember_me) {
+                    // dd($user);
                     $token->expires_at = Carbon::now()->addWeek(2);
                 }
-                
+                // dd($user);
                 $token->save();
-    
+                // dd($user);
+
                 return response()->json([
                     'access_token' => $tokenResult->accessToken,
                     'token_type'   => 'Bearer',
@@ -122,6 +129,7 @@ class AuthController extends Controller
                     'user'         => Auth::id(),
                     'id'           => $user->id,
                     'name'         => $person->name,
+                    // 'clave'        => $user->password,
                 ]);
     
             
@@ -137,5 +145,23 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Se desconectó con éxito',
         ]);
+    }
+
+    public function forgot(Request $request){
+
+        $person = Person::whereEmail($request->email)->first();
+        // dd($person);
+
+        if ($person == null) {
+            return response()->json([
+                'person' => 'Usuario no registrado'], 401); 
+        }
+
+        $user = User::where('person_id', $person->id)->first();
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+        // dd($user->password);
+
     }
 }

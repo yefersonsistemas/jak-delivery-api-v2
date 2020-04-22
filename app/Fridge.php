@@ -24,6 +24,6 @@ class Fridge extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Fridge');
+        return $this->hasOne('App\Description_Fridge', 'fridge_id');
     }
 }

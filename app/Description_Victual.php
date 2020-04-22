@@ -19,6 +19,6 @@ class Description_Victual extends Model
 
     public function victual()
     {
-        return $this->belongsTo('App\Victual', 'victual_id');
+        return $this->belongsTo('App\Victual');
     }
 }

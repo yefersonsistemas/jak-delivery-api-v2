@@ -19,6 +19,6 @@ class Description_Korean extends Model
     }
 
     public function korean() {
-        return $this->belongsTo('App\Food_Korean', 'korean_id');
+        return $this->belongsTo('App\Food_Korean');
     }
 }

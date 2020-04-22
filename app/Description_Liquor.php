@@ -15,6 +15,6 @@ class Description_Liquor extends Model
 
     public function provider()
     {
-        return $this->belongsTo('App\Provider', 'providers_id');
+        return $this->belongsTo('App\Provider');
     }
 }

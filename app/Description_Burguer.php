@@ -19,6 +19,6 @@ class Description_Burguer extends Model
     }
 
     public function burguer() {
-        return $this->belongsTo('App\Food_Burguer', 'burguer_id');
+        return $this->belongsTo('App\Food_Burguer');
     }
 }

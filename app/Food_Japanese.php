@@ -24,6 +24,6 @@ class Food_Japanese extends Model
     }
 
       public function description() {
-        return $this->belongsTo('App\Description_Japanese');
+        return $this->hasOne('App\Description_Japanese', 'japanese_id');
     }
 }

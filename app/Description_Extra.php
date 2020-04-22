@@ -20,6 +20,6 @@ class Description_Extra extends Model
 
     public function extra()
     {
-        return $this->belongsTo('App\Extra', 'extras_id');
+        return $this->belongsTo('App\Extra');
     }
 }

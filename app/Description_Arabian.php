@@ -19,6 +19,6 @@ class Description_Arabian extends Model
     }
 
     public function arabian() {
-        return $this->belongsTo('App\Food_Arabian', 'arabian_id');
+        return $this->belongsTo('App\Food_Arabian');
     }
 }

@@ -19,6 +19,6 @@ class Description_Chinese extends Model
     }
 
     public function chinese() {
-        return $this->belongsTo('App\Food_Chinese', 'chinese_id');
+        return $this->belongsTo('App\Food_Chinese');
     }
 }
