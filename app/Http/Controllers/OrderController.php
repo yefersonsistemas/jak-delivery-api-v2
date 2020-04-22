@@ -154,31 +154,11 @@ class OrderController extends Controller
         $fridge = Fridge::with('description')->where('providers_id', $provider->id)->get();
        
 
-        $all =  [
-            'chinese'=>$chinese, 
-            'extra'=>$extra, 
-            'salad'=>$salad, 
-            'vegetarian'=>$vegetarian, 
-            'vegan'=>$vegan, 
-            'tradicional'=>$traditional, 
-            'chicken'=>$chicken, 
-            'drink'=>$drink, 
-            'delicatesse'=>$delicatesse, 
-            'indian'=>$indian, 
-            'italian'=>$italian, 
-            'burguer'=>$burguer,
-            'mexican'=>$mexican, 
-            'japanes'=>$japanese, 
-            'arabian'=>$arabian, 
-            'korean'=>$korean, 
-            'victual'=>$victual, 
-            'frige'=>$fridge, 
-            'fruit'=>$fruit, 
-            'lunch'=>$lunch, 
-            'liquor'=>$liquor, 
-            'greengrocer'=>$greengrocer, 
-            'bakery'=>$bakery, 
-            'pizza'=>$pizza];
+        $all =  ['chinese' => $chinese, 'extra' => $extra, 'salad' => $salad, 'vegetarian' =>  $vegetarian, 'vegan' =>  $vegan,
+                 'traditional' =>  $traditional, 'chicken' =>  $chicken, 'drink' => $drink, 'delicatesse' => $delicatesse,
+                 'indian' => $indian, 'italian' => $italian, 'burguer' => $burguer, 'mexican' => $mexican, 'japanese' => $japanese,
+                 'arabian' => $arabian, 'korean' => $korean, 'victual' => $victual, 'fridge' => $fridge, 'fruit' => $fruit,
+                 'lunch' => $lunch, 'liquor' => $liquor, 'greengrocer' => $greengrocer, 'bakery' => $bakery, 'pizza' => $pizza];
 
 
         return response()->json($all);
