@@ -33,8 +33,15 @@ class UserController extends Controller
         'profile' => $profile]);
     }
 
+    /**
+     * Se busca con el email xq es lo q introduce el user para cambiar clave
+     */
     public function search_User(Request $request){
-        $user = User::with('person.security')->where('id', $request->id)->first();
+        $person = Person::whereEmail($request->email)->first();
+
+        $user = User::with('person.security')->where('person_id', $person->id)->first();
+        
+        // $user = User::with('person.security')->where('id', $request->id)->first();
 
         return response()->json([ 
         'user' => $user

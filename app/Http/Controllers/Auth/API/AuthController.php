@@ -168,7 +168,6 @@ class AuthController extends Controller
                 'person' => 'Correo invalido o usuario no registrado'], 401); 
         }
         
-        
         $question = Security::where('person_id', $person->id)->first();
 
         if($person != null){
@@ -181,7 +180,7 @@ class AuthController extends Controller
                 $user->password = Hash::make($request->password);
                 $user->save();
             }else{
-                    return response()->json([
+                return response()->json([
                     'message' => 'Respuesta incorrecta'], 401);
             }
 
