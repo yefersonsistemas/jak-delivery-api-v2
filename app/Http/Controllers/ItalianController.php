@@ -51,8 +51,10 @@ class ItalianController extends Controller
     {
           // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $italian =  Food_Italian::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class ItalianController extends Controller
             'italian_id' =>  $italian->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+          // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/italian');  //se guarda en la carpeta public
+        // $path = $image->store('public/italian'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en italian
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Italian";
         $image->imageable_id = $italian->id;
@@ -113,10 +115,10 @@ class ItalianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
              // dd($id, $request->name);
-        $italian = Food_Italian::find($id);
+        $italian = Food_Italian::find($request->id);
         $description = Description_Italian::where('italian_id', $italian->id)->first();
 
         $italian->name = $request->name;
@@ -128,8 +130,35 @@ class ItalianController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $italian->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/italian');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Italian";
+                $image->imageable_id = $italian->id;
+                $image->save();
+            }else{
+                // dd($italian->image->path);
+                Storage::disk('public')->delete($italian->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/italian');
+                // $path = str_replace('public/', '', $path);
+                // $italian->image->path = $path;
+                $italian->image->path = $request->image;
+                $italian->image->save();
+            }
+        }
+
         return response()->json([
             'italian' => $italian,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

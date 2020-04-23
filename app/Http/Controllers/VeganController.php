@@ -51,8 +51,10 @@ class VeganController extends Controller
     {
                 // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+       $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $vegan =  Food_Vegan::create([
             'name'         => $request->name,
@@ -72,14 +74,14 @@ class VeganController extends Controller
 
         // dd($description);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/vegan');  //se guarda en la carpeta public
+        // $path = $image->store('public/vegan'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en vegan
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Vegan";
         $image->imageable_id = $vegan->id;
@@ -117,10 +119,10 @@ class VeganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
           // dd($id, $request->name);
-        $vegan = Food_Vegan::find($id);
+        $vegan = Food_Vegan::find($request->id);
         $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
 
         $vegan->name = $request->name;
@@ -132,8 +134,35 @@ class VeganController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $vegan->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/vegan');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Vegan";
+                $image->imageable_id = $vegan->id;
+                $image->save();
+            }else{
+                // dd($vegan->image->path);
+                Storage::disk('public')->delete($vegan->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/vegan');
+                // $path = str_replace('public/', '', $path);
+                // $vegan->image->path = $path;
+                $vegan->image->path = $request->image;
+                $vegan->image->save();
+            }
+        }
+
         return response()->json([
             'vegan' => $vegan,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

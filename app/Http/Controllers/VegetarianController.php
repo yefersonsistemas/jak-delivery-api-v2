@@ -51,9 +51,11 @@ class VegetarianController extends Controller
     {
          // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
-        
+       $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
+
         $vegetarian =  Food_Vegetarian::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
@@ -68,14 +70,14 @@ class VegetarianController extends Controller
             'vegetarian_id' =>  $vegetarian->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/vegetarian');  //se guarda en la carpeta public
+        // $path = $image->store('public/vegetarian'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en vegetarian
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Vegetarian";
         $image->imageable_id = $vegetarian->id;
@@ -113,10 +115,10 @@ class VegetarianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
              // dd($id, $request->name);
-        $vegetarian = Food_Vegetarian::find($id);
+        $vegetarian = Food_Vegetarian::find($request->id);
         $description = Description_Vegetarian::where('vegetarian_id', $vegetarian->id)->first();
 
         $vegetarian->name = $request->name;
@@ -128,8 +130,35 @@ class VegetarianController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $vegetarian->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/vegetarian');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Vegetarian";
+                $image->imageable_id = $vegetarian->id;
+                $image->save();
+            }else{
+                // dd($vegetarian->image->path);
+                Storage::disk('public')->delete($vegetarian->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/vegetarian');
+                // $path = str_replace('public/', '', $path);
+                // $vegetarian->image->path = $path;
+                $vegetarian->image->path = $request->image;
+                $vegetarian->image->save();
+            }
+        }
+
         return response()->json([
             'vegetarian' => $vegetarian,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

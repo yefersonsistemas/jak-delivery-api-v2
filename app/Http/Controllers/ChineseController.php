@@ -51,8 +51,10 @@ class ChineseController extends Controller
     {
              // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $chinese =  Food_Chinese::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class ChineseController extends Controller
             'chinese_id' =>  $chinese->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/chinese');  //se guarda en la carpeta public
+        // $path = $image->store('public/chinese'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en chinese
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Chinese";
         $image->imageable_id = $chinese->id;
@@ -113,10 +115,10 @@ class ChineseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
           // dd($id, $request->name);
-        $chinese = Food_Chinese::find($id);
+        $chinese = Food_Chinese::find($request->id);
         $description = Description_Chinese::where('chinese_id', $chinese->id)->first();
 
         $chinese->name = $request->name;
@@ -127,9 +129,35 @@ class ChineseController extends Controller
 
         $description->description = $request->description;
         $description->save();
+        
+        if ($request->image != null) {
+            if ( $chinese->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/chinese');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Chinese";
+                $image->imageable_id = $chinese->id;
+                $image->save();
+            }else{
+                // dd($chinese->image->path);
+                Storage::disk('public')->delete($chinese->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/chinese');
+                // $path = str_replace('public/', '', $path);
+                // $chinese->image->path = $path;
+                $chinese->image->path = $request->image;
+                $chinese->image->save();
+            }
+        }
 
         return response()->json([
             'chinese' => $chinese,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

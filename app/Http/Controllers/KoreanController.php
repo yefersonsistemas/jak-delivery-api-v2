@@ -51,8 +51,10 @@ class KoreanController extends Controller
     {
           // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $korean =  Food_Korean::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class KoreanController extends Controller
             'korean_id' =>  $korean->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+          // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/korean');  //se guarda en la carpeta public
+        // $path = $image->store('public/korean'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en korean
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Korean";
         $image->imageable_id = $korean->id;
@@ -113,10 +115,10 @@ class KoreanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
             // dd($id, $request->name);
-        $korean = Food_Korean::find($id);
+        $korean = Food_Korean::find($request->id);
         $description = Description_Korean::where('korean_id', $korean->id)->first();
 
         $korean->name = $request->name;
@@ -128,8 +130,35 @@ class KoreanController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $korean->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/korean');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Korean";
+                $image->imageable_id = $korean->id;
+                $image->save();
+            }else{
+                // dd($korean->image->path);
+                Storage::disk('public')->delete($korean->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/korean');
+                // $path = str_replace('public/', '', $path);
+                // $korean->image->path = $path;
+                $korean->image->path = $request->image;
+                $korean->image->save();
+            }
+        }
+
         return response()->json([
             'korean' => $korean,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

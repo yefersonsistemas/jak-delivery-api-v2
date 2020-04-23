@@ -52,8 +52,10 @@ class JapaneseController extends Controller
     {
          // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $japanese =  Food_Japanese::create([
             'name'         => $request->name,
@@ -69,14 +71,14 @@ class JapaneseController extends Controller
             'japanese_id' =>  $japanese->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+          // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/japanese');  //se guarda en la carpeta public
+        // $path = $image->store('public/japanese'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en japanese
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Japanese";
         $image->imageable_id = $japanese->id;
@@ -114,10 +116,10 @@ class JapaneseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
            // dd($id, $request->name);
-        $japanese = Food_Japanese::find($id);
+        $japanese = Food_Japanese::find($request->id);
         $description = Description_Japanese::where('japanese_id', $japanese->id)->first();
 
         $japanese->name = $request->name;
@@ -129,8 +131,35 @@ class JapaneseController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $japanese->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/japanese');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Japanese";
+                $image->imageable_id = $japanese->id;
+                $image->save();
+            }else{
+                // dd($japanese->image->path);
+                Storage::disk('public')->delete($japanese->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/japanese');
+                // $path = str_replace('public/', '', $path);
+                // $japanese->image->path = $path;
+                $japanese->image->path = $request->image;
+                $japanese->image->save();
+            }
+        }
+
         return response()->json([
             'japanese' => $japanese,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

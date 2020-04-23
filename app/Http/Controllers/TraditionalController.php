@@ -51,8 +51,10 @@ class TraditionalController extends Controller
     {
         // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $traditional =  Food_Traditional::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class TraditionalController extends Controller
             'traditional_id' =>  $traditional->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/traditional');  //se guarda en la carpeta public
+        // $path = $image->store('public/traditional'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en traditional
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Traditional";
         $image->imageable_id = $traditional->id;
@@ -113,10 +115,10 @@ class TraditionalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
             // dd($id, $request->name);
-        $traditional = Food_Traditional::find($id);
+        $traditional = Food_Traditional::find($request->id);
         $description = Description_Traditional::where('traditional_id', $traditional->id)->first();
 
         $traditional->name = $request->name;
@@ -128,8 +130,35 @@ class TraditionalController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $traditional->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/traditional');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Traditional";
+                $image->imageable_id = $traditional->id;
+                $image->save();
+            }else{
+                // dd($traditional->image->path);
+                Storage::disk('public')->delete($traditional->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/traditional');
+                // $path = str_replace('public/', '', $path);
+                // $traditional->image->path = $path;
+                $traditional->image->path = $request->image;
+                $traditional->image->save();
+            }
+        }
+
         return response()->json([
             'traditional' => $traditional,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

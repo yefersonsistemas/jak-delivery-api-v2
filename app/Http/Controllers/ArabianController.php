@@ -8,6 +8,8 @@ use App\User;
 use App\Food_Arabian;
 use App\Description_Arabian;
 use App\Image;
+use App\Provider;
+use Illuminate\Support\Facades\Storage;
 
 class ArabianController extends Controller
 {
@@ -50,10 +52,16 @@ class ArabianController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        
-        $provider = User::find($request->id);
-        // dd( $provider);
+        // dd($request);
+
+        //se usa esto para cuando inicie sesion
+        // $id = Auth::id();
+        // $provider = User::find($id);
+
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $arabian =  Food_Arabian::create([
             'name'         => $request->name,
@@ -69,14 +77,14 @@ class ArabianController extends Controller
             'arabian_id' =>  $arabian->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/arabian');  //se guarda en la carpeta public
+        // $path = $image->store('public/arabian'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en arabian
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Arabian";
         $image->imageable_id = $arabian->id;
@@ -114,10 +122,10 @@ class ArabianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        dd($id,$request);
-        $arabian = Food_Arabian::find($id);
+        // dd($id,$request);
+        $arabian = Food_Arabian::find($request->id);
         $description = Description_Arabian::where('arabian_id', $arabian->id)->first();
 
         $arabian->name = $request->name;
@@ -129,6 +137,31 @@ class ArabianController extends Controller
         // dd($arabian);
         $description->description = $request->description;
         $description->save();
+
+        if ($request->image != null) {
+            if ( $arabian->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/arabian');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Arabian";
+                $image->imageable_id = $arabian->id;
+                $image->save();
+            }else{
+                // dd($arabian->image->path);
+                Storage::disk('public')->delete($arabian->image->path); //elimina la img de storage para generar la nueva
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/arabian');
+                // $path = str_replace('public/', '', $path);
+                // $arabian->image->path = $path;
+                $arabian->image->path = $request->image;  //no se guarda en storage
+                $arabian->image->save();
+            }
+        }
 
         return response()->json([
             'arabian' => $arabian,

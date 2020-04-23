@@ -35,49 +35,49 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'foodB'], function () {
             Route::post('burguer', 'BurguerController@burguer');
             Route::post('create/burguer', 'BurguerController@store');
-            Route::put('edit/burguer/{id}', 'BurguerController@update');
+            Route::post('edit/burguer', 'BurguerController@update');
             Route::delete('{id}', 'BurguerController@destroy');
         });
 
          Route::group(['prefix' => 'foodI'], function () {
             Route::post('italian', 'ItalianController@italian');
             Route::post('create/italian', 'ItalianController@store');
-            Route::put('edit/italian/{id}', 'ItalianController@update');
+            Route::post('edit/italian', 'ItalianController@update');
             Route::delete('{id}', 'ItalianController@destroy');
         });
 
         Route::group(['prefix' => 'foodJ'], function () {
             Route::post('japanese', 'JapaneseController@japanese');
             Route::post('create/japanese', 'JapaneseController@store');
-            Route::put('edit/japanese/{id}', 'JapaneseController@update');
+            Route::post('edit/japanese', 'JapaneseController@update');
             Route::delete('{id}', 'JapaneseController@destroy');
         });
 
         Route::group(['prefix' => 'foodCh'], function () {
             Route::post('chinese', 'ChineseController@chinese');
             Route::post('create/chinese', 'ChineseController@store');
-            Route::put('edit/chinese/{id}', 'ChineseController@update');
+            Route::post('edit/chinese', 'ChineseController@update');
             Route::delete('{id}', 'ChineseController@destroy');
         });
 
         Route::group(['prefix' => 'foodIn'], function () {
             Route::post('indian', 'IndianController@indian');
             Route::post('create/indian', 'IndianController@store');
-            Route::put('edit/indian/{id}', 'IndianController@update');
+            Route::post('edit/indian', 'IndianController@update');
             Route::delete('{id}', 'IndianController@destroy');
         });
 
         Route::group(['prefix' => 'foodT'], function () {
             Route::post('traditional', 'TraditionalController@traditional');
             Route::post('create/traditional', 'TraditionalController@store');
-            Route::put('edit/traditional/{id}', 'TraditionalController@update');
+            Route::post('edit/traditional', 'TraditionalController@update');
             Route::delete('{id}', 'TraditionalController@destroy');
         });
 
         Route::group(['prefix' => 'foodA'], function () {
             Route::post('arabian', 'ArabianController@arabian');
             Route::post('create/arabian', 'ArabianController@store');
-            Route::put('edit/arabian/{id}', 'ArabianController@update');
+            Route::post('edit/arabian', 'ArabianController@update');
             Route::delete('{id}', 'ArabianController@destroy');
             
         });
@@ -85,63 +85,63 @@ Route::group(['prefix' => 'auth'], function () {
         Route::group(['prefix' => 'foodM'], function () {
             Route::post('mexican', 'MexicanController@mexican');
             Route::post('create/mexican', 'MexicanController@store');
-            Route::put('edit/mexican/{id}', 'MexicanController@update');
+            Route::post('edit/mexican', 'MexicanController@update');
             Route::delete('{id}', 'MexicanController@destroy');
         });
 
         Route::group(['prefix' => 'foodK'], function () {
             Route::post('korean', 'KoreanController@korean');
             Route::post('create/korean', 'KoreanController@store');
-            Route::put('edit/korean/{id}', 'KoreanController@update');
+            Route::post('edit/korean', 'KoreanController@update');
             Route::delete('{id}', 'KoreanController@destroy');
         });
 
          Route::group(['prefix' => 'foodP'], function () {  //pollo
             Route::post('chicken', 'ChickenController@chicken');
             Route::post('create/chicken', 'ChickenController@store');
-            Route::put('edit/chicken/{id}', 'ChickenController@update');
+            Route::post('edit/chicken', 'ChickenController@update');
             Route::delete('{id}', 'ChickenController@destroy');
         });
 
           Route::group(['prefix' => 'foodV'], function () { //vegetarian
             Route::post('vegetarian', 'VegetarianController@vegetarian');
             Route::post('create/vegetarian', 'vegetarianController@store');
-            Route::put('edit/vegetarian/{id}', 'VegetarianController@update');
+            Route::post('edit/vegetarian', 'VegetarianController@update');
             Route::delete('{id}', 'VegetarianController@destroy');
         });
 
           Route::group(['prefix' => 'foodVe'], function () { //vegan
             Route::post('vegan', 'VeganController@vegan');
             Route::post('create/vegan', 'VeganController@store');
-            Route::put('edit/vegan/{id}', 'VegetarianController@update');
+            Route::post('edit/vegan', 'VegetarianController@update');
             Route::delete('{id}', 'VeganController@destroy');
         });
 
          Route::group(['prefix' => 'foodPi'], function () { //pizza
             Route::post('pizza', 'PizzaController@pizza');
             Route::post('create/pizza', 'PizzaController@store');
-            Route::put('edit/pizza/{id}', 'PizzaController@update');
+            Route::post('edit/pizza', 'PizzaController@update');
             Route::delete('{id}', 'PizzaController@destroy');
         });
 
          Route::group(['prefix' => 'foodD'], function () {
             Route::post('drink', 'DrinkController@drink');
             Route::post('create/drink', 'DrinkController@store');
-            Route::put('edit/drink/{id}', 'DrinkController@update');
+            Route::post('edit/drink', 'DrinkController@update');
             Route::delete('{id}', 'DrinkController@destroy');
         });
 
          Route::group(['prefix' => 'foodE'], function () {
             Route::post('extra', 'ExtraController@extra');
             Route::post('create/extra', 'ExtraController@store');
-            Route::put('edit/extra/{id}', 'ExtraController@update');
+            Route::post('edit/extra', 'ExtraController@update');
             Route::delete('{id}', 'ExtraController@destroy');
         });
 
          Route::group(['prefix' => 'foodS'], function () {
             Route::post('salad', 'SaladController@salad');
             Route::post('create/salad', 'SaladController@store');
-            Route::put('edit/salad/{id}', 'SaladController@update');
+            Route::post('edit/salad', 'SaladController@update');
             Route::delete('{id}', 'SaladController@destroy');
         });
 

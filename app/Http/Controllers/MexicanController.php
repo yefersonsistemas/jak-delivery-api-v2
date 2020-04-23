@@ -51,8 +51,10 @@ class MexicanController extends Controller
     {
          // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $mexican =  Food_Mexican::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class MexicanController extends Controller
             'mexican_id' =>  $mexican->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+       // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/mexican');  //se guarda en la carpeta public
+        // $path = $image->store('public/mexican'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en mexican
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Mexican";
         $image->imageable_id = $mexican->id;
@@ -113,10 +115,10 @@ class MexicanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
              // dd($id, $request->name);
-        $mexican = Food_Mexican::find($id);
+        $mexican = Food_Mexican::find($request->id);
         $description = Description_Mexican::where('mexican_id', $mexican->id)->first();
 
         $mexican->name = $request->name;
@@ -128,8 +130,35 @@ class MexicanController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $mexican->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/mexican');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Mexican";
+                $image->imageable_id = $mexican->id;
+                $image->save();
+            }else{
+                // dd($mexican->image->path);
+                Storage::disk('public')->delete($mexican->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/mexican');
+                // $path = str_replace('public/', '', $path);
+                // $mexican->image->path = $path;
+                $mexican->image->path = $request->image;
+                $mexican->image->save();
+            }
+        }
+
         return response()->json([
             'mexican' => $mexican,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 
