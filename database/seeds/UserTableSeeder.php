@@ -813,6 +813,7 @@ class UserTableSeeder extends Seeder
 
         factory(Client::class)->create([
             'person_id' => $person->id,
+            // 'address_id' => $address->id,
         ]);
 
         //============creacion de 2do cliente===========================
@@ -852,6 +853,7 @@ class UserTableSeeder extends Seeder
 
         factory(Client::class)->create([
             'person_id' => $person->id,
+            // 'address_id' => $address->id,
         ]);
 
 
@@ -892,6 +894,7 @@ class UserTableSeeder extends Seeder
 
         factory(Client::class)->create([
             'person_id' => $person->id,
+            // 'address_id' => $address->id,
         ]);
 
 
