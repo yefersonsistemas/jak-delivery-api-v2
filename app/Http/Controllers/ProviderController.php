@@ -44,6 +44,13 @@ class ProviderController extends Controller
         return response()->json($provider);
     }
 
+    public function provider_search(Request $request) {
+        // dd($request);
+        $provider = Provider::where('id', $request->id)->with('person.user')->first();
+        // dd($provider);
+        return response()->json($provider);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
