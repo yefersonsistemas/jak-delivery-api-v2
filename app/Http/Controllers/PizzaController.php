@@ -51,8 +51,10 @@ class PizzaController extends Controller
     {
              // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $pizza =  Food_Pizza::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class PizzaController extends Controller
             'pizza_id' =>  $pizza->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/pizza');  //se guarda en la carpeta public
+        // $path = $image->store('public/pizza'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en pizza
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Pizza";
         $image->imageable_id = $pizza->id;
@@ -113,10 +115,10 @@ class PizzaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
             // dd($id, $request->name);
-        $pizza = Food_Pizza::find($id);
+        $pizza = Food_Pizza::find($request->id);
         $description = Description_Pizza::where('pizza_id', $pizza->id)->first();
 
         $pizza->name = $request->name;
@@ -128,8 +130,35 @@ class PizzaController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $pizza->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/pizza');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Pizza";
+                $image->imageable_id = $pizza->id;
+                $image->save();
+            }else{
+                // dd($pizza->image->path);
+                Storage::disk('public')->delete($pizza->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/pizza');
+                // $path = str_replace('public/', '', $path);
+                // $pizza->image->path = $path;
+                $pizza->image->path = $request->image;
+                $pizza->image->save();
+            }
+        }
+
         return response()->json([
             'pizza' => $pizza,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

@@ -53,8 +53,10 @@ class BurguerController extends Controller
     {
         // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $burguer =  Food_Burguer::create([
             'name'         => $request->name,
@@ -115,10 +117,10 @@ class BurguerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
              // dd($id, $request->name);
-        $burguer = Food_Burguer::find($id);
+        $burguer = Food_Burguer::find($request->id);
         $description = Description_Burguer::where('burguer_id', $burguer->id)->first();
 
         $burguer->name = $request->name;
@@ -130,8 +132,34 @@ class BurguerController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        if ($request->image != null) {
+            if ( $burguer->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/burguer');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Burguer";
+                $image->imageable_id = $burguer->id;
+                $image->save();
+            }else{
+                // dd($burguer->image->path);
+                Storage::disk('public')->delete($burguer->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/burguer');
+                // $path = str_replace('public/', '', $path);
+                // $burguer->image->path = $path;
+                $burguer->image->path = $request->image;
+                $burguer->image->save();
+            }
+        }
+
         return response()->json([
             'burguer' => $burguer,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

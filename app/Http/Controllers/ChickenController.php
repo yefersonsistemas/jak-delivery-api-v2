@@ -53,8 +53,10 @@ class ChickenController extends Controller
     {
         // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $chicken =  Food_Chicken::create([
             'name'         => $request->name,
@@ -70,14 +72,14 @@ class ChickenController extends Controller
             'chicken_id' =>  $chicken->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+          // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/chicken');  //se guarda en la carpeta public
+        // $path = $image->store('public/chicken'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en chicken
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Chicken";
         $image->imageable_id = $chicken->id;
@@ -115,10 +117,10 @@ class ChickenController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
                 // dd($id, $request->name);
-        $chicken = Food_Chicken::find($id);
+        $chicken = Food_Chicken::find($request->id);
         $description = Description_Chicken::where('chicken_id', $chicken->id)->first();
 
         $chicken->name = $request->name;
@@ -130,8 +132,34 @@ class ChickenController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        if ($request->image != null) {
+            if ( $chicken->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/chicken');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Chicken";
+                $image->imageable_id = $chicken->id;
+                $image->save();
+            }else{
+                // dd($chicken->image->path);
+                Storage::disk('public')->delete($chicken->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/chicken');
+                // $path = str_replace('public/', '', $path);
+                // $chicken->image->path = $path;
+                $chicken->image->path = $request->image;
+                $chicken->image->save();
+            }
+        }
+
         return response()->json([
             'chicken' => $chicken,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

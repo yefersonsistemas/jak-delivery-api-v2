@@ -52,8 +52,10 @@ class IndianController extends Controller
     {
            // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $indian =  Food_Indian::create([
             'name'         => $request->name,
@@ -69,14 +71,14 @@ class IndianController extends Controller
             'indian_id' =>  $indian->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+          // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/indian');  //se guarda en la carpeta public
+        // $path = $image->store('public/indian'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en indian
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Indian";
         $image->imageable_id = $indian->id;
@@ -114,10 +116,10 @@ class IndianController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
           // dd($id, $request->name);
-        $indian = Food_Indian::find($id);
+        $indian = Food_Indian::find($request->id);
         $description = Description_Indian::where('indian_id', $indian->id)->first();
 
         $indian->name = $request->name;
@@ -129,8 +131,35 @@ class IndianController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $indian->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/indian');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Indian";
+                $image->imageable_id = $indian->id;
+                $image->save();
+            }else{
+                // dd($indian->image->path);
+                Storage::disk('public')->delete($indian->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/indian');
+                // $path = str_replace('public/', '', $path);
+                // $indian->image->path = $path;
+                $indian->image->path = $request->image;
+                $indian->image->save();
+            }
+        }
+
         return response()->json([
             'indian' => $indian,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

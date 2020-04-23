@@ -6,6 +6,7 @@ use App\Http\Requests\Api\UserLoginRequest;
 use App\Http\Requests\Api\UserRegisterRequest;
 use App\Person;
 use App\User;
+use App\Security;
 use App\Address;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
@@ -70,6 +71,16 @@ class AuthController extends Controller
         ])->assignRole('client');
 
         // dd($user);
+
+        $question = Security::create([
+            'person_id' => $person->id,
+            'question_1' => $request->question_1,
+            'answers_1' => $request->answers_1,
+            'question_2' => $request->question_2,
+            'answers_2' => $request->answers_2,
+            'question_3' => $request->question_3,
+            'answers_3' => $request->answers_3,
+        ]);
 
         return response()->json([
             'message' => 'Usuario creado correctamente.!',
@@ -151,16 +162,34 @@ class AuthController extends Controller
 
         $person = Person::whereEmail($request->email)->first();
         // dd($person);
-
+        
         if ($person == null) {
             return response()->json([
-                'person' => 'Usuario no registrado'], 401); 
+                'person' => 'Correo invalido o usuario no registrado'], 401); 
+        }
+        
+        $question = Security::where('person_id', $person->id)->first();
+
+        if($person != null){
+
+            if(($request->answers_1 == $question->answers_1) && ($request->answers_2 == $question->answers_2) && ($request->answers_3 == $question->answers_3)){
+                // dd('todo fine');
+
+                $user = User::where('person_id', $person->id)->first();
+        
+                $user->password = Hash::make($request->password);
+                $user->save();
+            }else{
+                return response()->json([
+                    'message' => 'Respuesta incorrecta'], 401);
+            }
+
         }
 
-        $user = User::where('person_id', $person->id)->first();
+        return response()->json([
+                'message' => 'Clave modificada'
+        ]);
 
-        $user->password = Hash::make($request->password);
-        $user->save();
         // dd($user->password);
 
     }

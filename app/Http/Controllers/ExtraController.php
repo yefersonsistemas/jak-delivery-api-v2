@@ -51,8 +51,10 @@ class ExtraController extends Controller
     {
           // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $extra =  Extra::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class ExtraController extends Controller
             'extras_id' =>  $extra->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/extra');  //se guarda en la carpeta public
+        // $path = $image->store('public/extra'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en extra
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Extra";
         $image->imageable_id = $extra->id;
@@ -113,10 +115,10 @@ class ExtraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // dd($id, $request->name);
-        $extra = Extra::find($id);
+        $extra = Extra::find($request->id);
         $description = Description_Extra::where('extra_id', $extra->id)->first();
 
         $extra->name = $request->name;
@@ -128,8 +130,35 @@ class ExtraController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $extra->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/extra');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Extra";
+                $image->imageable_id = $extra->id;
+                $image->save();
+            }else{
+                // dd($extra->image->path);
+                Storage::disk('public')->delete($extra->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/extra');
+                // $path = str_replace('public/', '', $path);
+                // $extra->image->path = $path;
+                $extra->image->path = $request->image;
+                $extra->image->save();
+            }
+        }
+
         return response()->json([
             'extra' => $extra,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 

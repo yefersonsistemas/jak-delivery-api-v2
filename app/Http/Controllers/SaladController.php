@@ -51,8 +51,10 @@ class SaladController extends Controller
     {
             // dd($request);
         
-        $provider = User::find($request->id);
-        // dd( $provider);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
         
         $salad =  Food_Salad::create([
             'name'         => $request->name,
@@ -68,14 +70,14 @@ class SaladController extends Controller
             'salads_id' =>  $salad->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+        // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/salad');  //se guarda en la carpeta public
+        // $path = $image->store('public/salad'); 
         // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en salad
+        // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+        // $image->path = $path;  
         $image->path = $request->image;
         $image->imageable_type = "App\Food_Salad";
         $image->imageable_id = $salad->id;
@@ -113,10 +115,10 @@ class SaladController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
          // dd($id, $request->name);
-        $salad = Food_Salad::find($id);
+        $salad = Food_Salad::find($request->id);
         $description = Description_Salad::where('salad_id', $salad->id)->first();
 
         $salad->name = $request->name;
@@ -128,8 +130,35 @@ class SaladController extends Controller
         $description->description = $request->description;
         $description->save();
 
+        
+        if ($request->image != null) {
+            if ( $salad->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/salad');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Food_Salad";
+                $image->imageable_id = $salad->id;
+                $image->save();
+            }else{
+                // dd($salad->image->path);
+                Storage::disk('public')->delete($salad->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/salad');
+                // $path = str_replace('public/', '', $path);
+                // $salad->image->path = $path;
+                $salad->image->path = $request->image;
+                $salad->image->save();
+            }
+        }
+
         return response()->json([
             'salad' => $salad,
+            'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
 
