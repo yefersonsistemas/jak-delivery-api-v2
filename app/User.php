@@ -41,7 +41,7 @@ class User extends Authenticatable
     ];
 
     public function person() {
-        return $this->belongsTo('App\Person');
+        return $this->belongsTo('App\Person', 'person_id');
     }
 
   

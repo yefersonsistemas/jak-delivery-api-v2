@@ -156,6 +156,7 @@ Route::group(['prefix' => 'auth'], function () {
 
         Route::group(['prefix' => 'providers'], function () {
             Route::get('proveedor', 'ProviderController@index');
+            Route::post('provider/search', 'ProviderController@provider_search');
         });
 
         Route::group(['prefix' => 'bakeries'], function () {

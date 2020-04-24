@@ -128,15 +128,15 @@ class UserTableSeeder extends Seeder
             'name' => 'Catedral',
         ]);
 
-        $typepayment = factory(Typepayment::class)->create([
+        $typepayment = factory(TypePayment::class)->create([
             'name' => 'Efectivo',
         ]);
 
-        factory(Typepayment::class)->create([
+        factory(TypePayment::class)->create([
             'name' => 'Pago Móvil',
         ]);
 
-        factory(Typepayment::class)->create([
+        factory(TypePayment::class)->create([
             'name' => 'Transferencia',
         ]);
 
@@ -847,6 +847,7 @@ class UserTableSeeder extends Seeder
 
         factory(Client::class)->create([
             'person_id' => $person->id,
+            // 'address_id' => $address->id,
         ]);
 
         //============creacion de 2do cliente===========================
@@ -886,6 +887,7 @@ class UserTableSeeder extends Seeder
 
         factory(Client::class)->create([
             'person_id' => $person->id,
+            // 'address_id' => $address->id,
         ]);
 
 
@@ -926,6 +928,7 @@ class UserTableSeeder extends Seeder
 
         factory(Client::class)->create([
             'person_id' => $person->id,
+            // 'address_id' => $address->id,
         ]);
 
 
