@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Pizza;
 use App\Description_Pizza;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class PizzaController extends Controller
 {

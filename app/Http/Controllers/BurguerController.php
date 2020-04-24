@@ -9,6 +9,7 @@ use App\Food_Burguer;
 use App\User;
 use App\Image;
 use App\Description_Burguer;
+use Illuminate\Support\Facades\Storage;
 
 
 class BurguerController extends Controller

@@ -138,7 +138,7 @@ Route::group(['prefix' => 'auth'], function () {
             Route::delete('{id}', 'ExtraController@destroy');
         });
 
-         Route::group(['prefix' => 'foodS'], function () {
+        Route::group(['prefix' => 'foodS'], function () {
             Route::post('salad', 'SaladController@salad');
             Route::post('create/salad', 'SaladController@store');
             Route::post('edit/salad', 'SaladController@update');
@@ -154,8 +154,64 @@ Route::group(['prefix' => 'auth'], function () {
             Route::post('search', 'OrderController@search');
         });
 
-         Route::group(['prefix' => 'providers'], function () {
+        Route::group(['prefix' => 'providers'], function () {
             Route::get('proveedor', 'ProviderController@index');
+        });
+
+        Route::group(['prefix' => 'bakeries'], function () {
+            Route::post('bakery', 'BakeryController@bakery');
+            Route::post('create/bakery', 'BakeryController@store');
+            Route::post('edit/bakery', 'BakeryController@update');
+            Route::delete('{id}', 'BakeryController@destroy');
+        });
+
+        Route::group(['prefix' => 'delicatesses'], function () {
+            Route::post('delicatesse', 'DelicatesseController@delicatesse');
+            Route::post('create/delicatesse', 'DelicatesseController@store');
+            Route::post('edit/delicatesse', 'DelicatesseController@update');
+            Route::delete('{id}', 'DelicatesseController@destroy');
+        });
+
+        Route::group(['prefix' => 'vituals'], function () {
+            Route::post('victual', 'VictualController@victual');
+            Route::post('create/victual', 'VictualController@store');
+            Route::post('edit/victual', 'VictualController@update');
+            Route::delete('{id}', 'VictualController@destroy');
+        });
+
+        Route::group(['prefix' => 'green'], function () {
+            Route::post('greengrocer', 'GreengrocerController@greengrocer');
+            Route::post('create/greengrocer', 'GreengrocerController@store');
+            Route::post('edit/greengrocer', 'GreengrocerController@update');
+            Route::delete('{id}', 'GreengrocerController@destroy');
+        });
+
+        Route::group(['prefix' => 'fridges'], function () {
+            Route::post('fridge', 'FridgeController@fridge');
+            Route::post('create/fridge', 'FridgeController@store');
+            Route::post('edit/fridge', 'FridgeController@update');
+            Route::delete('{id}', 'FridgeController@destroy');
+        });
+
+        Route::group(['prefix' => 'lunch'], function () {
+            Route::post('lunch', 'LunchController@lunch');
+            Route::post('create/lunch', 'LunchController@store');
+            Route::post('edit/lunch', 'LunchController@update');
+            Route::delete('{id}', 'LunchController@destroy');
+        });
+
+        Route::group(['prefix' => 'liquorS'], function () {
+            Route::post('liquor', 'LiquorStoreController@liquor');
+            Route::post('create/liquor', 'LiquorStoreController@store');
+            Route::post('edit/liquor', 'LiquorStoreController@update');
+            Route::delete('{id}', 'LiquorStoreController@destroy');
+        });
+
+        Route::group(['prefix' => 'fruitS'], function () {
+            Route::post('fruit', 'FruitStoreController@fruit');
+            Route::post('create/fruit', 'FruitStoreController@store');
+            Route::post('edit/fruit', 'FruitStoreController@update');
+            Route::delete('{id}', 'FruitStoreController@destroy');
         });
 
 

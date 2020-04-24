@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Victual extends Model
 {
-    protected $table = 'liquor_store';
+    protected $table = 'victuals';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'type', 'providers_id'
+        'name', 'price_bs', 'price_us', 'type'
     ];
 
     public function provider()
     {
         return $this->belongsToMany('App\Provider','providers_victuals')
-       ->withPivot('providers_id','id');
+       ->withPivot('provider_id','id');
     }
     
       public function image()

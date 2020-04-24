@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
-use App\Food_Vegan;
-use App\Description_Vegan;
-use App\Image;
 use Illuminate\Support\Facades\Storage;
+use App\User;
+use App\Greengrocer;
+use App\Description_Greengrocer;
+use App\Image;
+use App\Provider;
 
-class VeganController extends Controller
+class GreengrocerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,14 +23,14 @@ class VeganController extends Controller
         //
     }
 
-    public function vegan(Request $request){
+    public function greengrocer(Request $request){
         // dd($request);
         $user = User::find($request->id);
         // dd($user);
-        $vegan = Food_Vegan::with('image')->where('providers_id', $user->id)->get(); //falta with('image')
-        // dd( $vegan); 
+        $provider = Provider::with('greengrocer.image', 'greengrocer.description')->where('person_id', $user->person_id)->get();
+        // dd( $provider); 
         
-        return response()->json($vegan);
+        return response()->json($provider);
     }
 
     /**
@@ -50,42 +51,39 @@ class VeganController extends Controller
      */
     public function store(Request $request)
     {
-                // dd($request);
-        
-       $user = User::find($request->id);
+        // dd($request);
+
+        $user = User::find($request->id);
         // dd($user);
         $provider = Provider::where('person_id', $user->person_id)->first();
         // dd($provider);
         
-        $vegan =  Food_Vegan::create([
+        $greengrocer = Greengrocer::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
             'price_us'     => $request->price_us,
             'type'         => $request->type,
-            'providers_id' => $provider->id,
         ]);
-
-        // dd($vegan->id);
         
-        $description = Description_Vegan::create([
+        $description = Description_Greengrocer::create([
             'description' => $request->description,
             'providers_id' => $provider->id,
-            'vegans_id' => $vegan->id,
+            'greengrocer_id' =>  $greengrocer->id,
         ]);
 
-        // dd($description);
+        $greengrocer->provider()->attach($provider->id);
         
         // $image = $request->file('image'); 
         // dd($image);
-        // $path = $image->store('public/vegan'); 
+        // $path = $image->store('public/greengrocer'); 
         // dd($path);
         // $path = str_replace('public/', '', $path); 
         // dd($path);
         $image = new Image;
         // $image->path = $path;  
         $image->path = $request->image;
-        $image->imageable_type = "App\Food_Vegan";
-        $image->imageable_id = $vegan->id;
+        $image->imageable_type = "App\Greengrocer";
+        $image->imageable_id = $greengrocer->id;
         $image->save();
 
         return response()->json('Guardado con exito');
@@ -120,49 +118,49 @@ class VeganController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-          // dd($id, $request->name);
-        $vegan = Food_Vegan::find($request->id);
-        $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
+        // dd($request);
+        $greengrocer = Greengrocer::find($request->id);
+        $description = Description_Greengrocer::where('greengrocer_id', $greengrocer->id)->first();
 
-        $vegan->name = $request->name;
-        $vegan->price_bs = $request->price_bs;
-        $vegan->price_us = $request->price_us;
-        $vegan->type = $request->type;
-        $vegan->save();
+        $greengrocer->name = $request->name;
+        $greengrocer->price_bs = $request->price_bs;
+        $greengrocer->price_us = $request->price_us;
+        $greengrocer->type = $request->type;
+        $greengrocer->save();
 
+        // dd($greengrocer);
         $description->description = $request->description;
         $description->save();
 
-        
         if ($request->image != null) {
-            if ( $vegan->image == null) {
+            if ( $greengrocer->image == null) {
 
                 // $image = $request->file('image');
-                // $path = $image->store('public/vegan');
+                // $path = $image->store('public/greengrocer');
                 // $path = str_replace('public/', '', $path);
                 $image = new Image;
                 // $image->path = $path;
                 $image->path = $request->image;
-                $image->imageable_type = "App\Food_Vegan";
-                $image->imageable_id = $vegan->id;
+                $image->imageable_type = "App\Greengrocer";
+                $image->imageable_id = $greengrocer->id;
                 $image->save();
             }else{
-                // dd($vegan->image->path);
-                Storage::disk('public')->delete($vegan->image->path);
+                // dd($greengrocer->image->path);
+                Storage::disk('public')->delete($greengrocer->image->path);
 
                 // $image = $request->file('image');
-                // $path = $image->store('public/vegan');
+                // $path = $image->store('public/greengrocer');
                 // $path = str_replace('public/', '', $path);
-                // $vegan->image->path = $path;
-                $vegan->image->path = $request->image;
-                $vegan->image->save();
+                // $greengrocer->image->path = $path;
+                $greengrocer->image->path = $request->image;
+                $greengrocer->image->save();
             }
         }
 
         return response()->json([
-            'vegan' => $vegan,
+            'greengrocer' => $greengrocer,
             'description' => $description,
             'message' => 'Cambios guardados exitosamente.!']);
     }
@@ -175,10 +173,10 @@ class VeganController extends Controller
      */
     public function destroy($id)
     {
-        $vegan = Food_Vegan::find($id);
-        $description = Description_Vegan::where('vegan_id', $vegan->id)->first();
+        $greengrocer = Greengrocer::find($id);
+        $description = Description_Greengrocer::where('greengrocer_id', $greengrocer->id)->first();
 
-        $vegan->delete();
+        $greengrocer->delete();
         $description->delete();
 
         return response()->json('Eliminado');

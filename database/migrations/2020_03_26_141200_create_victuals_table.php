@@ -19,13 +19,7 @@ class CreateVictualsTable extends Migration
             $table->double('price_bs');
             $table->double('price_us')->nullable();
             $table->string('type'); //guarda el tipo de comida elegida
-            $table->unsignedBigInteger('providers_id');
             $table->timestamps();
-
-            $table->foreign('providers_id')
-            ->references('id')
-            ->on('providers')
-            ->onDelete('CASCADE');
         });
     }
 

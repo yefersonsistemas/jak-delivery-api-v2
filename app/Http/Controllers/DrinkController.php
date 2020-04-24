@@ -8,6 +8,7 @@ use App\User;
 use App\Drink;
 use App\Description_Drink;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class DrinkController extends Controller
 {

@@ -15,11 +15,11 @@ class CreateProvidersFridgeTable extends Migration
     {
         Schema::create('providers_fridge', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('providers_id');
+            $table->unsignedBigInteger('provider_id');
             $table->unsignedBigInteger('fridge_id');
             $table->timestamps();
 
-            $table->foreign('providers_id')
+            $table->foreign('provider_id')
             ->references('id')
             ->on('providers')
             ->onDelete('CASCADE');

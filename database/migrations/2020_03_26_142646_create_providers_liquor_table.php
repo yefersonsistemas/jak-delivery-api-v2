@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProvidersFruitTable extends Migration
+class CreateProvidersLiquorTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateProvidersFruitTable extends Migration
      */
     public function up()
     {
-        Schema::create('providers_fruit', function (Blueprint $table) {
+        Schema::create('providers_liquor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('provider_id');
-            $table->unsignedBigInteger('fruit_store_id');
+            $table->unsignedBigInteger('liquor_id');
             $table->timestamps();
 
             $table->foreign('provider_id')
@@ -24,9 +24,9 @@ class CreateProvidersFruitTable extends Migration
             ->on('providers')
             ->onDelete('CASCADE');
 
-            $table->foreign('fruit_store_id')
+            $table->foreign('liquor_id')
             ->references('id')
-            ->on('fruit_store')
+            ->on('liquor_store')
             ->onDelete('CASCADE');
         });
     }
@@ -38,6 +38,6 @@ class CreateProvidersFruitTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('providers_fruit');
+        Schema::dropIfExists('providers_liquor');
     }
 }

@@ -12,9 +12,10 @@ class Liquor_Store extends Model
         'name', 'price_bs', 'price_us', 'providers_id'
     ];
 
-    public function provider()
+   public function provider()
     {
-        return $this->belongsTo('App\Provider', 'providers_id');
+        return $this->belongsToMany('App\Provider','providers_liquor')
+       ->withPivot('provider_id','id');
     }
 
       public function image()

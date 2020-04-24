@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\User;
+use App\Liquor_Store;
+use App\Description_Liquor;
+use App\Image;
+use App\Provider;
 
 class LiquorStoreController extends Controller
 {
@@ -15,6 +21,16 @@ class LiquorStoreController extends Controller
     public function index()
     {
         //
+    }
+
+    public function liquor(Request $request){
+        // dd($request);
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::with('liquor.image', 'liquor.description')->where('person_id', $user->person_id)->get();
+        // dd( $provider); 
+        
+        return response()->json($provider);
     }
 
     /**
@@ -35,7 +51,41 @@ class LiquorStoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          // dd($request);
+
+        $user = User::find($request->id);
+        // dd($user);
+        $provider = Provider::where('person_id', $user->person_id)->first();
+        // dd($provider);
+        
+        $liquor = Liquor_Store::create([
+            'name'         => $request->name,
+            'price_bs'     => $request->price_bs,
+            'price_us'     => $request->price_us,
+        ]);
+        
+        $description = Description_Liquor::create([
+            'description' => $request->description,
+            'providers_id' => $provider->id,
+            'liquor_id' =>  $liquor->id,
+        ]);
+
+        $liquor->provider()->attach($provider->id);
+        
+        // $image = $request->file('image'); 
+        // dd($image);
+        // $path = $image->store('public/liquor'); 
+        // dd($path);
+        // $path = str_replace('public/', '', $path); 
+        // dd($path);
+        $image = new Image;
+        // $image->path = $path;  
+        $image->path = $request->image;
+        $image->imageable_type = "App\Liquor_Store";
+        $image->imageable_id = $liquor->id;
+        $image->save();
+
+        return response()->json('Guardado con exito');
     }
 
     /**
@@ -67,9 +117,50 @@ class LiquorStoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        // dd($request);
+        $liquor = Liquor_Store::find($request->id);
+        $description = Description_Liquor::where('liquor_id', $liquor->id)->first();
+
+        $liquor->name = $request->name;
+        $liquor->price_bs = $request->price_bs;
+        $liquor->price_us = $request->price_us;
+        $liquor->save();
+
+        // dd($liquor);
+        $description->description = $request->description;
+        $description->save();
+
+        if ($request->image != null) {
+            if ( $liquor->image == null) {
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/liquor');
+                // $path = str_replace('public/', '', $path);
+                $image = new Image;
+                // $image->path = $path;
+                $image->path = $request->image;
+                $image->imageable_type = "App\Liquor_Store";
+                $image->imageable_id = $liquor->id;
+                $image->save();
+            }else{
+                // dd($liquor->image->path);
+                Storage::disk('public')->delete($liquor->image->path);
+
+                // $image = $request->file('image');
+                // $path = $image->store('public/liquor');
+                // $path = str_replace('public/', '', $path);
+                // $liquor->image->path = $path;
+                $liquor->image->path = $request->image;
+                $liquor->image->save();
+            }
+        }
+
+        return response()->json([
+            'liquor' => $liquor,
+            'description' => $description,
+            'message' => 'Cambios guardados exitosamente.!']);
     }
 
     /**
@@ -80,6 +171,12 @@ class LiquorStoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $liquor = Liquor_Store::find($id);
+        $description = Description_Liquor::where('liquor_id', $liquor->id)->first();
+
+        $liquor->delete();
+        $description->delete();
+
+        return response()->json('Eliminado');
     }
 }

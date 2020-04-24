@@ -10,12 +10,14 @@ class Lunch extends Model
 
     protected $fillable = [
 
-        'name', 'price_bs', 'price_us', 'type', 'providers_id'
+        'name', 'price_bs', 'price_us', 'type'
 
     ];
 
-    public function provider() {
-        return $this->belongsToMany('App\Provider', 'providers_id');
+    public function provider()
+    {
+        return $this->belongsToMany('App\Provider','providers_lunch')
+       ->withPivot('provider_id','id');
     }
 
       public function image()

@@ -15,7 +15,7 @@ class Fruit_Store extends Model
     public function provider()
     {
         return $this->belongsToMany('App\Provider','providers_fruit')
-       ->withPivot('providers_id','id');
+       ->withPivot('provider_id','id');
     }
 
       public function image()

@@ -14,8 +14,10 @@ class Greengrocer extends Model
 
     ];
 
-    public function provider() {
-        return $this->belongsToMany('App\Provider', 'providers_id');
+    public function provider()
+    {
+        return $this->belongsToMany('App\Provider','providers_greengrocer')
+       ->withPivot('provider_id','id');
     }
 
       public function image()

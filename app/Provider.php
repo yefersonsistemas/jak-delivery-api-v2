@@ -66,7 +66,13 @@ class Provider extends Model
     }
     public function victual()
     {
-        return $this->belongsToMany('App\Victual','providers_victual')
+        return $this->belongsToMany('App\Victual','providers_victuals')
        ->withPivot('victual_id','id');
+    }
+
+     public function liquor()
+    {
+        return $this->belongsToMany('App\Liquor_Store','providers_liquor')
+       ->withPivot('liquor_id','id');
     }
 }

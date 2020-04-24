@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Salad;
 use App\Description_Salad;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class SaladController extends Controller
 {

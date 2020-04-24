@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Traditional;
 use App\Description_Traditional;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class TraditionalController extends Controller
 {

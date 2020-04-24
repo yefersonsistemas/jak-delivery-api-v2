@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Korean;
 use App\Description_Korean;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class KoreanController extends Controller
 {

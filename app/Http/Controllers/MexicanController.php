@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Mexican;
 use App\Description_Mexican;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class MexicanController extends Controller
 {

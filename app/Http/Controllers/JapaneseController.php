@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Japanese;
 use App\Description_Japanese;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class JapaneseController extends Controller
 {

@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Italian;
 use App\Description_Italian;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ItalianController extends Controller
 {

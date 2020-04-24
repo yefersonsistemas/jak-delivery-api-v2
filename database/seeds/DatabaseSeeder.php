@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
             // $this->call(DescriptionVeganTableSeeder::class);
             // $this->call(VegetarianTableSeeder::class);
             // $this->call(DescriptionVegetarianTableSeeder::class);
-            $this->call(OrderTableSeeder::class);
+            // $this->call(OrderTableSeeder::class);
             Schema::enableForeignKeyConstraints();
         }
 }

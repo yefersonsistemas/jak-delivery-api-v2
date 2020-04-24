@@ -8,6 +8,7 @@ use App\Food_Indian;
 use App\User;
 use App\Description_Indian;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class IndianController extends Controller
 {

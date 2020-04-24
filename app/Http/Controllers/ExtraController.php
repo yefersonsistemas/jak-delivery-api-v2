@@ -8,6 +8,7 @@ use App\User;
 use App\Extra;
 use App\Description_Extra;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ExtraController extends Controller
 {

@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Chicken;
 use App\Description_Chicken;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ChickenController extends Controller
 {

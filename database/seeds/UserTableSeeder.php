@@ -33,6 +33,23 @@ use App\Client;
 use App\Courier;
 use App\Security;
 
+use App\Bakery;
+use App\Description_Bakery;
+use App\Victual;
+use App\Description_Victual;
+use App\Delicatesse;
+use App\Description_Delicatesse;
+use App\Lunch;
+use App\Description_Lunch;
+use App\Liquor_Store;
+use App\Description_Liquor;
+use App\Fruit_Store;
+use App\Description_Fruit;
+use App\Fridge;
+use App\Description_Fridge;
+use App\Greengrocer;
+use App\Description_Greengrocer;
+
 use App\Traits\ImageFactory;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -74,6 +91,23 @@ class UserTableSeeder extends Seeder
         Description_Arabian::truncate();
         Drink::truncate();
         Description_Drink::truncate();
+
+        Bakery::truncate();
+        Description_Bakery::truncate();
+        Victual::truncate();
+        Description_Victual::truncate();
+        Delicatesse::truncate();
+        Description_Delicatesse::truncate();
+        Lunch::truncate();
+        Description_Lunch::truncate();
+        Liquor_Store::truncate();
+        Description_Liquor::truncate();
+        Fruit_Store::truncate();
+        Description_Fruit::truncate();
+        Fridge::truncate();
+        Description_Fridge::truncate();
+        Greengrocer::truncate();
+        Description_Greengrocer::truncate();
         
         
         // $this->deleteDirectory(storage_path('/app/public/comida-rapida'));

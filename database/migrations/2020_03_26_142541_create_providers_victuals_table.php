@@ -15,16 +15,16 @@ class CreateProvidersVictualsTable extends Migration
     {
         Schema::create('providers_victuals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('providers_id');
-            $table->unsignedBigInteger('victuals_id');
+            $table->unsignedBigInteger('provider_id');
+            $table->unsignedBigInteger('victual_id');
             $table->timestamps();
 
-            $table->foreign('providers_id')
+            $table->foreign('provider_id')
             ->references('id')
             ->on('providers')
             ->onDelete('CASCADE');
 
-            $table->foreign('victuals_id')
+            $table->foreign('victual_id')
             ->references('id')
             ->on('victuals')
             ->onDelete('CASCADE');

@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Vegetarian;
 use App\Description_Vegetarian;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class VegetarianController extends Controller
 {

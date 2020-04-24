@@ -8,6 +8,7 @@ use App\User;
 use App\Food_Chinese;
 use App\Description_Chinese;
 use App\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ChineseController extends Controller
 {
