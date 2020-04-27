@@ -18,13 +18,7 @@ class CreateBakeriesTable extends Migration
             $table->string('name');
             $table->double('price_bs');
             $table->double('price_us')->nullable();
-            $table->unsignedBigInteger('providers_id');
             $table->timestamps();
-
-            $table->foreign('providers_id')
-            ->references('id')
-            ->on('providers')
-            ->onDelete('CASCADE');
         });
     }
 

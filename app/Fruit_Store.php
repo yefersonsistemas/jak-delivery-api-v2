@@ -9,7 +9,7 @@ class Fruit_Store extends Model
     protected $table = 'fruit_store';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'type', 'providers_id'
+        'name', 'price_bs', 'price_us', 'type'
     ];
 
     public function provider()

@@ -73,18 +73,21 @@ class GreengrocerController extends Controller
 
         $greengrocer->provider()->attach($provider->id);
         
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/greengrocer'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Greengrocer";
-        $image->imageable_id = $greengrocer->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/greengrocer'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Greengrocer";
+            $image->imageable_id = $greengrocer->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }
@@ -118,7 +121,7 @@ class GreengrocerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         // dd($request);
         $greengrocer = Greengrocer::find($request->id);

@@ -72,19 +72,22 @@ class FruitStoreController extends Controller
         ]);
 
         $fruit->provider()->attach($provider->id);
-        
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/fruit'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Fruit_Store";
-        $image->imageable_id = $fruit->id;
-        $image->save();
+
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/fruit'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Fruit_Store";
+            $image->imageable_id = $fruit->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

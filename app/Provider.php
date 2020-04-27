@@ -39,31 +39,42 @@ class Provider extends Model
         return $this->hasOne('App\User');
     }
 
+      public function bakery()
+    {
+        return $this->belongsToMany('App\Bakery','providers_bakeries')
+       ->withPivot('bakery_id','id');
+    }
+
     public function delicatesse()
     {
         return $this->belongsToMany('App\Delicatesse','providers_delicatesse')
        ->withPivot('delicatesse_id','id');
     }
+
     public function fridge()
     {
         return $this->belongsToMany('App\Fridge','providers_fridge')
        ->withPivot('fridge_id','id');
     }
+
     public function fruit()
     {
         return $this->belongsToMany('App\Fruit_Store','providers_fruit')
-       ->withPivot('fruit_id','id');
+       ->withPivot('fruit_store_id','id');
     }
+    
     public function greengrocer()
     {
         return $this->belongsToMany('App\Greengrocer','providers_greengrocer')
        ->withPivot('greengrocer_id','id');
     }
+
     public function lunch()
     {
         return $this->belongsToMany('App\Lunch','providers_lunch')
        ->withPivot('lunch_id','id');
     }
+
     public function victual()
     {
         return $this->belongsToMany('App\Victual','providers_victuals')
@@ -73,6 +84,6 @@ class Provider extends Model
      public function liquor()
     {
         return $this->belongsToMany('App\Liquor_Store','providers_liquor')
-       ->withPivot('liquor_id','id');
+       ->withPivot('liquor_store_id','id');
     }
 }

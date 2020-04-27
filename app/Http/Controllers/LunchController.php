@@ -73,18 +73,21 @@ class LunchController extends Controller
 
         $lunch->provider()->attach($provider->id);
         
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/lunch'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Lunch";
-        $image->imageable_id = $lunch->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/lunch'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Lunch";
+            $image->imageable_id = $lunch->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

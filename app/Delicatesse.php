@@ -9,13 +9,13 @@ class Delicatesse extends Model
     protected $table = 'delicatesse';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'type', 'providers_id'
+        'name', 'price_bs', 'price_us', 'type'
     ];
 
     public function provider() //relacion  con la tabla m:m 
     {
         return $this->belongsToMany('App\Provider','providers_delicatesse')
-       ->withPivot('providers_id','id');
+       ->withPivot('provider_id','id');
     }
 
       public function image()

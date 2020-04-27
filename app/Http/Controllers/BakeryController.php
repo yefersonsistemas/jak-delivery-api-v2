@@ -30,7 +30,7 @@ class BakeryController extends Controller
         $provider = Provider::with('bakery.image', 'bakery.description')->where('person_id', $user->person_id)->get();
         // dd($provider);
         
-        return response()->json($bakery);
+        return response()->json($provider);
     }
 
     /**
@@ -71,19 +71,22 @@ class BakeryController extends Controller
         ]);
 
         $bakery->provider()->attach($provider->id);
-        
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/bakery'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Bakery";
-        $image->imageable_id = $bakery->id;
-        $image->save();
+
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/bakery'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Bakery";
+            $image->imageable_id = $bakery->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

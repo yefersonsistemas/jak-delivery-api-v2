@@ -70,19 +70,23 @@ class SaladController extends Controller
             'providers_id' => $provider->id,
             'salads_id' =>  $salad->id,
         ]);
-        
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/salad'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Salad";
-        $image->imageable_id = $salad->id;
-        $image->save();
+
+        if($request->image != null){
+
+                // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/salad'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Salad";
+            $image->imageable_id = $salad->id;
+            $image->save();
+            
+        }
 
         return response()->json('Guardado con exito');
     }

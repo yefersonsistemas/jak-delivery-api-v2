@@ -9,7 +9,7 @@ class Liquor_Store extends Model
     protected $table = 'liquor_store';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'providers_id'
+        'name', 'price_bs', 'price_us'
     ];
 
    public function provider()

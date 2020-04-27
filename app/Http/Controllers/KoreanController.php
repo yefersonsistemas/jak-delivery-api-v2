@@ -71,19 +71,22 @@ class KoreanController extends Controller
             'korean_id' =>  $korean->id,
         ]);
         
-          // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/korean'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Korean";
-        $image->imageable_id = $korean->id;
-        $image->save();
+        if($request->image != null){
 
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/korean'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Korean";
+            $image->imageable_id = $korean->id;
+            $image->save();
+        }
+            
         return response()->json('Guardado con exito');
     }
 

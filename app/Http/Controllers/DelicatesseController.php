@@ -30,7 +30,7 @@ class DelicatesseController extends Controller
        $provider = Provider::with('delicatesse.image', 'delicatesse.description')->where('person_id', $user->person_id)->get();
         // dd($provider);
         
-        return response()->json($delicatesse);
+        return response()->json($provider);
     }
 
     /**
@@ -73,18 +73,21 @@ class DelicatesseController extends Controller
 
         $delicatesse->provider()->attach($provider->id);
         
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/delicatesse'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Delicatesse";
-        $image->imageable_id = $delicatesse->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/delicatesse'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Delicatesse";
+            $image->imageable_id = $delicatesse->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

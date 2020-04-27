@@ -63,28 +63,33 @@ class LiquorStoreController extends Controller
             'price_bs'     => $request->price_bs,
             'price_us'     => $request->price_us,
         ]);
-        
+        // dd($liquor);
+
         $description = Description_Liquor::create([
             'description' => $request->description,
             'providers_id' => $provider->id,
             'liquor_id' =>  $liquor->id,
         ]);
+        // dd($description);
 
         $liquor->provider()->attach($provider->id);
         
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/liquor'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Liquor_Store";
-        $image->imageable_id = $liquor->id;
-        $image->save();
+        if($request->image != null){
 
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/liquor'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Liquor_Store";
+            $image->imageable_id = $liquor->id;
+            $image->save();
+        } 
+            
         return response()->json('Guardado con exito');
     }
 

@@ -71,18 +71,21 @@ class TraditionalController extends Controller
             'traditional_id' =>  $traditional->id,
         ]);
         
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/traditional'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Traditional";
-        $image->imageable_id = $traditional->id;
-        $image->save();
+        if($request->image != null){
+
+                // $image = $request->file('image'); 
+                // dd($image);
+                // $path = $image->store('public/traditional'); 
+                // dd($path);
+                // $path = str_replace('public/', '', $path); 
+                // dd($path);
+                $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Traditional";
+            $image->imageable_id = $traditional->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

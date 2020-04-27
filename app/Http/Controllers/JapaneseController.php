@@ -72,18 +72,21 @@ class JapaneseController extends Controller
             'japanese_id' =>  $japanese->id,
         ]);
         
-          // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/japanese'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Japanese";
-        $image->imageable_id = $japanese->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/japanese'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Japanese";
+            $image->imageable_id = $japanese->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

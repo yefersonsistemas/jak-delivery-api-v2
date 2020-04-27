@@ -76,8 +76,10 @@ class ArabianController extends Controller
             'providers_id' => $provider->id,
             'arabian_id' =>  $arabian->id,
         ]);
-        
-        // $image = $request->file('image'); 
+
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
         // dd($image);
         // $path = $image->store('public/arabian'); 
         // dd($path);
@@ -89,6 +91,8 @@ class ArabianController extends Controller
         $image->imageable_type = "App\Food_Arabian";
         $image->imageable_id = $arabian->id;
         $image->save();
+            
+        }
 
         return response()->json('Guardado con exito');
     }

@@ -73,18 +73,21 @@ class BurguerController extends Controller
             'burguer_id' =>  $burguer->id,
         ]);
         
-        // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
-        // dd($image);
-        // $path = $image->store('public/burguer');  //se guarda en la carpeta public
-        // dd($path);
-        // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en burguer
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  //esta es la forma original si se guardara la img en storage
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Burguer";
-        $image->imageable_id = $burguer->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image');  //de esta manera no trae nada quizas xq no viene de un input type file
+            // dd($image);
+            // $path = $image->store('public/burguer');  //se guarda en la carpeta public
+            // dd($path);
+            // $path = str_replace('public/', '', $path);  //se cambia la ruta para que busque directamente en burguer
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  //esta es la forma original si se guardara la img en storage
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Burguer";
+            $image->imageable_id = $burguer->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

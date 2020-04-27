@@ -71,8 +71,10 @@ class DrinkController extends Controller
             'providers_id' => $provider->id,
             'drinks_id' =>  $drink->id,
         ]);
-        
-        // $image = $request->file('image'); 
+
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
         // dd($image);
         // $path = $image->store('public/drink'); 
         // dd($path);
@@ -84,6 +86,8 @@ class DrinkController extends Controller
         $image->imageable_type = "App\Drink";
         $image->imageable_id = $drink->id;
         $image->save();
+            
+        }
 
         return response()->json('Guardado con exito');
     }

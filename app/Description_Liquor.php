@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Description_Liquor extends Model
 {
     
-    protected $table = 'liquor_store';
+    protected $table = 'description_liquor';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'providers_id'
+        'description', 'liquor_id', 'providers_id'
     ];
 
     public function provider()

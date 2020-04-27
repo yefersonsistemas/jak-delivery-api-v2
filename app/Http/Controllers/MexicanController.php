@@ -71,19 +71,22 @@ class MexicanController extends Controller
             'mexican_id' =>  $mexican->id,
         ]);
         
-       // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/mexican'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Mexican";
-        $image->imageable_id = $mexican->id;
-        $image->save();
+        if($request->image != null){
 
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/mexican'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Mexican";
+            $image->imageable_id = $mexican->id;
+            $image->save();
+        }
+            
         return response()->json('Guardado con exito');
     }
 

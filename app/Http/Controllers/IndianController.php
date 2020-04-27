@@ -71,19 +71,23 @@ class IndianController extends Controller
             'providers_id' => $provider->id,
             'indian_id' =>  $indian->id,
         ]);
-        
-          // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/indian'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Indian";
-        $image->imageable_id = $indian->id;
-        $image->save();
+
+        if($request->image != null){
+
+            
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/indian'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Indian";
+            $image->imageable_id = $indian->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

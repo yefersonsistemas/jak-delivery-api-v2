@@ -71,18 +71,21 @@ class ChineseController extends Controller
             'chinese_id' =>  $chinese->id,
         ]);
         
-        // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/chinese'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Chinese";
-        $image->imageable_id = $chinese->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/chinese'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Chinese";
+            $image->imageable_id = $chinese->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }

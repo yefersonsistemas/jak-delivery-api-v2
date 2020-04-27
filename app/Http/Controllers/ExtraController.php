@@ -70,8 +70,10 @@ class ExtraController extends Controller
             'providers_id' => $provider->id,
             'extras_id' =>  $extra->id,
         ]);
-        
-        // $image = $request->file('image'); 
+
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
         // dd($image);
         // $path = $image->store('public/extra'); 
         // dd($path);
@@ -83,6 +85,8 @@ class ExtraController extends Controller
         $image->imageable_type = "App\Extra";
         $image->imageable_id = $extra->id;
         $image->save();
+            
+        }
 
         return response()->json('Guardado con exito');
     }

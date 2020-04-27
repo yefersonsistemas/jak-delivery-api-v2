@@ -10,12 +10,14 @@ class Bakery extends Model
 
     protected $fillable = [
 
-        'name', 'price_bs', 'price_us', 'providers_id' 
+        'name', 'price_bs', 'price_us' 
 
     ];
 
-    public function provider() {
-        return $this->belongsTo('App\Provider', 'providers_id');
+    public function provider() //relacion  con la tabla m:m 
+    {
+        return $this->belongsToMany('App\Provider','providers_bakeries')
+       ->withPivot('provider_id','id');
     }
 
       public function image()

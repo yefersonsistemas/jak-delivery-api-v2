@@ -71,18 +71,21 @@ class ItalianController extends Controller
             'italian_id' =>  $italian->id,
         ]);
         
-          // $image = $request->file('image'); 
-        // dd($image);
-        // $path = $image->store('public/italian'); 
-        // dd($path);
-        // $path = str_replace('public/', '', $path); 
-        // dd($path);
-        $image = new Image;
-        // $image->path = $path;  
-        $image->path = $request->image;
-        $image->imageable_type = "App\Food_Italian";
-        $image->imageable_id = $italian->id;
-        $image->save();
+        if($request->image != null){
+
+            // $image = $request->file('image'); 
+            // dd($image);
+            // $path = $image->store('public/italian'); 
+            // dd($path);
+            // $path = str_replace('public/', '', $path); 
+            // dd($path);
+            $image = new Image;
+            // $image->path = $path;  
+            $image->path = $request->image;
+            $image->imageable_type = "App\Food_Italian";
+            $image->imageable_id = $italian->id;
+            $image->save();
+        }
 
         return response()->json('Guardado con exito');
     }
