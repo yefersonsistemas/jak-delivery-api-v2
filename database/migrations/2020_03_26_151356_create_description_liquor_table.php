@@ -27,7 +27,7 @@ class CreateDescriptionLiquorTable extends Migration
             
             $table->foreign('liquor_id')
             ->references('id')
-            ->on('liquor_store')
+            ->on('liquor')
             ->onDelete('CASCADE');
         });
     }

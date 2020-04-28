@@ -27,7 +27,7 @@ class CreateDescriptionFruitTable extends Migration
             
             $table->foreign('fruit_id')
             ->references('id')
-            ->on('fruit_store')
+            ->on('fruit')
             ->onDelete('CASCADE');
         });
     }

@@ -4,17 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Fruit_Store extends Model
+class Liquor extends Model
 {
-    protected $table = 'fruit_store';
+    protected $table = 'liquor';
 
     protected $fillable = [
-        'name', 'price_bs', 'price_us', 'type'
+        'name', 'price_bs', 'price_us'
     ];
 
-    public function provider()
+   public function provider()
     {
-        return $this->belongsToMany('App\Provider','providers_fruit')
+        return $this->belongsToMany('App\Provider','providers_liquor')
        ->withPivot('provider_id','id');
     }
 
@@ -24,6 +24,6 @@ class Fruit_Store extends Model
     }
 
       public function description() {
-        return $this->hasOne('App\Description_Fruit', 'fruit_id');
+        return $this->hasOne('App\Description_Liquor', 'liquor_id');
     }
 }

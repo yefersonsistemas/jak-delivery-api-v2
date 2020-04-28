@@ -16,7 +16,7 @@ class CreateProvidersLiquorTable extends Migration
         Schema::create('providers_liquor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('provider_id');
-            $table->unsignedBigInteger('liquor_store_id');
+            $table->unsignedBigInteger('liquor_id');
             $table->timestamps();
 
             $table->foreign('provider_id')
@@ -24,9 +24,9 @@ class CreateProvidersLiquorTable extends Migration
             ->on('providers')
             ->onDelete('CASCADE');
 
-            $table->foreign('liquor_store_id')
+            $table->foreign('liquor_id')
             ->references('id')
-            ->on('liquor_store')
+            ->on('liquor')
             ->onDelete('CASCADE');
         });
     }

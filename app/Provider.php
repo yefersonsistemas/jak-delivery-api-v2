@@ -59,8 +59,8 @@ class Provider extends Model
 
     public function fruit()
     {
-        return $this->belongsToMany('App\Fruit_Store','providers_fruit')
-       ->withPivot('fruit_store_id','id');
+        return $this->belongsToMany('App\Fruit','providers_fruit')
+       ->withPivot('fruit_id','id');
     }
     
     public function greengrocer()
@@ -83,7 +83,7 @@ class Provider extends Model
 
      public function liquor()
     {
-        return $this->belongsToMany('App\Liquor_Store','providers_liquor')
-       ->withPivot('liquor_store_id','id');
+        return $this->belongsToMany('App\Liquor','providers_liquor')
+       ->withPivot('liquor_id','id');
     }
 }

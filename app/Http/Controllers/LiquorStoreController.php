@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
-use App\Liquor_Store;
+use App\Liquor;
 use App\Description_Liquor;
 use App\Image;
 use App\Provider;
@@ -58,7 +58,7 @@ class LiquorStoreController extends Controller
         $provider = Provider::where('person_id', $user->person_id)->first();
         // dd($provider);
         
-        $liquor = Liquor_Store::create([
+        $liquor = Liquor::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
             'price_us'     => $request->price_us,
@@ -85,7 +85,7 @@ class LiquorStoreController extends Controller
             $image = new Image;
             // $image->path = $path;  
             $image->path = $request->image;
-            $image->imageable_type = "App\Liquor_Store";
+            $image->imageable_type = "App\Liquor";
             $image->imageable_id = $liquor->id;
             $image->save();
         } 
@@ -125,7 +125,7 @@ class LiquorStoreController extends Controller
     public function update(Request $request)
     {
         // dd($request);
-        $liquor = Liquor_Store::find($request->id);
+        $liquor = Liquor::find($request->id);
         $description = Description_Liquor::where('liquor_id', $liquor->id)->first();
 
         $liquor->name = $request->name;
@@ -146,7 +146,7 @@ class LiquorStoreController extends Controller
                 $image = new Image;
                 // $image->path = $path;
                 $image->path = $request->image;
-                $image->imageable_type = "App\Liquor_Store";
+                $image->imageable_type = "App\Liquor";
                 $image->imageable_id = $liquor->id;
                 $image->save();
             }else{
@@ -176,7 +176,7 @@ class LiquorStoreController extends Controller
      */
     public function destroy($id)
     {
-        $liquor = Liquor_Store::find($id);
+        $liquor = Liquor::find($id);
         $description = Description_Liquor::where('liquor_id', $liquor->id)->first();
 
         $liquor->delete();

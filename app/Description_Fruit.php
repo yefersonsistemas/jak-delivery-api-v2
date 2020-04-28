@@ -20,6 +20,6 @@ class Description_Fruit extends Model
 
     public function fruit()
     {
-        return $this->belongsTo('App\Fruit_Store');
+        return $this->belongsTo('App\Fruit');
     }
 }

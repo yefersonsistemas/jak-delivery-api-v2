@@ -17,4 +17,9 @@ class Description_Liquor extends Model
     {
         return $this->belongsTo('App\Provider');
     }
+
+    public function liquor()
+    {
+        return $this->belongsTo('App\Liquor');
+    }
 }

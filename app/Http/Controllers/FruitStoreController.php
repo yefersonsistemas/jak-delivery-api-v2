@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
-use App\Fruit_Store;
+use App\Fruit;
 use App\Description_Fruit;
 use App\Image;
 use App\Provider;
@@ -58,7 +58,7 @@ class FruitStoreController extends Controller
         $provider = Provider::where('person_id', $user->person_id)->first();
         // dd($provider);
         
-        $fruit = Fruit_Store::create([
+        $fruit = Fruit::create([
             'name'         => $request->name,
             'price_bs'     => $request->price_bs,
             'price_us'     => $request->price_us,
@@ -84,7 +84,7 @@ class FruitStoreController extends Controller
             $image = new Image;
             // $image->path = $path;  
             $image->path = $request->image;
-            $image->imageable_type = "App\Fruit_Store";
+            $image->imageable_type = "App\Fruit";
             $image->imageable_id = $fruit->id;
             $image->save();
         }
@@ -124,7 +124,7 @@ class FruitStoreController extends Controller
     public function update(Request $request)
     {
         // dd($request);
-        $fruit = Fruit_Store::find($request->id);
+        $fruit = Fruit::find($request->id);
         $description = Description_Fruit::where('fruit_id', $fruit->id)->first();
 
         $fruit->name = $request->name;
@@ -146,7 +146,7 @@ class FruitStoreController extends Controller
                 $image = new Image;
                 // $image->path = $path;
                 $image->path = $request->image;
-                $image->imageable_type = "App\Fruit_Store";
+                $image->imageable_type = "App\Fruit";
                 $image->imageable_id = $fruit->id;
                 $image->save();
             }else{
@@ -176,7 +176,7 @@ class FruitStoreController extends Controller
      */
     public function destroy($id)
     {
-        $fruit = Fruit_Store::find($id);
+        $fruit = Fruit::find($id);
         $description = Description_Fruit::where('fruit_id', $fruit->id)->first();
 
         $fruit->delete();

@@ -16,7 +16,7 @@ class CreateProvidersFruitTable extends Migration
         Schema::create('providers_fruit', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('provider_id');
-            $table->unsignedBigInteger('fruit_store_id');
+            $table->unsignedBigInteger('fruit_id');
             $table->timestamps();
 
             $table->foreign('provider_id')
@@ -24,9 +24,9 @@ class CreateProvidersFruitTable extends Migration
             ->on('providers')
             ->onDelete('CASCADE');
 
-            $table->foreign('fruit_store_id')
+            $table->foreign('fruit_id')
             ->references('id')
-            ->on('fruit_store')
+            ->on('fruit')
             ->onDelete('CASCADE');
         });
     }

@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
 // Register, Login
 Route::group(['prefix' => 'auth'], function () {
  
