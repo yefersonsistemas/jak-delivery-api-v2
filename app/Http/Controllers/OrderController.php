@@ -25,9 +25,9 @@ use App\Drink;
 use App\Extra;
 use App\Food_Burguer;
 use App\Fridge;
-use App\Fruit_Store;
+use App\Fruit;
 use App\Greengrocer;
-use App\Liquor_Store;
+use App\Liquor;
 use App\Lunch;
 use App\Delicatesse;
 use App\Victual;
@@ -144,11 +144,11 @@ class OrderController extends Controller
         }
         
         if($request->type == 'liquor'){
-            $food = Liquor_Store::with('description', 'image')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+            $food = Liquor::with('description', 'image')->where('providers_id', $provider->id)->where('id', $request->id)->first();
         }
         
         if($request->type == 'fruit'){
-            $food = Fruit_Store::with('description', 'image')->where('providers_id', $provider->id)->where('id', $request->id)->first();
+            $food = Fruit::with('description', 'image')->where('providers_id', $provider->id)->where('id', $request->id)->first();
         }
         
         if($request->type == 'victual'){
@@ -213,10 +213,10 @@ class OrderController extends Controller
         'extras_id' => $request->extras_id, 
         'drinks_id' => $request->drinks_id, 
         'bakeries_id' => $request->bakeries_id, 
-        'liquor_store_id' => $request->liquor_store_id, 
+        'liquor_id' => $request->liquor_id, 
         'victuals_id' => $request->victuals_id, 
         'delicatesse_id' => $request->delicatesse_id, 
-        'fruit_store_id' => $request->fruit_store_id, 
+        'fruit_id' => $request->fruit_id, 
         'greengrocer_id' => $request->greengrocer_id,
         'fridge_id' => $request->fridge_id, 
         'lunch_id' => $request->lunch_id, 
@@ -248,8 +248,8 @@ class OrderController extends Controller
         $vegetarian = Food_Vegetarian::with('image')->where('providers_id', $provider->id)->get();
         $vegan = Food_Vegan::with('image')->where('providers_id', $provider->id)->get();
         $traditional = Food_Traditional::with('image')->where('providers_id', $provider->id)->get();
-        $liquor = Liquor_Store::with('image')->where('providers_id', $provider->id)->get();
-        $fruit = Fruit_Store::with('image')->where('providers_id', $provider->id)->get();
+        $liquor = Liquor::with('image')->where('providers_id', $provider->id)->get();
+        $fruit = Fruit::with('image')->where('providers_id', $provider->id)->get();
         $victual = Victual::with('image')->where('providers_id', $provider->id)->get();
         $greengrocer = Greengrocer::with('image')->where('providers_id', $provider->id)->get();
         $delicatesse = Delicatesse::with('image')->where('providers_id', $provider->id)->get();
@@ -616,7 +616,7 @@ class OrderController extends Controller
                 $orden_id = explode(',', $order->fruit_store_id); 
                 if ($orden_id != null) {
                     for ($i=0; $i < count($orden_id); $i++) {
-                        $fruit[] = Fruit_Store::find($orden_id[$i]);
+                        $fruit[] = Fruit::find($orden_id[$i]);
                         $total_fru += $fruit[$i]->price_bs;
                         $dolar_fru += $fruit[$i]->price_us;
                         $name_fru[] = $fruit[$i]->name;
@@ -635,7 +635,7 @@ class OrderController extends Controller
                 $orden_id = explode(',', $order->liquor_store_id); 
                 if ($orden_id != null) {
                     for ($i=0; $i < count($orden_id); $i++) {
-                        $liquor[] = Liquor_Store::find($orden_id[$i]);
+                        $liquor[] = Liquor::find($orden_id[$i]);
                         $total_li += $liquor[$i]->price_bs;
                         $dolar_li += $liquor[$i]->price_us;
                         $name_li[] = $liquor[$i]->name;

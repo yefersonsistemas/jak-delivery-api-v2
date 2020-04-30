@@ -24,6 +24,11 @@ class Provider extends Model
         return $this->hasOne('App\Order');
     }
 
+      public function schedule()
+    {
+        return $this->hasOne('App\Order');
+    }
+
     public function address()
     {
         return $this->belongsTo('App\Address', 'address_id');

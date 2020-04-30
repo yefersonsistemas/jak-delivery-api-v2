@@ -18,6 +18,7 @@ class CreateProvidersTable extends Migration
             $table->unsignedBigInteger('person_id');
             $table->string('price_delivery');
             $table->unsignedBigInteger('typepayment_id');
+            $table->string('schedule_id');
             $table->timestamps();
 
             $table->foreign('person_id')

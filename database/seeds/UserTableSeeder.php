@@ -9,6 +9,7 @@ use App\State;
 use App\Municipality;
 use App\Parishe;
 use App\City;
+use App\Schedule;
 use App\TypePayment;
 use App\Food_Burguer;
 use App\Description_Burguer;
@@ -73,6 +74,7 @@ class UserTableSeeder extends Seeder
         Client::truncate();
         Courier::truncate();
         TypePayment::truncate();
+        Schedule::truncate();
         Food_Burguer::truncate();
         Description_Burguer::truncate();
         Food_Japanese::truncate();
@@ -140,6 +142,11 @@ class UserTableSeeder extends Seeder
             'name' => 'Transferencia',
         ]);
 
+        $m = factory(Schedule::class)->create([
+            'turn' => 'Mañana',
+        ]);
+
+
         //========== 1er proveedor=======================================
 
         $address = factory(Address::class)->create([
@@ -175,10 +182,12 @@ class UserTableSeeder extends Seeder
             'answers_3' => 'Pizza',
         ]);
 
+
         $provider = factory(Provider::class)->create([
             'person_id' => $person->id,
             'price_delivery' => 50000,
             'typepayment_id' =>  $typepayment->id,
+            'schedule_id' =>  $m->id,
         ]);
         
         $burguer =  factory(Food_Burguer::class)->create([
@@ -303,6 +312,8 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'price_delivery' => 100000,
             'typepayment_id' =>  $typepayment->id,
+            'schedule_id' =>  $m->id,
+
         ]);
 
         $burguer =  factory(Food_Burguer::class)->create([
@@ -444,6 +455,8 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'price_delivery' => 80000,
             'typepayment_id' =>  $typepayment->id,
+            'schedule_id' =>  $m->id,
+
         ]);
 
         $pizza =  factory(Food_Pizza::class)->create([
@@ -553,6 +566,7 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'price_delivery' => 120000,
             'typepayment_id' =>  $typepayment->id,
+            'schedule_id' =>  $m->id,
         ]);
 
         $burguer =  factory(Food_Burguer::class)->create([
@@ -692,6 +706,7 @@ class UserTableSeeder extends Seeder
             'person_id' => $person->id,
             'price_delivery' => 150000,
             'typepayment_id' =>  $typepayment->id,
+            'schedule_id' =>  $m->id,
         ]);
 
         $chinese =  factory(Food_chinese::class)->create([
