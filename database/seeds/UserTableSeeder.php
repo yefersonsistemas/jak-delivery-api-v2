@@ -146,6 +146,15 @@ class UserTableSeeder extends Seeder
             'turn' => 'Mañana',
         ]);
 
+        factory(Schedule::class)->create([
+            'turn' => 'Tarde',
+        ]);
+
+        factory(Schedule::class)->create([
+            'turn' => 'Noche',
+        ]);
+        
+
 
         //========== 1er proveedor=======================================
 
